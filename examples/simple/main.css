@@ -1,0 +1,62 @@
+/*
+found here: https://codepen.io/ryantk/pen/jxkvp
+*/
+@font-face {
+  font-family: 'Permanent Marker';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Permanent Marker'), local('PermanentMarker'), 
+  url(http://fonts.gstatic.com/s/permanentmarker/v5/9vYsg5VgPHKK8SXYbf3sMmVSxyvLCPm9firj_jMeQtQ.woff) format('woff');
+}
+.padd-center{
+    text-align:center;
+    width:100%;
+    padding:5px;
+}
+.my-name-is {
+  text-align:center;
+  font-family: 'Permanent Marker';
+  font-size: 70px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 100;
+  line-height:1;
+  color: #1d2024;
+
+}
+.tag { 
+  display:inline-block;
+  border-radius: 20px;
+  border: 2px solid orange;
+  width: 400px;
+}
+
+header {
+  background: orange;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  padding: 2px;
+}
+
+.hello {
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px;
+  color: white;
+}
+
+.mynameis {
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+}
+
+.dottedline {
+  border-top: 3px dotted black;
+  margin: 20px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+
+}

@@ -1,0 +1,29 @@
+{
+  "name": "reactalike",
+  "version": "1.0.0",
+  "description": "\"React-like library I made\"",
+  "main": "reactalike.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKwenhua/reactalike.git"
+  },
+  "author": "Peter Halloran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MKwenhua/reactalike/issues"
+  },
+  "homepage": "https://github.com/MKwenhua/reactalike#readme",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "jsx-transform": "^2.3.0"
+  }
+}
