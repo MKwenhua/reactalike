@@ -34,7 +34,7 @@ var Layout = {
     var ppl = guests.map(function (itm, ii) {
       return NameTag({ ex_person: itm });
     });
-    return EX.node('div', { class: "container" }, EX.node('svg', { width: "400", height: "110" }, EX.node('rect', { width: "300", height: "100", style: "fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" })), ppl);
+    return EX.node('div', { class: "container" }, ppl);
   }
 };
 EX.rootComponent = Layout;
@@ -70,10 +70,10 @@ module.exports = function (self, createElem) {
 
    function updateProp(element, name, newVal, oldVal) {
       if (!newVal) {
-         removeProp(element, name, svgNS);
+         removeProp(element, name);
          return;
       } else if (!oldVal || newVal !== oldVal) {
-         changeProp(element, name, newVal, svgNS);
+         changeProp(element, name, newVal);
       }
    }
 
