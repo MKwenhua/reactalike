@@ -266,7 +266,7 @@ function NodeMap() {
       _this.setListener(eventInfo.eventName, listener);
       return;
     }
-    if (onSelf) {
+    if (onSelf && !node.props.ex_eventFuncName) {
       _this.setListenerEl(eventInfo, listener, node);
     }
   };

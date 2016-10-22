@@ -66,7 +66,7 @@ function NodeMap(appTitle = 'default') {
       this.setListener(eventInfo.eventName, listener);
       return
     }
-    if (onSelf) {
+    if (onSelf && !node.props.ex_eventFuncName) {
       this.setListenerEl(eventInfo, listener, node)
     }
   }
