@@ -3,22 +3,22 @@ module.exports = (self, createElem) => {
 
    function removeProp(element, attr) {
       if (!self.events[attr] && !re.test(attr)) {
-         element.removeAttribute(attr.replace(/[A-Z]/g, '-$&'));
+         element.removeAttribute(attr);
       }
    }
 
    function changeProp(element, attr, val) {
       if (!self.events[attr] && !re.test(attr) || attr === 'src' ) {
-         element.setAttribute(attr.replace(/[A-Z]/g, '-$&'), val);
+         element.setAttribute(attr, val);
       }
    }
 
    function updateProp(element, name, newVal, oldVal) {
       if (!newVal) {
-         removeProp(element, name);
+         removeProp(element, name, svgNS);
          return
       } else if (!oldVal || newVal !== oldVal) {
-         changeProp(element, name, newVal);
+         changeProp(element, name, newVal, svgNS);
       }
    }
  
@@ -35,6 +35,12 @@ module.exports = (self, createElem) => {
          node1.type !== node2.type
    }
 
+   function checkForEvents(node) {
+      if (node.props.ex_eventFuncName) {
+         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      } 
+   };
+ 
    function updateElement(parent, newNode, oldNode, index = 0) {
       if (typeof newNode === 'string' || typeof newNode === 'number' ) {
          let vdomid = parent.props.trace + '.' + index;
@@ -56,6 +62,7 @@ module.exports = (self, createElem) => {
          return
       }
       if (!newNode) {
+         checkForEvents(oldNode);
          parent.domElement.removeChild(
             parent.childNodes[index]
          );

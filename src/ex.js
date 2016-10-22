@@ -19,6 +19,10 @@ function NodeMap(appTitle = 'default') {
     return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4)
   };
 
+  this.randomFuncId = () => {
+    return 'func' + Math.random().toString(36).substring(18);
+  };
+
   this.getElement = (domElement) => {
     if (domElement instanceof HTMLElement) {
       this.appRoot = domElement;
@@ -44,27 +48,29 @@ function NodeMap(appTitle = 'default') {
   this.setListenerEl = (eventOb, cb, node) => {
     let self = this;
     let evnName = eventOb.eventNS;
+    node.props.ex_eventFuncName = this.randomFuncId();
+    node.props.ex_attachedFunc = evnName;
     console.log('node', node);
-    node.domElement.addEventListener(eventOb.eventName, (e) => {
+    this.events[evnName][node.props.ex_eventFuncName] = (e) => {
       node.props[evnName](e, node.domElement, node);
-    });
+    };
+    node.domElement.addEventListener(eventOb.eventName, this.events[evnName][node.props.ex_eventFuncName]);
 
-  }
+  } 
   this.applyListener = (listener, node) => {
 
     let eventInfo = this.events[listener];
-    let onRoot = eventInfo.formEvent || eventInfo.mediaEvent;
-    if (!eventInfo.registered && !onRoot) {
+    let onSelf = eventInfo.formEvent || eventInfo.mediaEvent;
+    if (!eventInfo.registered && !onSelf) {
       eventInfo.registered = true;
       this.setListener(eventInfo.eventName, listener);
       return
     }
-    if (onRoot) {
+    if (onSelf) {
       this.setListenerEl(eventInfo, listener, node)
     }
   }
   this.lookUpRegistry = (target, eventName) => {
-    //split(/\.(?=[^.]*$)/)
     let tgTrace = target.getAttribute('trace');
     let traceArray = tgTrace.split('.');
     console.log('traceArray', traceArray);
@@ -130,21 +136,21 @@ function NodeMap(appTitle = 'default') {
     if (!attrs) return element;
 
     for (var attr in attrs) {
-      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
-        element.setAttribute(attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
+      if (!self.events[attr] && !re.test(attr) ) {
+        element.setAttribute(attr, attrs[attr]);
       }
     }
     return element;
   };
 
-  Document.prototype.createElementNS = function createElementNS(name, attrs) {
-     var element = ogcreateElementNS.call(this, 'http://www.w3.org/2000/svg', name);
+  this.createElementNS = function createElementNS(name, attrs) {
+     var element = document.createElementNS('http://www.w3.org/2000/svg', name);
 
      if (!attrs) return element;
 
      for (var attr in attrs) {
-        if (!self.events[attr] && !re.test(attr)) {
-           element.setAttributeNS('http://www.w3.org/2000/svg', attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
+        if (!self.events[attr] && !re.test(attr) ) {
+            element.setAttribute(attr, attrs[attr]);
         }
      }
      return element;
@@ -160,13 +166,14 @@ function NodeMap(appTitle = 'default') {
       trace: group,
       parent: parent
     })
-    const el = self.createElement(node.type, node.props);
+
+    const el = isSVG.test(node.type) ? self.createElementNS(node.type, node.props) : self.createElement(node.type, node.props);
     node.domElement = el;
-    Object.keys(node.props).forEach((itm, ii) => {
-      if (self.events[itm]) {
-        self.applyListener(itm, node);
+    for (var prop in node.props) {
+      if (self.events[prop]) {
+        self.applyListener(prop, node);
       }
-    });
+    };
 
     node.nested = node.nested ? node.nested : [];
     if (node.nested.length === 0) {

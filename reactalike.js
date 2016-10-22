@@ -8,22 +8,22 @@ module.exports = function (self, createElem) {
 
    function removeProp(element, attr) {
       if (!self.events[attr] && !re.test(attr)) {
-         element.removeAttribute(attr.replace(/[A-Z]/g, '-$&'));
+         element.removeAttribute(attr);
       }
    }
 
    function changeProp(element, attr, val) {
       if (!self.events[attr] && !re.test(attr) || attr === 'src') {
-         element.setAttribute(attr.replace(/[A-Z]/g, '-$&'), val);
+         element.setAttribute(attr, val);
       }
    }
 
    function updateProp(element, name, newVal, oldVal) {
       if (!newVal) {
-         removeProp(element, name);
+         removeProp(element, name, svgNS);
          return;
       } else if (!oldVal || newVal !== oldVal) {
-         changeProp(element, name, newVal);
+         changeProp(element, name, newVal, svgNS);
       }
    }
 
@@ -39,6 +39,12 @@ module.exports = function (self, createElem) {
    function changed(node1, node2) {
       return (typeof node1 === 'undefined' ? 'undefined' : _typeof(node1)) !== (typeof node2 === 'undefined' ? 'undefined' : _typeof(node2)) || typeof node1 === 'string' && node1 !== node2 || node1.type !== node2.type;
    }
+
+   function checkForEvents(node) {
+      if (node.props.ex_eventFuncName) {
+         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      }
+   };
 
    function updateElement(parent, newNode, oldNode) {
       var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
@@ -58,6 +64,7 @@ module.exports = function (self, createElem) {
          return;
       }
       if (!newNode) {
+         checkForEvents(oldNode);
          parent.domElement.removeChild(parent.childNodes[index]);
          return;
       }
@@ -164,6 +171,10 @@ function NodeMap() {
     return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);
   };
 
+  this.randomFuncId = function () {
+    return 'func' + Math.random().toString(36).substring(18);
+  };
+
   this.getElement = function (domElement) {
     if (domElement instanceof HTMLElement) {
       _this.appRoot = domElement;
@@ -188,26 +199,28 @@ function NodeMap() {
   this.setListenerEl = function (eventOb, cb, node) {
     var self = _this;
     var evnName = eventOb.eventNS;
+    node.props.ex_eventFuncName = _this.randomFuncId();
+    node.props.ex_attachedFunc = evnName;
     console.log('node', node);
-    node.domElement.addEventListener(eventOb.eventName, function (e) {
+    _this.events[evnName][node.props.ex_eventFuncName] = function (e) {
       node.props[evnName](e, node.domElement, node);
-    });
+    };
+    node.domElement.addEventListener(eventOb.eventName, _this.events[evnName][node.props.ex_eventFuncName]);
   };
   this.applyListener = function (listener, node) {
 
     var eventInfo = _this.events[listener];
-    var onRoot = eventInfo.formEvent || eventInfo.mediaEvent;
-    if (!eventInfo.registered && !onRoot) {
+    var onSelf = eventInfo.formEvent || eventInfo.mediaEvent;
+    if (!eventInfo.registered && !onSelf) {
       eventInfo.registered = true;
       _this.setListener(eventInfo.eventName, listener);
       return;
     }
-    if (onRoot) {
+    if (onSelf) {
       _this.setListenerEl(eventInfo, listener, node);
     }
   };
   this.lookUpRegistry = function (target, eventName) {
-    //split(/\.(?=[^.]*$)/)
     var tgTrace = target.getAttribute('trace');
     var traceArray = tgTrace.split('.');
     console.log('traceArray', traceArray);
@@ -270,21 +283,21 @@ function NodeMap() {
     if (!attrs) return element;
 
     for (var attr in attrs) {
-      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
-        element.setAttribute(attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
+      if (!self.events[attr] && !re.test(attr)) {
+        element.setAttribute(attr, attrs[attr]);
       }
     }
     return element;
   };
 
-  Document.prototype.createElementNS = function createElementNS(name, attrs) {
-    var element = ogcreateElementNS.call(this, 'http://www.w3.org/2000/svg', name);
+  this.createElementNS = function createElementNS(name, attrs) {
+    var element = document.createElementNS('http://www.w3.org/2000/svg', name);
 
     if (!attrs) return element;
 
     for (var attr in attrs) {
       if (!self.events[attr] && !re.test(attr)) {
-        element.setAttributeNS('http://www.w3.org/2000/svg', attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
+        element.setAttribute(attr, attrs[attr]);
       }
     }
     return element;
@@ -300,13 +313,14 @@ function NodeMap() {
       trace: group,
       parent: parent
     });
-    var el = self.createElement(node.type, node.props);
+
+    var el = isSVG.test(node.type) ? self.createElementNS(node.type, node.props) : self.createElement(node.type, node.props);
     node.domElement = el;
-    Object.keys(node.props).forEach(function (itm, ii) {
-      if (self.events[itm]) {
-        self.applyListener(itm, node);
+    for (var prop in node.props) {
+      if (self.events[prop]) {
+        self.applyListener(prop, node);
       }
-    });
+    };
 
     node.nested = node.nested ? node.nested : [];
     if (node.nested.length === 0) {
@@ -380,6 +394,7 @@ NodeMap.prototype.node = function (type) {
   } else {
     nested = [];
   }
+
   return {
     type: type,
     props: props,
@@ -416,6 +431,8 @@ function flattenIteration(arr, flatArr) {
 module.exports = {
    smoothArray: function smoothArray() {
       return function (nested) {
+         // if( Array.isArray(nested) ) return [];
+
          return nested.reduce(_flatten, []).filter(function (ne) {
             return ne !== null && ne !== undefined;
          });

@@ -3,7 +3,7 @@ var browserify = require('browserify');
 var babelify = require("babelify");
 var jsxify = require('jsx-transform').browserifyTransform;
 
- browserify('./examples/simple/main.js', {
+ browserify('./main.js', {
       debug: false
     })
     .transform(jsxify, {
@@ -17,4 +17,4 @@ var jsxify = require('jsx-transform').browserifyTransform;
     .on('error', function(err) {
       console.log(`Error : ${ err.message }`);
     })
-    .pipe(fs.createWriteStream('./examples/simple/bundle.js'));
+    .pipe(fs.createWriteStream('./bundle.js'));
