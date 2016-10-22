@@ -15,10 +15,10 @@ module.exports = (self, createElem) => {
 
    function updateProp(element, name, newVal, oldVal) {
       if (!newVal) {
-         removeProp(element, name, svgNS);
+         removeProp(element, name);
          return
       } else if (!oldVal || newVal !== oldVal) {
-         changeProp(element, name, newVal, svgNS);
+         changeProp(element, name, newVal);
       }
    }
  
