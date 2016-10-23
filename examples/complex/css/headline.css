@@ -1,0 +1,48 @@
+.top-headline {
+    padding: 6px 0px;
+    font-size: 20px;
+    color: #ce4233;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.fw-header {
+    line-height: 40px;
+}
+.p-heading {
+    color: #00ab6b;
+    margin: 6px;
+    font-weight: 500;
+}
+.yellow-star {
+    color: yellow;
+    -webkit-text-stroke: 1px black;
+    text-shadow: 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000;
+}
+.fw-name {
+    color: #3c4859;
+    font-style: italic;
+    margin-top: 0;
+}
+.bold-span-title{
+    font-weight: bold;
+    margin-right: 6px;
+}
+.bold-h4{
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.disclaimer{
+    margin:0px;
+    color: black;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+.disclaimer small{
+    background: rgba(48,217,76,.3);
+    border: 1px solid #30d94c;
+    padding: 0px 10px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}

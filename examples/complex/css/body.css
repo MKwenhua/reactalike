@@ -1,0 +1,46 @@
+html {
+    box-sizing: border-box;
+    background: #eaecfa;
+    background: #fff!important;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+body {
+    color: #3c4859;
+    font-family: 'Gotham', sans-serif;
+    font-size: 14px;
+
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    margin: 0;
+    background: #fff!important;
+}
+.hide-elm {
+    display: none;
+}
+#prefetchAssests {
+    display: none;
+}
+.center-text {
+    text-align: center;
+}
+.margin-t{
+        margin-top: 30px;
+}
+.paddy{
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+}
+.drop-column{
+    float: right;
+}
+.framework-info{
+     background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
+    border: 1px solid rgba(0, 0, 0, .09);
+}

@@ -1,0 +1,64 @@
+[draggable=true] {
+    -khtml-user-drag: element;
+}
+.draggable {
+    position: fixed;
+    text-align: center;
+    padding: 40px;
+    width: 250px;
+    border-radius: 2px;
+    border: 1px solid white;
+}
+.resizable {
+    resize: both;
+    overflow: auto;
+}
+.drag-controls {
+    display: inline-block;
+    height: 30px;
+    width: 60px;
+}
+.drag-controls i {
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+.drag-controls i:hover {
+    color: #3477f3;
+}
+.blue-hl {
+    border-color: #0076ff;
+    color: #0076ff;
+}
+.dw_set > div.draggable {
+    display: none;
+}
+.up_set > div.draggable {
+    display: block;
+}
+.li-box:hover {
+    /*border-color:#0076ff; */
+}
+.li-box {
+    border: 1px solid white;
+    display: block;
+    cursor: move;
+    /* fallback if grab cursor is unsupported */
+    
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    text-decoration: none;
+}
+.li-box:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+a.li-box {
+    text-decoration: none;
+    color: inherit;
+}
+a.li-box:hover {
+    text-decoration: none;
+}

@@ -1,0 +1,15 @@
+.repo-info-block {
+    display: block;
+    margin-left: 110px;
+}
+@media (max-width: 750px) {
+    .drop-column{
+       float:none;
+       padding: inherit;
+       margin-bottom: 10px;
+    }
+    .tab-sets {
+      padding: 2px;
+      font-size: 12px;
+    }
+}

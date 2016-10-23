@@ -1,0 +1,225 @@
+.details-img {
+    max-width: 100%;
+}
+.donut-chart{
+    min-height: 200px; 
+}
+.donut-chart a {
+    display: none;
+}
+.donut-chart canvas {
+    display: inline-block;
+}
+.aaa{
+    height: 150px;
+}
+table * {
+    text-align: center;
+}
+td.bold-green {
+    font-weight: 700;
+    color: #30d94c;
+}
+td.bold-red {
+    font-weight: 700;
+    color: crimson;
+}
+td.bold-black {
+    font-weight: 700;
+    color: #00d8ff;
+}
+td{
+    padding: 2px;
+}
+div.fadeinto {
+    -webkit-animation: fadein 0.5s;
+    -moz-animation: fadein 0.5s;
+    -ms-animation: fadein 0.5s;
+    -o-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+}
+@keyframes fadeinfast {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadeinfast {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.fade-in-ft {
+    -webkit-animation: fadein 1.1s ease-out 0s forwards;
+    -moz-animation: fadein 1.1s ease-out 0s forwards;
+    -ms-animation: fadein 1.1s ease-out 0s forwards;
+    -o-animation: fadein 1.1s ease-out 0s forwards;
+    animation: fadein 1.1s ease-out 0s forwards;
+}
+.fade-in-fast {
+    -webkit-animation: fadeinfast 0.6s ease-out 0s forwards;
+    -moz-animation: fadeinfast 0.6s ease-out 0s forwards;
+    -ms-animation: fadeinfast 0.6s ease-out 0s forwards;
+    -o-animation: fadeinfast 0.6s ease-out 0s forwards;
+    animation: fadeinfast 0.6s ease-out 0s forwards;
+}
+hr.grow-in {
+    -webkit-animation: growIn 1.1s ease-out 1.2s forwards;
+    -moz-animation: growIn 1.1s ease-out 1.2s forwards;
+    -ms-animation: growIn 1.1s ease-out 1.2s forwards;
+    -o-animation: growIn 1.1s ease-out 1.2s forwards;
+    animation: growIn 1.1s ease-out 1.2s forwards;
+}
+@keyframes growIn {
+    from {
+        opacity: 1;
+        border-color: #00d8ff;
+        width: 0%;
+    }
+    to {
+        opacity: 1;
+        border-color: #708090;
+        width: 100%;
+    }
+}
+@-moz-keyframes growIn {
+    from {
+        opacity: 1;
+        border-color: #00d8ff;
+        width: 0%;
+    }
+    to {
+        opacity: 1;
+        border-color: #708090;
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .preview-text {
+        margin: 0;
+        padding: 2px;
+        width: 100%;
+    }
+    .opacity-zero-img {
+        width: 100%;
+    }
+    video.dyn-em {
+        width: 100%;
+    }
+    span.more-info {
+        font-size: 13px;
+        line-height: 24px;
+    }
+    .title-project {
+        font-size: 1em;
+    }
+    .project-selection {
+        box-shadow: none;
+    }
+    body {
+        background: #222633;
+    }
+    .pj-detail-title {
+        font-size: 18px;
+    }
+    #projectsUL {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    #goBackList {
+        left: 3px;
+        top: 5px;
+    }
+    a.link-to-old {
+        color: #fff;
+        padding: 8px;
+        border: 1px solid #fff;
+        width: 100%;
+        display: block;
+    }
+    #goBackList i {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #73879C;
+    }
+}
+@media (max-width: 508px) {
+    span.more-info {
+        display: none;
+    }
+}
+@media (max-width: 1050px) {
+    p {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    .title-project {
+        font-size: 1em;
+        margin-bottom: 8px;
+    }
+}
+}
+@media (max-width: 950px) {
+    p.big-text {
+        font-size: 13px;
+        line-height: 1.1;
+    }
+    .youtube-vid-box {
+        width: 100%;
+    }
+    .extra-info-block {
+        padding: 0px 10px;
+    }
+    span.more-info i {
+        display: none;
+        line-height: 20px;
+    }
+    span.more-info {
+        font-size: 10px;
+    }
+    .title-project {
+        font-size: 15px;
+    }
+}
+@media (max-width: 840px) {
+    p.big-text {
+        font-size: 13px;
+        line-height: 1.1;
+    }
+}
+@media (max-width: 810px) {
+    p.big-text {
+        display: none;
+    }
+    p.little-text {
+        display: block;
+    }
+}

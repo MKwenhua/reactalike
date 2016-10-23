@@ -1,0 +1,243 @@
+#coverDropArea{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    
+}
+.bold-span{
+    font-weight: bold;
+    border-radius:5px;
+    padding:1px; 
+    background: #9facbd;
+    border: 1px solid #3c4859;
+    } 
+.bold-huge {
+     background: rgba(255,0,0,0.3);
+    border: 1px solid red;
+}
+.bold-great{
+     background: rgba(48, 217, 76, 0.4);
+    border: 1px solid #30d94c;
+}
+.drop-column.is-dragover {
+    background-color: rgba(255, 255, 255, 0.77);
+}
+.drop-zone {
+    width: 100%;
+    border: 2px dashed #bbb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 80px 0px;
+    text-align: center;
+    font: 20pt bold 'Vollkorn';
+    color: #bbb;
+    text-align: center;
+}
+.drop-zone i {
+    display: block;
+    font-size: 25px;
+}
+.drop-column.is-dragover > .drop-zone {
+    background-color: rgba(255, 255, 255, 0.87);
+    color: #0076ff;
+}
+.drop-column.displayData > .drop-zone {
+    display: none;
+}
+.purple-stripe {
+    height: 10px;
+    margin-left: -8px;
+    margin-right: -8px;
+    background-color: #774ac3;
+}
+.drop-column > .profileView {
+    display: none;
+}
+.drop-column.displayData > .profileView {
+    display: block;
+}
+.drop-column.displayData {
+    background: white;
+    padding: 8px;
+    border-radius: 2px;
+}
+.block-pic-name {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 10px;
+}
+.block-pic-name img {
+    max-height: 150px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.no-border {
+    border-bottom: none;
+    height: auto;
+}
+.profile-info {
+    color: #181818;
+}
+.profile-info strong {
+    display: block;
+}
+.list-lang {
+    display: inline-block;
+    width: 44%;
+    text-align: center;
+    vertical-align: top;
+    margin: 1% 3%;
+    border-radius: 5px;
+}
+.list-lang strong {
+    background-color: #E3F2FD;
+    margin: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #2196F3;
+    color: white;
+}
+.list-lang > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #E3F2FD;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 8px;
+}
+.remove-itm {
+    background-color: #e74c3c;
+    float: right;
+    border: 2px solid #e74c3c;
+    height: 18px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 3px;
+    overflow: hidden;
+    margin-right: 5px;
+    margin-left: -33px;
+}
+.remove-itm i {
+    margin-top: -3px;
+}
+.remove-itm:hover {
+    border-color: black;
+    color: black;
+}
+.list-lang li > .remove-itm {
+    display: none;
+}
+.list-lang li:hover > .remove-itm {
+    display: inline-block;
+}
+.add-ui {
+    display: block;
+}
+.button-opts div {
+    display: inline-block;
+}
+div.select-hidden > select {
+    display: none;
+}
+div.select-hidden > .button-opts {
+    display: none;
+}
+div.select-show > .button-opts {
+    display: block;
+}
+div.select-show > .add-language {
+    display: none;
+}
+div.select-show > select {
+    display: block;
+}
+.add-language {
+    color: #FFF;
+    border-radius: 5px;
+    text-align: center;
+    padding: 3px;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: #5fba7d;
+    font-weight: bold;
+    border: 2px solid #5fba7d;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+}
+.add-language:hover {
+    background-color: white;
+    color: #5fba7d;
+}
+.saveToDB {
+    background: #fff;
+    padding: 8px;
+    border-radius: 2px;
+    margin-bottom: -8px;
+}
+.saveDBbutton {
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    background-color: #5fba7d;
+    border: 2px solid #5fba7d;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+}
+.saveDBbutton:hover {
+    background-color: white;
+    color: #5fba7d;
+}
+.cancel-button {
+    color: #ffffff;
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    border-radius: 5px;
+    width: 46%;
+    margin-right: 4%;
+    cursor: pointer;
+    font-size: 15px;
+}
+.add-button {
+    color: #ffffff;
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    border-radius: 5px;
+    width: 46%;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: #5fba7d;
+}
+.block-pic-name {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 20px;
+    height: 154px;
+}
+.repo-data-stuff{
+     background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
+    border: 1px solid rgba(0, 0, 0, .09);
+    height: auto;
+    text-align: left;
+}
+.repo-info-block {
+    height: 120px;
+    display: inline-block;
+    color: #000;
+}
+.drop-column{
+    padding:3px;
+}

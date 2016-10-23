@@ -1,0 +1,1 @@
+just run gulp and it will compile everything(even though everything is already precompiled)

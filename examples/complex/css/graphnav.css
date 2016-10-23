@@ -1,0 +1,108 @@
+ul.metricsList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+ul.metricsList li {
+    display: inline-block;
+    border: 1px solid #333;
+    font-size: 13px;
+    padding: 0 10px;
+    cursor: pointer;
+    margin-right: -1px;
+    min-width: 9%;
+    font-weight: 600;
+    vertical-align: top;
+}
+.metric {
+    color: #fff;
+    background-color: #333333;
+}
+.m-select {
+    background: #fff;
+    color: #333333;
+}
+.chart-contain {
+    width: 100%;
+    min-height: 350px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.chart-contain canvas {
+    display: inline-block;
+}
+.chart-contain a {
+    display: none;
+}
+p.has-source {
+    margin: 8px;
+    text-align: center;
+}
+a.data-from {
+    text-decoration: none;
+    font-size: 20px;
+}
+.graph-part {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+ul.graphLegend{
+    
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center; 
+}
+ul.graphLegend li{
+    margin: 4px;
+     display: inline-block; 
+    font-weight: bold;
+}
+.angular{
+    width: 15px;
+    margin-right: 6px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+    background: #1976D2;
+   
+}
+.react{
+    background: #00d8ff;
+    width: 15px;
+    margin-right: 6px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+}
+.vue{
+    background: #4fc08d;
+    width: 15px;
+    margin-right: 6px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+}
+.ember{
+    background: #dd6a58;
+    width: 15px;
+    margin-right: 6px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+}
+.inferno{
+    background: #3c4859;
+    width: 15px;
+    margin-right: 6px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+}

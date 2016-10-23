@@ -1,0 +1,89 @@
+.list-box{
+    background: #1F2D3D;
+    opacity: .9;
+    position: absolute;
+    top:40px;
+    left:0;
+    right: 0;
+    bottom:0px;
+    background: #4682b4;
+}
+
+ul.nice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul.cell-list li {
+    border-radius: 3px;
+    padding: 6px;
+    border: 1px solid black;
+}
+ul.boxed-list li {
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
+    border: 1px solid rgba(0, 0, 0, .09);
+    margin-bottom: 3px;
+     border-radius: 3px;
+    cursor: pointer;
+}
+ul.cell-list a {
+    border-radius: 3px;
+    padding: 6px;
+
+    border: 1px solid black;
+}
+ul.boxed-list a {
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
+    border: 1px solid rgba(0, 0, 0, .09);
+    margin-bottom: 3px;
+     border-radius: 3px;
+    cursor: pointer;
+}
+.float-right {
+    float: right;
+    height: 100%;
+    padding-top: 10px;
+    margin-right: 5px;
+}
+.bold-yikes {
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.ok-cool {
+    color: #00d8ff;
+}
+.li-img {
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 4px;
+}
+.detials-img {
+    height: 100px;
+        margin: 3px;
+        position: absolute;
+}
+
+span.icon-span{
+        margin-right: 8px;
+}
+.info-block {
+    height: 40px;
+    overflow: hidden;
+}
+.details-block {
+    overflow: hidden;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+}
+.height-zero {
+    height: 0px;
+}
+.height-auto {
+    height: auto;
+}
