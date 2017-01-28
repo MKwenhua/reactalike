@@ -1,4 +1,4 @@
-var fs = require( 'fs');
+//var fs = require( 'fs');
 var browserify = require('browserify');
 var babelify = require("babelify");
 var jsxify = require('jsx-transform').browserifyTransform;
