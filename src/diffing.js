@@ -5,13 +5,13 @@ module.exports = (self, createElem) => {
       if (!self.events[attr] && !re.test(attr)) {
          element.removeAttribute(attr);
       }
-   }
+   };
 
    function changeProp(element, attr, val) {
       if (!self.events[attr] && !re.test(attr) || attr === 'src' ) {
          element.setAttribute(attr, val);
       }
-   }
+   };
 
    function updateProp(element, name, newVal, oldVal) {
       if (!newVal) {
@@ -20,20 +20,20 @@ module.exports = (self, createElem) => {
       } else if (!oldVal || newVal !== oldVal) {
          changeProp(element, name, newVal);
       }
-   }
+   };
  
    function updateProps(element, newProps, oldProps = {}) {
       const props = Object.assign({}, oldProps , newProps);
       for (var name in props) {
          updateProp(element, name, newProps[name], oldProps[name]);
       };
-   }
+   };
 
    function changed(node1, node2) {
       return typeof node1 !== typeof node2 ||
          typeof node1 === 'string' && node1 !== node2 ||
          node1.type !== node2.type
-   }
+   };
 
    function checkForEvents(node) {
       if (node.props.ex_eventFuncName) {
@@ -52,7 +52,7 @@ module.exports = (self, createElem) => {
          }
 
          return
-      }
+      };
       if (!oldNode) {
          let vdomid = parent.props.trace + '.' + index;
          newNode.domElement = createElem(newNode, vdomid, parent.trace);
@@ -60,14 +60,14 @@ module.exports = (self, createElem) => {
             newNode.domElement
          );
          return
-      }
+      };
       if (!newNode) {
          checkForEvents(oldNode);
          parent.domElement.removeChild(
             parent.childNodes[index]
          );
          return
-      }
+      };
       if ( changed(newNode, oldNode) ) {
 
          let vdomid = parent.props.trace + '.' + index;
@@ -79,7 +79,7 @@ module.exports = (self, createElem) => {
          ); 
 
         return
-      }
+      };
       if (newNode.type) {
 
          newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
@@ -102,7 +102,7 @@ module.exports = (self, createElem) => {
                );
             }
             return updateElement;
-         } 
+         }; 
          oldNode.nested = oldNode.nested ? oldNode.nested : [];
          const oldLength = oldNode.nested.length;
 
@@ -115,6 +115,6 @@ module.exports = (self, createElem) => {
             );
          }
       }
-   }
+   };
    return updateElement;
 };

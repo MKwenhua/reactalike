@@ -44,7 +44,7 @@ function NodeMap(appTitle = 'default') {
       self.lookUpRegistry(e.target, type);
     });
 
-  }
+  };
   this.setListenerEl = (eventOb, cb, node) => {
     let self = this;
     let evnName = eventOb.eventNS;
@@ -56,7 +56,7 @@ function NodeMap(appTitle = 'default') {
     };
     node.domElement.addEventListener(eventOb.eventName, this.events[evnName][node.props.ex_eventFuncName]);
 
-  } 
+  }; 
   this.applyListener = (listener, node) => {
 
     let eventInfo = this.events[listener];
@@ -69,7 +69,7 @@ function NodeMap(appTitle = 'default') {
     if (onSelf && !node.props.ex_eventFuncName) {
       this.setListenerEl(eventInfo, listener, node)
     }
-  }
+  };
   this.lookUpRegistry = (target, eventName) => {
     let tgTrace = target.getAttribute('trace');
     let traceArray = tgTrace.split('.');
@@ -93,7 +93,7 @@ function NodeMap(appTitle = 'default') {
       }
     })
 
-  }
+  };
   this.WhenMounted = (afterMountCB) => {
     this.mountedCallbacks.push(afterMountCB);
   };
@@ -165,7 +165,7 @@ function NodeMap(appTitle = 'default') {
     node.props = Object.assign({}, node.props, {
       trace: group,
       parent: parent
-    })
+    });
 
     const el = isSVG.test(node.type) ? self.createElementNS(node.type, node.props) : self.createElement(node.type, node.props);
     node.domElement = el;
@@ -252,6 +252,10 @@ NodeMap.prototype.node = (type, props = {}, ...nested) => {
     props,
     nested 
   };
-}
+};
 
-module.exports = new NodeMap('example');
+module.exports = function(appName){
+ if(!appName) return new NodeMap('example');
+
+ return new NodeMap(appName);
+}
