@@ -1,31 +1,35 @@
-const flatten = (a, b) => {
-   return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
-}
+"use strict";
 
-function flattenIteration (arr, flatArr) {
-	flatArr = flatArr || [];
-	
-	var length  = arr.length|0;
-	
-	for (var index = 0; index < length; index = index + 1){
-		var item = arr[index];
-		item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
-	}
-	
-	return flatArr;
+var _flatten = function _flatten(a, b) {
+   return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
+};
+
+function flattenIteration(arr, flatArr) {
+   flatArr = flatArr || [];
+
+   var length = arr.length | 0;
+
+   for (var index = 0; index < length; index = index + 1) {
+      var item = arr[index];
+      item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
+   }
+
+   return flatArr;
 }
 module.exports = {
-   smoothArray: () => {
-      return (nested) => {  
-        // if( Array.isArray(nested) ) return [];
-        
-        return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined );
-      }
+   smoothArray: function smoothArray() {
+      return function (nested) {
+         // if( Array.isArray(nested) ) return [];
+
+         return nested.reduce(_flatten, []).filter(function (ne) {
+            return ne !== null && ne !== undefined;
+         });
+      };
    },
-   flatten: (nested) => {
-   		return nested.reduce(flatten, []);
+   flatten: function flatten(nested) {
+      return nested.reduce(_flatten, []);
    },
-   capitalize:  (string) => {
-   	  return string.charAt(0).toUpperCase() + string.slice(1);
+   capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
    }
-}
+};

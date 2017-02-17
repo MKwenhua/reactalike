@@ -1,3 +1,147 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+module.exports = function (self, createElem) {
+   var re = new RegExp(/^ex_/i);
+
+   function removeProp(element, attr) {
+      if (!self.events[attr] && !re.test(attr)) {
+         element.removeAttribute(attr);
+      }
+   }
+
+   function changeProp(element, attr, val) {
+      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
+         element.setAttribute(attr, val);
+      }
+   }
+
+   function updateProp(element, name, newVal, oldVal) {
+      if (!newVal) {
+         removeProp(element, name);
+         return;
+      } else if (!oldVal || newVal !== oldVal) {
+         changeProp(element, name, newVal);
+      }
+   }
+
+   function updateProps(element, newProps) {
+      var oldProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      var props = Object.assign({}, oldProps, newProps);
+      for (var name in props) {
+         updateProp(element, name, newProps[name], oldProps[name]);
+      };
+   }
+
+   function changed(node1, node2) {
+      return (typeof node1 === 'undefined' ? 'undefined' : _typeof(node1)) !== (typeof node2 === 'undefined' ? 'undefined' : _typeof(node2)) || typeof node1 === 'string' && node1 !== node2 || node1.type !== node2.type;
+   }
+
+   function checkForEvents(node) {
+      if (node.props.ex_eventFuncName) {
+         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      }
+   };
+
+   function updateElement(parent, newNode, oldNode) {
+      var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+      if (typeof newNode === 'string' || typeof newNode === 'number') {
+         var vdomid = parent.props.trace + '.' + index;
+         if (changed(newNode, oldNode)) {
+            parent.domElement.replaceChild(createElem(newNode, vdomid, parent.trace), parent.domElement.childNodes[index]);
+         }
+
+         return;
+      }
+      if (!oldNode) {
+         var _vdomid = parent.props.trace + '.' + index;
+         newNode.domElement = createElem(newNode, _vdomid, parent.trace);
+         parent.domElement.appendChild(newNode.domElement);
+         return;
+      }
+      if (!newNode) {
+         checkForEvents(oldNode);
+         parent.domElement.removeChild(parent.childNodes[index]);
+         return;
+      }
+      if (changed(newNode, oldNode)) {
+
+         var _vdomid2 = parent.props.trace + '.' + index;
+         newNode.domElement = createElem(newNode, _vdomid2, newNode.parent);
+         var repl = typeof oldNode === 'string' ? parent.domElement.childNodes[index] : oldNode.domElement;
+         parent.domElement.replaceChild(newNode.domElement, repl);
+
+         return;
+      }
+      if (newNode.type) {
+
+         newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
+
+         updateProps(newNode.domElement, newNode.props, oldNode.props);
+
+         var newLength = newNode.nested ? newNode.nested.length : 0;
+
+         if (typeof oldNode === 'string' || typeof oldNode === 'number') {
+            for (var i = 0; i < newLength; i++) {
+               updateElement(newNode, newNode.nested[i], null, i);
+            }
+            return updateElement;
+         }
+         oldNode.nested = oldNode.nested ? oldNode.nested : [];
+         var oldLength = oldNode.nested.length;
+
+         for (var _i = 0; _i < newLength || _i < oldLength; _i++) {
+            updateElement(oldNode, newNode.nested[_i], oldNode.nested[_i], _i);
+         }
+      }
+   }
+   return updateElement;
+};
+
+},{}],2:[function(require,module,exports){
+"use strict";
+
+var Eventlist = require("./lib/eventlist.js");
+
+function extractEventName(name) {
+  return name.slice(2).toLowerCase();
+}
+var videoEvents = {
+  onLoadedData: {},
+  onLoadedMetadata: {},
+  onLoadStart: {},
+  onPause: {},
+  onPlay: {},
+  onPlaying: {},
+  onProgress: {},
+  onRateChange: {},
+  onSeeked: {},
+  onSeeking: {},
+  onWaiting: {},
+  onLoad: {}
+};
+var formEvents = {
+  onChange: {},
+  onFocus: {},
+  onSelect: {},
+  onSearch: {}
+};
+module.exports = Eventlist.reduce(function (ob, itm) {
+  ob[itm] = {
+    registered: false,
+    eventName: extractEventName(itm),
+    eventNS: itm,
+    mediaEvent: videoEvents[itm] !== undefined,
+    formEvent: formEvents[itm] !== undefined
+  };
+  return ob;
+}, {});
+
+},{"./lib/eventlist.js":4}],3:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6,13 +150,6 @@ var events = require("./events.js");
 var setDiff = require("./diffing.js");
 var handyHelpers = require("./lib/handy_funcs.js");
 var smoothNested = handyHelpers.smoothArray();
-var formTags = {
-  textarea: true,
-  select: true,
-  input: true,
-  output: true,
-  form: true
-};
 
 function NodeMap() {
   var _this = this;
@@ -56,10 +193,9 @@ function NodeMap() {
   this.setListener = function (listener, type) {
     var self = _this;
     _this.appRoot.addEventListener(listener, function (e) {
-      self.lookUpRegistry(e.target, type, e);
+      self.lookUpRegistry(e.target, type);
     });
   };
-
   this.setListenerEl = function (eventOb, cb, node) {
     var self = _this;
     var evnName = eventOb.eventNS;
@@ -71,10 +207,10 @@ function NodeMap() {
     };
     node.domElement.addEventListener(eventOb.eventName, _this.events[evnName][node.props.ex_eventFuncName]);
   };
-
   this.applyListener = function (listener, node) {
+
     var eventInfo = _this.events[listener];
-    var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
+    var onSelf = eventInfo.formEvent || eventInfo.mediaEvent;
     if (!eventInfo.registered && !onSelf) {
       eventInfo.registered = true;
       _this.setListener(eventInfo.eventName, listener);
@@ -84,8 +220,7 @@ function NodeMap() {
       _this.setListenerEl(eventInfo, listener, node);
     }
   };
-
-  this.lookUpRegistry = function (target, eventName, e) {
+  this.lookUpRegistry = function (target, eventName) {
     var tgTrace = target.getAttribute('trace');
     var traceArray = tgTrace.split('.');
     console.log('traceArray', traceArray);
@@ -103,16 +238,14 @@ function NodeMap() {
       if (itm) {
         var hasAction = itm.props[eventName];
         if (hasAction) {
-          hasAction(e);
+          hasAction();
         }
       }
     });
   };
-
   this.WhenMounted = function (afterMountCB) {
     _this.mountedCallbacks.push(afterMountCB);
   };
-
   this.objectChange = function (newRender) {
     var newOb = _this.rerender(newRender, 'Root');
     console.log('newRender', newOb);
@@ -122,7 +255,6 @@ function NodeMap() {
     });
     _this.mountedCallbacks = [];
   };
-
   this.createComponent = function (obj, containerElement) {
 
     if (_this.getElement(containerElement)) {
@@ -136,7 +268,6 @@ function NodeMap() {
     console.log('domBranches', _this.domComponents);
     console.log('this.events', _this.events);
   };
-
   this.mountApp = function (obj) {
     _this.domComponents = obj;
     _this.appRootDom.nested.push(_this.domComponents);
@@ -147,6 +278,7 @@ function NodeMap() {
   var re = new RegExp(/^ex_/i);
   var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
   this.createElement = function createElement(name, attrs) {
+
     var element = document.createElement(String(name));
     if (!attrs) return element;
 
@@ -217,27 +349,21 @@ function NodeMap() {
     });
     return node;
   };
-
   this.htmlBuild = function (node, group) {
     return createElem(node, group, 'Root');
   };
-
   this.rerender = function (node, group) {
     return reRenderElem(node, group, 'Root');
   };
-
   this.diffElements = setDiff(self, createElem);
-
   this.updateElement = function (oldNode, newNode) {
     _this.diffElements(_this.appRootDom, newNode, oldNode);
     _this.domComponents = Object.assign({}, oldNode, newNode);
   };
-
   this.SetState = function (data) {
     console.log('not yet set');
   };
 };
-
 NodeMap.prototype.component = function (obj) {
   if (!(obj instanceof Array) && obj instanceof Object) {
     if (!obj["componentName"] || !obj["componentRender"]) {
@@ -276,8 +402,48 @@ NodeMap.prototype.node = function (type) {
   };
 };
 
-module.exports = function (appName) {
-  if (!appName) return new NodeMap('example');
+module.exports = new NodeMap('example');
 
-  return new NodeMap(appName);
+},{"./diffing.js":1,"./events.js":2,"./lib/handy_funcs.js":5}],4:[function(require,module,exports){
+"use strict";
+
+module.exports = ["onCopy", "onCut", "onPaste", "onKeyDown", "onKeyPress", "onKeyUp", "onFocus", "onBlur", "onChange", "onInput", "onSubmit", "onClick", "onContextMenu", "onDoubleClick", "onDrag", "onDragEnd", "onDragEnter", "onDragExit", "onDragLeave", "onDragOver", "onDragStart", "onDrop", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp", "onSelect", "onScroll", "onAbort", "onCanPlay", "onCanPlayThrough", "onDurationChange", "onEmptied", "onEnded", "onError", "onLoadedData", "onLoadedMetadata", "onLoadStart", "onPause", "onPlay", "onPlaying", "onProgress", "onRateChange", "onSeeked", "onSeeking", "onWaiting", "onLoad", "onError", "onAnimationStart", "onAnimationEnd", "onAnimationIteration", "onTransitionEnd"];
+
+},{}],5:[function(require,module,exports){
+"use strict";
+
+var _flatten = function _flatten(a, b) {
+   return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
 };
+
+function flattenIteration(arr, flatArr) {
+   flatArr = flatArr || [];
+
+   var length = arr.length | 0;
+
+   for (var index = 0; index < length; index = index + 1) {
+      var item = arr[index];
+      item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
+   }
+
+   return flatArr;
+}
+module.exports = {
+   smoothArray: function smoothArray() {
+      return function (nested) {
+         // if( Array.isArray(nested) ) return [];
+
+         return nested.reduce(_flatten, []).filter(function (ne) {
+            return ne !== null && ne !== undefined;
+         });
+      };
+   },
+   flatten: function flatten(nested) {
+      return nested.reduce(_flatten, []);
+   },
+   capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+   }
+};
+
+},{}]},{},[3]);

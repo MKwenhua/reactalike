@@ -1,11 +1,9 @@
-"use strict";
-
-var Eventlist = require("./lib/eventlist.js");
+const Eventlist = require("./lib/eventlist.js");
 
 function extractEventName(name) {
   return name.slice(2).toLowerCase();
 };
-var videoEvents = {
+let videoEvents = {
   onLoadedData: {},
   onLoadedMetadata: {},
   onLoadStart: {},
@@ -20,7 +18,7 @@ var videoEvents = {
   onLoad: {}
 };
 
-var formEvents = {
+let formEvents = {
   onChange: {},
   onFocus: {},
   onBlur: {},
@@ -28,7 +26,7 @@ var formEvents = {
   onSearch: {}
 };
 
-module.exports = Eventlist.reduce(function (ob, itm) {
+module.exports = Eventlist.reduce((ob, itm) => {
   ob[itm] = {
     registered: false,
     eventName: extractEventName(itm),
