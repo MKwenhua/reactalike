@@ -17,12 +17,15 @@ let videoEvents = {
   onWaiting: {},
   onLoad: {}
 };
+
 let formEvents = {
   onChange: {},
   onFocus: {},
+  onBlur: {},
   onSelect: {},
   onSearch: {}
 };
+
 module.exports = Eventlist.reduce((ob, itm) => {
   ob[itm] = {
     registered: false,

@@ -3,7 +3,7 @@
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'publish',
 1 verbose cli   './' ]
-2 info using npm@3.10.10
+2 info using npm@4.1.2
 3 info using node@v7.3.0
 4 verbose publish [ './' ]
 5 silly cache add args [ './', null ]
@@ -20,86 +20,115 @@
 9 verbose correctMkdir /Users/pete/.npm correctMkdir not in flight; initializing
 10 info lifecycle reactalike@1.0.0~prepublish: reactalike@1.0.0
 11 silly lifecycle reactalike@1.0.0~prepublish: no script for prepublish, continuing
-12 verbose tar pack [ '/Users/pete/.npm/reactalike/1.0.0/package.tgz',
-12 verbose tar pack   '/Users/pete/reactalike' ]
-13 verbose tarball /Users/pete/.npm/reactalike/1.0.0/package.tgz
-14 verbose folder /Users/pete/reactalike
-15 verbose addLocalTarball adding from inside cache /Users/pete/.npm/reactalike/1.0.0/package.tgz
-16 verbose correctMkdir /Users/pete/.npm correctMkdir not in flight; initializing
-17 silly cache afterAdd reactalike@1.0.0
-18 verbose afterAdd /Users/pete/.npm/reactalike/1.0.0/package/package.json not in flight; writing
-19 verbose correctMkdir /Users/pete/.npm correctMkdir not in flight; initializing
-20 verbose afterAdd /Users/pete/.npm/reactalike/1.0.0/package/package.json written
-21 silly publish { name: 'reactalike',
-21 silly publish   version: '1.0.0',
-21 silly publish   description: '"React-like library I made"',
-21 silly publish   main: 'reactalike.js',
-21 silly publish   scripts:
-21 silly publish    { test: 'echo "Error: no test specified" && exit 1',
-21 silly publish      build: 'webpack --config webpack.config.js' },
-21 silly publish   repository:
-21 silly publish    { type: 'git',
-21 silly publish      url: 'git+https://github.com/MKwenhua/reactalike.git' },
-21 silly publish   author: { name: 'Peter Halloran' },
-21 silly publish   license: 'ISC',
-21 silly publish   bugs: { url: 'https://github.com/MKwenhua/reactalike/issues' },
-21 silly publish   homepage: 'https://github.com/MKwenhua/reactalike#readme',
-21 silly publish   dependencies:
-21 silly publish    { babel: '^6.5.2',
-21 silly publish      'babel-core': '^6.17.0',
-21 silly publish      'babel-loader': '^6.2.5',
-21 silly publish      'babel-preset-es2015': '^6.16.0',
-21 silly publish      babelify: '^7.3.0',
-21 silly publish      browserify: '^13.1.0',
-21 silly publish      gulp: '^3.9.1',
-21 silly publish      'gulp-clean-css': '^2.0.13',
-21 silly publish      'gulp-concat': '^2.6.0',
-21 silly publish      'gulp-rename': '^1.2.2',
-21 silly publish      'gulp-sourcemaps': '^2.1.1',
-21 silly publish      'gulp-strip-css-comments': '^1.2.0',
-21 silly publish      'gulp-util': '^3.0.7',
-21 silly publish      'jsx-transform': '^2.3.0',
-21 silly publish      moment: '^2.15.1',
-21 silly publish      'run-sequence': '^1.2.2',
-21 silly publish      'sort-by': '^1.1.1' },
-21 silly publish   readme: '# Reactalike\nrandom React-like rendering engine \n\nwill add info later\n',
-21 silly publish   readmeFilename: 'README.md',
-21 silly publish   gitHead: 'aa3393bf2998f2a0f5c5d8bc574ced5d56c240a1',
-21 silly publish   _id: 'reactalike@1.0.0',
-21 silly publish   _shasum: '6bb338230d898eda8c28a71d2d1e219440786377',
-21 silly publish   _from: '.' }
-22 verbose getPublishConfig undefined
-23 silly mapToRegistry name reactalike
-24 silly mapToRegistry using default registry
-25 silly mapToRegistry registry https://registry.npmjs.org/
-26 silly mapToRegistry data Result {
-26 silly mapToRegistry   raw: 'reactalike',
-26 silly mapToRegistry   scope: null,
-26 silly mapToRegistry   escapedName: 'reactalike',
-26 silly mapToRegistry   name: 'reactalike',
-26 silly mapToRegistry   rawSpec: '',
-26 silly mapToRegistry   spec: 'latest',
-26 silly mapToRegistry   type: 'tag' }
-27 silly mapToRegistry uri https://registry.npmjs.org/reactalike
-28 verbose publish registryBase https://registry.npmjs.org/
-29 silly publish uploading /Users/pete/.npm/reactalike/1.0.0/package.tgz
-30 verbose stack Error: auth required for publishing
-30 verbose stack     at CachingRegistryClient.publish (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/publish.js:30:14)
-30 verbose stack     at /usr/local/lib/node_modules/npm/lib/publish.js:138:14
-30 verbose stack     at mapToRegistry (/usr/local/lib/node_modules/npm/lib/utils/map-to-registry.js:62:3)
-30 verbose stack     at publish_ (/usr/local/lib/node_modules/npm/lib/publish.js:107:3)
-30 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
-30 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
-30 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:14:28)
-30 verbose stack     at chain (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:20:5)
-30 verbose stack     at /usr/local/lib/node_modules/npm/lib/publish.js:73:5
-30 verbose stack     at RES (/usr/local/lib/node_modules/npm/node_modules/inflight/inflight.js:23:14)
-31 verbose cwd /Users/pete/reactalike
-32 error Darwin 15.5.0
-33 error argv "/usr/local/Cellar/node/7.3.0/bin/node" "/usr/local/bin/npm" "publish" "./"
-34 error node v7.3.0
-35 error npm  v3.10.10
-36 error code ENEEDAUTH
-37 error need auth auth required for publishing
-38 error need auth You need to authorize this machine using `npm adduser`
-39 verbose exit [ 1, true ]
+12 info lifecycle reactalike@1.0.0~prepare: reactalike@1.0.0
+13 silly lifecycle reactalike@1.0.0~prepare: no script for prepare, continuing
+14 verbose tar pack [ '/Users/pete/.npm/reactalike/1.0.0/package.tgz',
+14 verbose tar pack   '/Users/pete/reactalike' ]
+15 verbose tarball /Users/pete/.npm/reactalike/1.0.0/package.tgz
+16 verbose folder /Users/pete/reactalike
+17 verbose addLocalTarball adding from inside cache /Users/pete/.npm/reactalike/1.0.0/package.tgz
+18 verbose correctMkdir /Users/pete/.npm correctMkdir not in flight; initializing
+19 silly cache afterAdd reactalike@1.0.0
+20 verbose afterAdd /Users/pete/.npm/reactalike/1.0.0/package/package.json not in flight; writing
+21 verbose correctMkdir /Users/pete/.npm correctMkdir not in flight; initializing
+22 verbose afterAdd /Users/pete/.npm/reactalike/1.0.0/package/package.json written
+23 silly publish { name: 'reactalike',
+23 silly publish   version: '1.0.0',
+23 silly publish   description: '"React-like library I made"',
+23 silly publish   main: 'reactalike.js',
+23 silly publish   scripts:
+23 silly publish    { test: 'echo "Error: no test specified" && exit 1',
+23 silly publish      build: 'webpack --config webpack.config.js' },
+23 silly publish   repository:
+23 silly publish    { type: 'git',
+23 silly publish      url: 'git+https://github.com/MKwenhua/reactalike.git' },
+23 silly publish   author: { name: 'Peter Halloran' },
+23 silly publish   license: 'ISC',
+23 silly publish   bugs: { url: 'https://github.com/MKwenhua/reactalike/issues' },
+23 silly publish   homepage: 'https://github.com/MKwenhua/reactalike#readme',
+23 silly publish   dependencies:
+23 silly publish    { babel: '^6.5.2',
+23 silly publish      'babel-core': '^6.17.0',
+23 silly publish      'babel-loader': '^6.2.5',
+23 silly publish      'babel-preset-es2015': '^6.16.0',
+23 silly publish      babelify: '^7.3.0',
+23 silly publish      browserify: '14.0.0',
+23 silly publish      'graceful-fs': '^4.1.11',
+23 silly publish      gulp: '^3.9.1',
+23 silly publish      'gulp-clean-css': '^2.0.13',
+23 silly publish      'gulp-concat': '^2.6.0',
+23 silly publish      'gulp-rename': '^1.2.2',
+23 silly publish      'gulp-sourcemaps': '^2.1.1',
+23 silly publish      'gulp-strip-css-comments': '^1.2.0',
+23 silly publish      'gulp-util': '^3.0.7',
+23 silly publish      'jsx-transform': '^2.3.0',
+23 silly publish      moment: '^2.15.1',
+23 silly publish      'run-sequence': '^1.2.2',
+23 silly publish      'sort-by': '^1.1.1' },
+23 silly publish   readme: '# Reactalike\nrandom React-like rendering engine \n\nwill add info later\n',
+23 silly publish   readmeFilename: 'README.md',
+23 silly publish   gitHead: 'b5af1a63b63a1d211165c83ac43d742654bac5ef',
+23 silly publish   _id: 'reactalike@1.0.0',
+23 silly publish   _shasum: '5d68bde9b85404a6bcd6bbbf1967270f82072a57',
+23 silly publish   _from: '.' }
+24 info lifecycle reactalike@1.0.0~prepublishOnly: reactalike@1.0.0
+25 silly lifecycle reactalike@1.0.0~prepublishOnly: no script for prepublishOnly, continuing
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name reactalike
+28 silly mapToRegistry using default registry
+29 silly mapToRegistry registry https://registry.npmjs.org/
+30 silly mapToRegistry data Result {
+30 silly mapToRegistry   raw: 'reactalike',
+30 silly mapToRegistry   scope: null,
+30 silly mapToRegistry   escapedName: 'reactalike',
+30 silly mapToRegistry   name: 'reactalike',
+30 silly mapToRegistry   rawSpec: '',
+30 silly mapToRegistry   spec: 'latest',
+30 silly mapToRegistry   type: 'tag' }
+31 silly mapToRegistry uri https://registry.npmjs.org/reactalike
+32 verbose publish registryBase https://registry.npmjs.org/
+33 silly publish uploading /Users/pete/.npm/reactalike/1.0.0/package.tgz
+34 verbose request uri https://registry.npmjs.org/reactalike
+35 verbose request sending authorization for write operation
+36 info attempt registry request try #1 at 4:46:35 PM
+37 verbose request using bearer token for auth
+38 verbose request id ee1b6366387c39f9
+39 http request PUT https://registry.npmjs.org/reactalike
+40 http 403 https://registry.npmjs.org/reactalike
+41 verbose headers { 'content-type': 'application/json',
+41 verbose headers   'cache-control': 'max-age=300',
+41 verbose headers   'content-length': '95',
+41 verbose headers   'accept-ranges': 'bytes',
+41 verbose headers   date: 'Sat, 28 Jan 2017 22:46:34 GMT',
+41 verbose headers   via: '1.1 varnish',
+41 verbose headers   connection: 'keep-alive',
+41 verbose headers   'x-served-by': 'cache-ord1728-ORD',
+41 verbose headers   'x-cache': 'MISS',
+41 verbose headers   'x-cache-hits': '0',
+41 verbose headers   'x-timer': 'S1485643593.022670,VS0,VE1487',
+41 verbose headers   vary: 'Accept-Encoding' }
+42 verbose request invalidating /Users/pete/.npm/registry.npmjs.org/reactalike on PUT
+43 error publish Failed PUT 403
+44 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : reactalike
+44 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:304:12)
+44 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:292:14)
+44 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:212:14)
+44 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:186:22)
+44 verbose stack     at emitTwo (events.js:106:13)
+44 verbose stack     at Request.emit (events.js:191:7)
+44 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1081:10)
+44 verbose stack     at emitOne (events.js:96:13)
+44 verbose stack     at Request.emit (events.js:188:7)
+44 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1001:12)
+45 verbose statusCode 403
+46 verbose pkgid reactalike
+47 verbose cwd /Users/pete/reactalike
+48 error Darwin 15.5.0
+49 error argv "/usr/local/Cellar/node/7.3.0/bin/node" "/usr/local/bin/npm" "publish" "./"
+50 error node v7.3.0
+51 error npm  v4.1.2
+52 error code E403
+53 error "You cannot publish over the previously published version 1.0.0." : reactalike
+54 error If you need help, you may report this error at:
+54 error     <https://github.com/npm/npm/issues>
+55 verbose exit [ 1, true ]
