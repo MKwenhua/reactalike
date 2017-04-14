@@ -1,4 +1,4 @@
-module.exports = (self, createElem) => {
+export default const setDiff = (self, createElem) => {
    const re = new RegExp(/^ex_/i)
 
    function removeProp(element, attr) {

@@ -276,8 +276,12 @@ NodeMap.prototype.node = function (type) {
   };
 };
 
-module.exports = function (appName) {
-  if (!appName) return new NodeMap('example');
+function exNode(appName){
+ if(!appName) return new NodeMap('example');
 
-  return new NodeMap(appName);
-};
+ return new NodeMap(appName);
+}
+
+export default const EX = exNode('main')
+
+export { exNode }

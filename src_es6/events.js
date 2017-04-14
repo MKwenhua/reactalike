@@ -1,8 +1,9 @@
-const Eventlist = require("./lib/eventlist.js");
+import EventList from "./lib/eventlist.js"
 
 function extractEventName(name) {
-  return name.slice(2).toLowerCase();
-};
+  return name.slice(2).toLowerCase()
+}
+
 const videoEvents = {
   onLoadedData: {},
   onLoadedMetadata: {},
@@ -16,7 +17,7 @@ const videoEvents = {
   onSeeking: {},
   onWaiting: {},
   onLoad: {}
-};
+}
 
 const formEvents = {
   onChange: {},
@@ -24,9 +25,9 @@ const formEvents = {
   onBlur: {},
   onSelect: {},
   onSearch: {}
-};
+}
 
-module.exports = Eventlist.reduce((ob, itm) => {
+const events = EventList.reduce((ob, itm) => {
   ob[itm] = {
     registered: false,
     eventName: extractEventName(itm),
@@ -35,4 +36,6 @@ module.exports = Eventlist.reduce((ob, itm) => {
     formEvent: formEvents[itm] !== undefined
   };
   return ob;
-}, {});
+}, {})
+
+export { events }

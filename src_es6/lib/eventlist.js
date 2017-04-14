@@ -1,4 +1,4 @@
-module.exports = [
+export default const EventList = [
 "onCopy",
 "onCut", 
 "onPaste", 

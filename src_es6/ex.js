@@ -1,5 +1,5 @@
-const events = require("./events.js");
-const setDiff = require("./diffing.js");
+import { events } from "./events.js";
+import setDiff  from "./diffing.js";
 const handyHelpers = require("./lib/handy_funcs.js");
 const smoothNested = handyHelpers.smoothArray();
 const formTags = {
@@ -270,8 +270,12 @@ NodeMap.prototype.node = (type, props = {}, ...nested) => {
   };
 };
 
-module.exports = function(appName){
+function exNode(appName){
  if(!appName) return new NodeMap('example');
 
  return new NodeMap(appName);
 }
+
+export default const EX = exNode('main')
+
+export { exNode }
