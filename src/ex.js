@@ -282,4 +282,4 @@ function exNode(appName){
  return new NodeMap(appName);
 }
 
-module.exports = exNode('main')
+module.exports = exNode;
