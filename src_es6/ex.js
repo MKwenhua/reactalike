@@ -21,6 +21,7 @@ function NodeMap(appTitle = 'default') {
   this.appRoot = null;
   this.mountedCallbacks = [];
   this.events = events;
+  const NodeMapContext = this;
 
   this.createUdid = () => {
     return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4)
@@ -46,15 +47,13 @@ function NodeMap(appTitle = 'default') {
     return false;
   };
   this.setListener = (listener, type) => {
-    let self = this;
     this.appRoot.addEventListener(listener, (e) => {
-      self.lookUpRegistry(e.target, type, e);
+      NodeMapContext.lookUpRegistry(e.target, type, e);
     });
 
   };
 
   this.setListenerEl = (eventOb, cb, node) => {
-    let self = this;
     let evnName = eventOb.eventNS;
     node.props.ex_eventFuncName = this.randomFuncId();
     node.props.ex_attachedFunc = evnName;
@@ -140,15 +139,14 @@ function NodeMap(appTitle = 'default') {
   };
 
 
-  let self = this;
   let re = new RegExp(/^ex_/i)
   let isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
   this.createElement = function createElement(name, attrs) {
     var element = document.createElement(String(name));
     if (!attrs) return element;
 
-    for (var attr in attrs) {
-      if (!self.events[attr] && !re.test(attr) ) {
+    for (let attr in attrs) {
+      if (!NodeMapContext.events[attr] && !re.test(attr) ) {
         element.setAttribute(attr, attrs[attr]);
       }
     }
@@ -160,8 +158,8 @@ function NodeMap(appTitle = 'default') {
 
      if (!attrs) return element;
 
-     for (var attr in attrs) {
-        if (!self.events[attr] && !re.test(attr) ) {
+     for (let attr in attrs) {
+        if (!NodeMapContext.events[attr] && !re.test(attr) ) {
             element.setAttribute(attr, attrs[attr]);
         }
      }
@@ -179,11 +177,11 @@ function NodeMap(appTitle = 'default') {
       parent: parent
     });
 
-    const el = isSVG.test(node.type) ? self.createElementNS(node.type, node.props) : self.createElement(node.type, node.props);
+    const el = isSVG.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
     node.domElement = el;
     for (var prop in node.props) {
-      if (self.events[prop]) {
-        self.applyListener(prop, node);
+      if (NodeMapContext.events[prop]) {
+        NodeMapContext.applyListener(prop, node);
       }
     };
 
