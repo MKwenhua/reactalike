@@ -1,5 +1,5 @@
 module.exports = (self, createElem) => {
-   let re = new RegExp(/^ex_/i)
+   const re = new RegExp(/^ex_/i)
 
    function removeProp(element, attr) {
       if (!self.events[attr] && !re.test(attr)) {
@@ -24,7 +24,7 @@ module.exports = (self, createElem) => {
 
    function updateProps(element, newProps, oldProps = {}) {
       const props = Object.assign({}, oldProps, newProps);
-      for (var name in props) {
+      for (let name in props) {
          updateProp(element, name, newProps[name], oldProps[name]);
       };
    };
