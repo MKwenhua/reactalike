@@ -298,8 +298,6 @@ var _diffing2 = _interopRequireDefault(_diffing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const events = require("./events.js");
-// const setDiff = require("./diffing.js");
 var handyHelpers = __webpack_require__(2);
 var smoothNested = handyHelpers.smoothArray();
 var formTags = {
