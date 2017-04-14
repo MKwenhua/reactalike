@@ -3,7 +3,7 @@ const Eventlist = require("./lib/eventlist.js");
 function extractEventName(name) {
   return name.slice(2).toLowerCase();
 };
-let videoEvents = {
+const videoEvents = {
   onLoadedData: {},
   onLoadedMetadata: {},
   onLoadStart: {},
@@ -18,7 +18,7 @@ let videoEvents = {
   onLoad: {}
 };
 
-let formEvents = {
+const formEvents = {
   onChange: {},
   onFocus: {},
   onBlur: {},
