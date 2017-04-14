@@ -269,10 +269,6 @@ module.exports = {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
@@ -561,9 +557,7 @@ function exNode(appName) {
   return new NodeMap(appName);
 }
 
-var EX = exNode('main');
-exports.default = EX;
-exports.exNode = exNode;
+module.exports = exNode('main');
 
 /***/ }),
 /* 4 */
