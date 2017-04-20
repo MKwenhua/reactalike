@@ -286,7 +286,7 @@ module.exports = {
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _events = __webpack_require__(1);
 
@@ -300,6 +300,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var handyHelpers = __webpack_require__(2);
 var smoothNested = handyHelpers.smoothArray();
+var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+   return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
 var formTags = {
    textarea: true,
    select: true,
@@ -309,8 +314,6 @@ var formTags = {
 };
 
 function NodeMap() {
-   var _this = this;
-
    var appTitle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
 
    this.appTitle = appTitle;
@@ -335,46 +338,46 @@ function NodeMap() {
 
    this.getElement = function (domElement) {
       if (domElement instanceof HTMLElement) {
-         _this.appRoot = domElement;
-         _this.appRootDom.domElement = domElement;
+         NodeMapContext.appRoot = domElement;
+         NodeMapContext.appRootDom.domElement = domElement;
          return true;
       }
       var elem = document.querySelector(domElement);
       if (elem) {
-         _this.appRoot = elem;
-         _this.appRootDom.domElement = domElement;
+         NodeMapContext.appRoot = elem;
+         NodeMapContext.appRootDom.domElement = domElement;
          return true;
       }
       console.error("Element: " + domElement + " not found");
       return false;
    };
    this.setListener = function (listener, type) {
-      _this.appRoot.addEventListener(listener, function (e) {
+      NodeMapContext.appRoot.addEventListener(listener, function (e) {
          NodeMapContext.lookUpRegistry(e.target, type, e);
       });
    };
 
    this.setListenerEl = function (eventOb, cb, node) {
       var evnName = eventOb.eventNS;
-      node.props.ex_eventFuncName = _this.randomFuncId();
+      node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
       node.props.ex_attachedFunc = evnName;
       console.log('node', node);
-      _this.events[evnName][node.props.ex_eventFuncName] = function (e) {
+      NodeMapContext.events[evnName][node.props.ex_eventFuncName] = function (e) {
          node.props[evnName](e, node.domElement, node);
       };
-      node.domElement.addEventListener(eventOb.eventName, _this.events[evnName][node.props.ex_eventFuncName]);
+      node.domElement.addEventListener(eventOb.eventName, NodeMapContext.events[evnName][node.props.ex_eventFuncName]);
    };
 
    this.applyListener = function (listener, node) {
-      var eventInfo = _this.events[listener];
+      var eventInfo = NodeMapContext.events[listener];
       var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
       if (!eventInfo.registered && !onSelf) {
          eventInfo.registered = true;
-         _this.setListener(eventInfo.eventName, listener);
+         NodeMapContext.setListener(eventInfo.eventName, listener);
          return;
       }
       if (onSelf && !node.props.ex_eventFuncName) {
-         _this.setListenerEl(eventInfo, listener, node);
+         NodeMapContext.setListenerEl(eventInfo, listener, node);
       }
    };
 
@@ -382,7 +385,7 @@ function NodeMap() {
       var tgTrace = target.getAttribute('trace');
       var traceArray = tgTrace.split('.');
       console.log('traceArray', traceArray);
-      var vDom = _this.domComponents;
+      var vDom = NodeMapContext.domComponents;
       console.log('vDom', vDom);
       traceArray.shift();
       traceArray.map(function (itm, i) {
@@ -403,43 +406,44 @@ function NodeMap() {
    };
 
    this.WhenMounted = function (afterMountCB) {
-      _this.mountedCallbacks.push(afterMountCB);
+      NodeMapContext.mountedCallbacks.push(afterMountCB);
    };
 
    this.objectChange = function (newRender) {
-      var newOb = _this.rerender(newRender, 'Root');
+      var newOb = NodeMapContext.rerender(newRender, 'Root');
       console.log('newRender', newOb);
-      _this.updateElement(_this.domComponents, newOb);
-      _this.mountedCallbacks.forEach(function (cb) {
+      NodeMapContext.updateElement(NodeMapContext.domComponents, newOb);
+      NodeMapContext.mountedCallbacks.forEach(function (cb) {
          cb();
       });
-      _this.mountedCallbacks = [];
+      NodeMapContext.mountedCallbacks = [];
    };
 
    this.createComponent = function (obj, containerElement) {
 
-      if (_this.getElement(containerElement)) {
-         obj.domElement = _this.appRoot;
-         _this.mountApp(obj);
+      if (NodeMapContext.getElement(containerElement)) {
+         obj.domElement = NodeMapContext.appRoot;
+         NodeMapContext.mountApp(obj);
       };
    };
 
    this.viewObjects = function () {
-      console.log('appRootDom', _this.appRootDom);
-      console.log('domBranches', _this.domComponents);
-      console.log('this.events', _this.events);
+      console.log('appRootDom', NodeMapContext.appRootDom);
+      console.log('domBranches', NodeMapContext.domComponents);
+      console.log('this.events', NodeMapContext.events);
    };
 
    this.mountApp = function (obj) {
-      _this.domComponents = obj;
-      _this.appRootDom.nested.push(_this.domComponents);
-      _this.appRoot.appendChild(_this.htmlBuild(obj, "Root"));
+      NodeMapContext.domComponents = obj;
+      NodeMapContext.appRootDom.nested.push(NodeMapContext.domComponents);
+      NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
    var re = new RegExp(/^ex_/i);
    var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
       var element = document.createElement(String(name));
+
       if (!attrs) return element;
 
       for (var attr in attrs) {
@@ -521,8 +525,8 @@ function NodeMap() {
    this.diffElements = (0, _diffing2.default)(NodeMapContext, createElem);
 
    this.updateElement = function (oldNode, newNode) {
-      _this.diffElements(_this.appRootDom, newNode, oldNode);
-      _this.domComponents = Object.assign({}, oldNode, newNode);
+      NodeMapContext.diffElements(NodeMapContext.appRootDom, newNode, oldNode);
+      NodeMapContext.domComponents = Object.assign({}, oldNode, newNode);
    };
 
    this.SetState = function (data) {
@@ -570,9 +574,9 @@ function exNode(appName) {
    return new NodeMap(appName);
 }
 
-var EX = exNode('main');
+//const EX = exNode('main')
 //export default EX
-module.exports = EX;
+module.exports = exNode;
 //export { exNode }
 
 /***/ }),
