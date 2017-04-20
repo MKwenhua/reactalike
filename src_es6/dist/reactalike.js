@@ -77,228 +77,19 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var setDiff = function setDiff(self, createElem) {
-   var re = new RegExp(/^ex_/i);
-
-   function removeProp(element, attr) {
-      if (!self.events[attr] && !re.test(attr)) {
-         element.removeAttribute(attr);
-      }
-   };
-
-   function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
-         element.setAttribute(attr, val);
-      }
-   };
-
-   function updateProp(element, name, newVal, oldVal) {
-      if (!newVal) {
-         removeProp(element, name);
-         return;
-      } else if (!oldVal || newVal !== oldVal) {
-         changeProp(element, name, newVal);
-      }
-   };
-
-   function updateProps(element, newProps) {
-      var oldProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-      var props = Object.assign({}, oldProps, newProps);
-      for (var name in props) {
-         updateProp(element, name, newProps[name], oldProps[name]);
-      };
-   };
-
-   function changed(node1, node2) {
-      return (typeof node1 === 'undefined' ? 'undefined' : _typeof(node1)) !== (typeof node2 === 'undefined' ? 'undefined' : _typeof(node2)) || typeof node1 === 'string' && node1 !== node2 || node1.type !== node2.type;
-   };
-
-   function checkForEvents(node) {
-      if (node.props.ex_eventFuncName) {
-         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
-      }
-   };
-
-   function updateElement(parent, newNode, oldNode) {
-      var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-
-      if (typeof newNode === 'string' || typeof newNode === 'number' || typeof oldNode === 'string' || typeof oldNode === 'number') {
-         var vdomid = parent.props.trace + '.' + index;
-         if (changed(newNode, oldNode)) {
-            parent.domElement.replaceChild(createElem(newNode, vdomid, parent.trace), parent.domElement.childNodes[index]);
-         }
-
-         return;
-      };
-
-      if (!oldNode) {
-         var _vdomid = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, _vdomid, parent.trace);
-         parent.domElement.appendChild(newNode.domElement);
-         return;
-      };
-      if (!newNode) {
-         checkForEvents(oldNode);
-         parent.domElement.removeChild(oldNode.domElement);
-         return;
-      };
-      if (changed(newNode, oldNode)) {
-
-         var _vdomid2 = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, _vdomid2, newNode.parent);
-         var repl = typeof oldNode === 'string' ? parent.domElement.children[index] : oldNode.domElement;
-         parent.domElement.replaceChild(newNode.domElement, repl);
-
-         return;
-      };
-      if (newNode.type) {
-
-         newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
-
-         updateProps(newNode.domElement, newNode.props, oldNode.props);
-
-         var newLength = newNode.nested ? newNode.nested.length : 0;
-
-         if (typeof oldNode === 'string' || typeof oldNode === 'number') {
-            for (var i = 0; i < newLength; i++) {
-               updateElement(newNode, newNode.nested[i], null, i);
-            }
-            return updateElement;
-         };
-         oldNode.nested = oldNode.nested ? oldNode.nested : [];
-         var oldLength = oldNode.nested.length;
-
-         for (var _i = 0; _i < newLength || _i < oldLength; _i++) {
-            updateElement(oldNode, newNode.nested[_i], oldNode.nested[_i], _i);
-         }
-      }
-   };
-   return updateElement;
-};
-
-exports.default = setDiff;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-   value: true
-});
-
-var _eventlist = __webpack_require__(4);
-
-var _eventlist2 = _interopRequireDefault(_eventlist);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function extractEventName(name) {
-   return name.slice(2).toLowerCase();
-}
-
-var videoEvents = {
-   onLoadedData: {},
-   onLoadedMetadata: {},
-   onLoadStart: {},
-   onPause: {},
-   onPlay: {},
-   onPlaying: {},
-   onProgress: {},
-   onRateChange: {},
-   onSeeked: {},
-   onSeeking: {},
-   onWaiting: {},
-   onLoad: {}
-};
-
-var formEvents = {
-   onChange: {},
-   onFocus: {},
-   onBlur: {},
-   onSelect: {},
-   onSearch: {}
-};
-
-var events = _eventlist2.default.reduce(function (ob, itm) {
-   ob[itm] = {
-      registered: false,
-      eventName: extractEventName(itm),
-      eventNS: itm,
-      mediaEvent: videoEvents[itm] !== undefined,
-      formEvent: formEvents[itm] !== undefined
-   };
-   return ob;
-}, {});
-
-exports.default = events;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _flatten = function _flatten(a, b) {
-   return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
-};
-
-function flattenIteration(arr, flatArr) {
-   flatArr = flatArr || [];
-
-   var length = arr.length | 0;
-
-   for (var index = 0; index < length; index = index + 1) {
-      var item = arr[index];
-      item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
-   }
-
-   return flatArr;
-}
-module.exports = {
-   smoothArray: function smoothArray() {
-      return function (nested) {
-         // if( Array.isArray(nested) ) return [];
-
-         return nested.reduce(_flatten, []).filter(function (ne) {
-            return ne !== null && ne !== undefined;
-         });
-      };
-   },
-   flatten: function flatten(nested) {
-      return nested.reduce(_flatten, []);
-   },
-   capitalize: function capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-   }
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _events = __webpack_require__(1);
+var _events = __webpack_require__(2);
 
 var _events2 = _interopRequireDefault(_events);
 
-var _diffing = __webpack_require__(0);
+var _diffing = __webpack_require__(1);
 
 var _diffing2 = _interopRequireDefault(_diffing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var handyHelpers = __webpack_require__(2);
+var handyHelpers = __webpack_require__(5);
 var smoothNested = handyHelpers.smoothArray();
 var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
    return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
@@ -576,8 +367,195 @@ function exNode(appName) {
 
 //const EX = exNode('main')
 //export default EX
-exports = exNode;
-//export { exNode }
+//exports = exNode
+exports.default = exNode;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var setDiff = function setDiff(self, createElem) {
+   var re = new RegExp(/^ex_/i);
+
+   function removeProp(element, attr) {
+      if (!self.events[attr] && !re.test(attr)) {
+         element.removeAttribute(attr);
+      }
+   };
+
+   function changeProp(element, attr, val) {
+      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
+         element.setAttribute(attr, val);
+      }
+   };
+
+   function updateProp(element, name, newVal, oldVal) {
+      if (!newVal) {
+         removeProp(element, name);
+         return;
+      } else if (!oldVal || newVal !== oldVal) {
+         changeProp(element, name, newVal);
+      }
+   };
+
+   function updateProps(element, newProps) {
+      var oldProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      var props = Object.assign({}, oldProps, newProps);
+      for (var name in props) {
+         updateProp(element, name, newProps[name], oldProps[name]);
+      };
+   };
+
+   function changed(node1, node2) {
+      return (typeof node1 === 'undefined' ? 'undefined' : _typeof(node1)) !== (typeof node2 === 'undefined' ? 'undefined' : _typeof(node2)) || typeof node1 === 'string' && node1 !== node2 || node1.type !== node2.type;
+   };
+
+   function checkForEvents(node) {
+      if (node.props.ex_eventFuncName) {
+         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      }
+   };
+
+   function updateElement(parent, newNode, oldNode) {
+      var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+      if (typeof newNode === 'string' || typeof newNode === 'number' || typeof oldNode === 'string' || typeof oldNode === 'number') {
+         var vdomid = parent.props.trace + '.' + index;
+         if (changed(newNode, oldNode)) {
+            parent.domElement.replaceChild(createElem(newNode, vdomid, parent.trace), parent.domElement.childNodes[index]);
+         }
+
+         return;
+      };
+
+      if (!oldNode) {
+         var _vdomid = parent.props.trace + '.' + index;
+         newNode.domElement = createElem(newNode, _vdomid, parent.trace);
+         parent.domElement.appendChild(newNode.domElement);
+         return;
+      };
+      if (!newNode) {
+         checkForEvents(oldNode);
+         parent.domElement.removeChild(oldNode.domElement);
+         return;
+      };
+      if (changed(newNode, oldNode)) {
+
+         var _vdomid2 = parent.props.trace + '.' + index;
+         newNode.domElement = createElem(newNode, _vdomid2, newNode.parent);
+         var repl = typeof oldNode === 'string' ? parent.domElement.children[index] : oldNode.domElement;
+         parent.domElement.replaceChild(newNode.domElement, repl);
+
+         return;
+      };
+      if (newNode.type) {
+
+         newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
+
+         updateProps(newNode.domElement, newNode.props, oldNode.props);
+
+         var newLength = newNode.nested ? newNode.nested.length : 0;
+
+         if (typeof oldNode === 'string' || typeof oldNode === 'number') {
+            for (var i = 0; i < newLength; i++) {
+               updateElement(newNode, newNode.nested[i], null, i);
+            }
+            return updateElement;
+         };
+         oldNode.nested = oldNode.nested ? oldNode.nested : [];
+         var oldLength = oldNode.nested.length;
+
+         for (var _i = 0; _i < newLength || _i < oldLength; _i++) {
+            updateElement(oldNode, newNode.nested[_i], oldNode.nested[_i], _i);
+         }
+      }
+   };
+   return updateElement;
+};
+
+exports.default = setDiff;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _eventlist = __webpack_require__(4);
+
+var _eventlist2 = _interopRequireDefault(_eventlist);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function extractEventName(name) {
+   return name.slice(2).toLowerCase();
+}
+
+var videoEvents = {
+   onLoadedData: {},
+   onLoadedMetadata: {},
+   onLoadStart: {},
+   onPause: {},
+   onPlay: {},
+   onPlaying: {},
+   onProgress: {},
+   onRateChange: {},
+   onSeeked: {},
+   onSeeking: {},
+   onWaiting: {},
+   onLoad: {}
+};
+
+var formEvents = {
+   onChange: {},
+   onFocus: {},
+   onBlur: {},
+   onSelect: {},
+   onSearch: {}
+};
+
+var events = _eventlist2.default.reduce(function (ob, itm) {
+   ob[itm] = {
+      registered: false,
+      eventName: extractEventName(itm),
+      eventNS: itm,
+      mediaEvent: videoEvents[itm] !== undefined,
+      formEvent: formEvents[itm] !== undefined
+   };
+   return ob;
+}, {});
+
+exports.default = events;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _ex = __webpack_require__(0);
+
+var _ex2 = _interopRequireDefault(_ex);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = _ex2.default;
 
 /***/ }),
 /* 4 */
@@ -592,6 +570,47 @@ Object.defineProperty(exports, "__esModule", {
 var EventList = ["onCopy", "onCut", "onPaste", "onKeyDown", "onKeyPress", "onKeyUp", "onFocus", "onBlur", "onChange", "onInput", "onSubmit", "onClick", "onContextMenu", "onDoubleClick", "onDrag", "onDragEnd", "onDragEnter", "onDragExit", "onDragLeave", "onDragOver", "onDragStart", "onDrop", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp", "onSelect", "onScroll", "onAbort", "onCanPlay", "onCanPlayThrough", "onDurationChange", "onEmptied", "onEnded", "onError", "onLoadedData", "onLoadedMetadata", "onLoadStart", "onPause", "onPlay", "onPlaying", "onProgress", "onRateChange", "onSeeked", "onSeeking", "onWaiting", "onLoad", "onError", "onAnimationStart", "onAnimationEnd", "onAnimationIteration", "onTransitionEnd"];
 
 exports.default = EventList;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _flatten = function _flatten(a, b) {
+   return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
+};
+
+function flattenIteration(arr, flatArr) {
+   flatArr = flatArr || [];
+
+   var length = arr.length | 0;
+
+   for (var index = 0; index < length; index = index + 1) {
+      var item = arr[index];
+      item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
+   }
+
+   return flatArr;
+}
+module.exports = {
+   smoothArray: function smoothArray() {
+      return function (nested) {
+         // if( Array.isArray(nested) ) return [];
+
+         return nested.reduce(_flatten, []).filter(function (ne) {
+            return ne !== null && ne !== undefined;
+         });
+      };
+   },
+   flatten: function flatten(nested) {
+      return nested.reduce(_flatten, []);
+   },
+   capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+   }
+};
 
 /***/ })
 /******/ ]);
