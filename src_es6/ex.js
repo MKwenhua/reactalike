@@ -271,7 +271,7 @@ function exNode(appName) {
    return new NodeMap(appName);
 }
 
-const EX = exNode('main')
+//const EX = exNode('main')
 //export default EX
-module.exports = EX
+module.exports = exNode
 //export { exNode }
