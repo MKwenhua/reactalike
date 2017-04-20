@@ -125,7 +125,7 @@ function NodeMap(appTitle = 'default') {
          NodeMapContext.mountApp(obj);
       };
    };
- 
+
    this.viewObjects = () => {
       console.log('appRootDom', NodeMapContext.appRootDom);
       console.log('domBranches', NodeMapContext.domComponents);
@@ -271,7 +271,8 @@ function exNode(appName) {
    return new NodeMap(appName);
 }
 
-//const EX = exNode('main')
-//export default EX
+const EX = exNode('main')
+export default EX
 //exports = exNode
-export default exNode 
+// export default exNode/
+module.exports = exNode
