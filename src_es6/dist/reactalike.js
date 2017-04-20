@@ -576,7 +576,7 @@ function exNode(appName) {
 
 //const EX = exNode('main')
 //export default EX
-module.exports = exNode;
+exports = exNode;
 //export { exNode }
 
 /***/ }),
