@@ -2,6 +2,7 @@ import events from "./events.js";
 import setDiff from "./diffing.js";
 const handyHelpers = require("./lib/handy_funcs.js");
 const smoothNested = handyHelpers.smoothArray();
+const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 const formTags = {
    textarea: true,
    select: true,
@@ -33,21 +34,21 @@ function NodeMap(appTitle = 'default') {
 
    this.getElement = (domElement) => {
       if (domElement instanceof HTMLElement) {
-         this.appRoot = domElement;
-         this.appRootDom.domElement = domElement;
+         NodeMapContext.appRoot = domElement;
+         NodeMapContext.appRootDom.domElement = domElement;
          return true;
       }
       let elem = document.querySelector(domElement);
       if (elem) {
-         this.appRoot = elem;
-         this.appRootDom.domElement = domElement;
+         NodeMapContext.appRoot = elem;
+         NodeMapContext.appRootDom.domElement = domElement;
          return true;
       }
       console.error("Element: " + domElement + " not found");
       return false;
    };
    this.setListener = (listener, type) => {
-      this.appRoot.addEventListener(listener, (e) => {
+      NodeMapContext.appRoot.addEventListener(listener, (e) => {
          NodeMapContext.lookUpRegistry(e.target, type, e);
       });
 
@@ -55,26 +56,26 @@ function NodeMap(appTitle = 'default') {
 
    this.setListenerEl = (eventOb, cb, node) => {
       let evnName = eventOb.eventNS;
-      node.props.ex_eventFuncName = this.randomFuncId();
+      node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
       node.props.ex_attachedFunc = evnName;
       console.log('node', node);
-      this.events[evnName][node.props.ex_eventFuncName] = (e) => {
+      NodeMapContext.events[evnName][node.props.ex_eventFuncName] = (e) => {
          node.props[evnName](e, node.domElement, node);
       };
-      node.domElement.addEventListener(eventOb.eventName, this.events[evnName][node.props.ex_eventFuncName]);
+      node.domElement.addEventListener(eventOb.eventName, NodeMapContext.events[evnName][node.props.ex_eventFuncName]);
 
    };
 
    this.applyListener = (listener, node) => {
-      let eventInfo = this.events[listener];
+      let eventInfo = NodeMapContext.events[listener];
       let onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
       if (!eventInfo.registered && !onSelf) {
          eventInfo.registered = true;
-         this.setListener(eventInfo.eventName, listener);
+         NodeMapContext.setListener(eventInfo.eventName, listener);
          return
       }
       if (onSelf && !node.props.ex_eventFuncName) {
-         this.setListenerEl(eventInfo, listener, node)
+         NodeMapContext.setListenerEl(eventInfo, listener, node)
       }
    };
 
@@ -82,7 +83,7 @@ function NodeMap(appTitle = 'default') {
       let tgTrace = target.getAttribute('trace');
       let traceArray = tgTrace.split('.');
       console.log('traceArray', traceArray);
-      let vDom = this.domComponents;
+      let vDom = NodeMapContext.domComponents;
       console.log('vDom', vDom);
       traceArray.shift()
       traceArray.map((itm, i) => {
@@ -104,46 +105,46 @@ function NodeMap(appTitle = 'default') {
    };
 
    this.WhenMounted = (afterMountCB) => {
-      this.mountedCallbacks.push(afterMountCB);
+      NodeMapContext.mountedCallbacks.push(afterMountCB);
    };
 
    this.objectChange = (newRender) => {
-      let newOb = this.rerender(newRender, 'Root');
+      let newOb = NodeMapContext.rerender(newRender, 'Root');
       console.log('newRender', newOb);
-      this.updateElement(this.domComponents, newOb)
-      this.mountedCallbacks.forEach((cb) => {
+      NodeMapContext.updateElement(NodeMapContext.domComponents, newOb)
+      NodeMapContext.mountedCallbacks.forEach((cb) => {
          cb();
       });
-      this.mountedCallbacks = [];
+      NodeMapContext.mountedCallbacks = [];
    };
 
    this.createComponent = (obj, containerElement) => {
 
-      if (this.getElement(containerElement)) {
-         obj.domElement = this.appRoot;
-         this.mountApp(obj);
+      if (NodeMapContext.getElement(containerElement)) {
+         obj.domElement = NodeMapContext.appRoot;
+         NodeMapContext.mountApp(obj);
       };
    };
-
+ 
    this.viewObjects = () => {
-      console.log('appRootDom', this.appRootDom);
-      console.log('domBranches', this.domComponents);
-      console.log('this.events', this.events);
+      console.log('appRootDom', NodeMapContext.appRootDom);
+      console.log('domBranches', NodeMapContext.domComponents);
+      console.log('this.events', NodeMapContext.events);
 
    };
 
    this.mountApp = (obj) => {
-      this.domComponents = obj;
-      this.appRootDom.nested.push(this.domComponents);
-      this.appRoot.appendChild(this.htmlBuild(obj, "Root"));
+      NodeMapContext.domComponents = obj;
+      NodeMapContext.appRootDom.nested.push(NodeMapContext.domComponents);
+      NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
-   let re = new RegExp(/^ex_/i)
-   let isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
+   const re = new RegExp(/^ex_/i)
+   const isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
       var element = document.createElement(String(name));
-      if (!attrs)
-         return element;
+
+      if (!attrs) return element;
 
       for (let attr in attrs) {
          if (!NodeMapContext.events[attr] && !re.test(attr)) {
@@ -156,8 +157,7 @@ function NodeMap(appTitle = 'default') {
    this.createElementNS = function createElementNS(name, attrs) {
       var element = document.createElementNS('http://www.w3.org/2000/svg', name);
 
-      if (!attrs)
-         return element;
+      if (!attrs) return element;
 
       for (let attr in attrs) {
          if (!NodeMapContext.events[attr] && !re.test(attr)) {
@@ -169,7 +169,7 @@ function NodeMap(appTitle = 'default') {
 
    const createElem = (node, group, parent) => {
 
-      if (typeof node === 'string' || typeof node === 'number' || (typeof node !== "object" && node !== null && node !== undefined)) {
+      if (typeof node === 'string' || typeof node === 'number' || (typeof node === "undefined" ? "undefined" : _typeof(node)) !== "object" && node !== null && node !== undefined) {
 
          return document.createTextNode(node);
       }
@@ -199,7 +199,7 @@ function NodeMap(appTitle = 'default') {
    };
 
    const reRenderElem = (node, group, parent) => {
-      if (typeof node === 'string' || typeof node === 'number' || (typeof node !== "object" && node !== null && node !== undefined)) {
+      if (typeof node === 'string' || typeof node === 'number' || (typeof node === "undefined" ? "undefined" : _typeof(node)) !== "object" && node !== null && node !== undefined) {
          return node;
       }
 
@@ -227,8 +227,8 @@ function NodeMap(appTitle = 'default') {
    this.diffElements = setDiff(NodeMapContext, createElem);
 
    this.updateElement = (oldNode, newNode) => {
-      this.diffElements(this.appRootDom, newNode, oldNode);
-      this.domComponents = Object.assign({}, oldNode, newNode);
+      NodeMapContext.diffElements(NodeMapContext.appRootDom, newNode, oldNode);
+      NodeMapContext.domComponents = Object.assign({}, oldNode, newNode);
    }
 
    this.SetState = (data) => {
@@ -271,7 +271,7 @@ function exNode(appName) {
    return new NodeMap(appName);
 }
 
-//const EX = exNode('main')
-//export default EX
-module.exports = exNode
-//export { exNode }
+const EX = exNode('main')
+export default EX
+//module.exports = exNode
+export { exNode }
