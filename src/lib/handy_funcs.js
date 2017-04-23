@@ -19,7 +19,6 @@ function flattenIteration(arr, flatArr) {
 module.exports = {
    smoothArray: function smoothArray() {
       return function (nested) {
-         // if( Array.isArray(nested) ) return [];
 
          return nested.reduce(_flatten, []).filter(function (ne) {
             return ne !== null && ne !== undefined;
