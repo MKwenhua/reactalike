@@ -1,4 +1,4 @@
-const EX = require("../../src/ex.js");
+import EX, { exNode }  from '../../index.js';
 
 const NameTag = EX.component({
   componentName: 'nametag',
@@ -24,11 +24,11 @@ let AppState = {
   {
     name: 'Pete',
     job: 'Orderly Drifter'
-  }, 
+  },
   {
     name: 'Bing Bing',
     job: 'works at 呷哺呷哺'
-  }, 
+  },
   {
     name: 'Jackie',
     job: 'Movie Star'

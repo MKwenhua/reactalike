@@ -273,6 +273,4 @@ function exNode(appName) {
 
 const EX = exNode('main')
 export default EX
-//exports = exNode
-// export default exNode/
-module.exports = exNode
+export { exNode }

@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["exNode"] = factory();
-	else
-		root["exNode"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -299,6 +290,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
+exports.exNode = undefined;
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -590,10 +582,7 @@ function exNode(appName) {
 
 var EX = exNode('main');
 exports.default = EX;
-//exports = exNode
-// export default exNode/
-
-module.exports = exNode;
+exports.exNode = exNode;
 
 /***/ }),
 /* 4 */
@@ -611,4 +600,3 @@ exports.default = EventList;
 
 /***/ })
 /******/ ]);
-});
