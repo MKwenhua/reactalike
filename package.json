@@ -1,6 +1,6 @@
 {
   "name": "reactalike",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "\"React-like library I made\"",
   "main": "index.js",
   "scripts": {
