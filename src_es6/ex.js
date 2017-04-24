@@ -252,10 +252,20 @@ NodeMap.prototype.component = (obj) => {
    }
 };
 
+NodeMap.prototype.Component = function Component(props) {
+    this.props = props;
+}
+
 NodeMap.prototype.node = (type, props = {}, ...nested) => {
+   console.log('EX.node', type)
+
    if (typeof type === "function") {
+      if (type.__proto__.name === 'Component') {
+        return new type(props).render()
+      }
       return type(props);
    }
+
    if (nested) {
       nested = smoothNested(nested);
    } else {

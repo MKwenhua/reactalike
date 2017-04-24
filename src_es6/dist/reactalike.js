@@ -265,7 +265,6 @@ function flattenIteration(arr, flatArr) {
 module.exports = {
    smoothArray: function smoothArray() {
       return function (nested) {
-         // if( Array.isArray(nested) ) return [];
 
          return nested.reduce(_flatten, []).filter(function (ne) {
             return ne !== null && ne !== undefined;
@@ -555,6 +554,10 @@ NodeMap.prototype.component = function (obj) {
    }
 };
 
+NodeMap.prototype.Component = function Component(props) {
+   this.props = props;
+};
+
 NodeMap.prototype.node = function (type) {
    for (var _len = arguments.length, nested = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
       nested[_key - 2] = arguments[_key];
@@ -562,9 +565,15 @@ NodeMap.prototype.node = function (type) {
 
    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
+   console.log('EX.node', type);
+
    if (typeof type === "function") {
+      if (type.__proto__.name === 'Component') {
+         return new type(props).render();
+      }
       return type(props);
    }
+
    if (nested) {
       nested = smoothNested(nested);
    } else {
