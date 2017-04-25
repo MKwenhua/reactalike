@@ -424,7 +424,7 @@ function NodeMap() {
       NodeMapContext.mountedCallbacks = [];
    };
 
-   this.mountToNode = function (AppContainer, containerElement) {
+   this.mountAppToNode = function (AppContainer, containerElement) {
       NodeMapContext.rootComponent = AppContainer;
       if (NodeMapContext.getElement(containerElement)) {
          var appRender = AppContainer.render();
