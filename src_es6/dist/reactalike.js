@@ -424,11 +424,12 @@ function NodeMap() {
       NodeMapContext.mountedCallbacks = [];
    };
 
-   this.createComponent = function (obj, containerElement) {
-
+   this.mountAppToNode = function (AppContainer, containerElement) {
+      NodeMapContext.rootComponent = AppContainer;
       if (NodeMapContext.getElement(containerElement)) {
-         obj.domElement = NodeMapContext.appRoot;
-         NodeMapContext.mountApp(obj);
+         var appRender = AppContainer.render();
+         appRender.domElement = NodeMapContext.appRoot;
+         NodeMapContext.mountApp(appRender);
       };
    };
 

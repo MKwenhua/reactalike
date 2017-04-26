@@ -118,11 +118,12 @@ function NodeMap(appTitle = 'default') {
       NodeMapContext.mountedCallbacks = [];
    };
 
-   this.createComponent = (obj, containerElement) => {
-
+   this.mountAppToNode = (AppContainer, containerElement) => {
+      NodeMapContext.rootComponent = AppContainer;
       if (NodeMapContext.getElement(containerElement)) {
-         obj.domElement = NodeMapContext.appRoot;
-         NodeMapContext.mountApp(obj);
+         const appRender = AppContainer.render()
+         appRender.domElement = NodeMapContext.appRoot;
+         NodeMapContext.mountApp(appRender);
       };
    };
 
