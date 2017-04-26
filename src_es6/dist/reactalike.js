@@ -426,6 +426,14 @@ function NodeMap() {
 
    this.mountAppToNode = function (AppContainer, containerElement) {
       NodeMapContext.rootComponent = AppContainer;
+      AppContainer.state = AppContainer.state ? AppContainer.state : {};
+      NodeMapContext.SetState = function () {
+         return function (payload) {
+            AppContainer.state = Object.assign({}, AppContainer.state, payload);
+            NodeMapContext.objectChange(AppContainer.render());
+         };
+      }();
+
       if (NodeMapContext.getElement(containerElement)) {
          var appRender = AppContainer.render();
          appRender.domElement = NodeMapContext.appRoot;
@@ -533,10 +541,6 @@ function NodeMap() {
    this.updateElement = function (oldNode, newNode) {
       NodeMapContext.diffElements(NodeMapContext.appRootDom, newNode, oldNode);
       NodeMapContext.domComponents = Object.assign({}, oldNode, newNode);
-   };
-
-   this.SetState = function (data) {
-      console.log('not yet set');
    };
 };
 
