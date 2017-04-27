@@ -1371,11 +1371,11 @@ module.exports =
    };
 
    NodeMap.prototype.Component = function Component(props) {
-      this.props = props;
+      this.props = props || {};
    };
 
    NodeMap.prototype.Container = function Container(props) {
-      this.props = props;
+      this.props = props || {};
    };
 
    NodeMap.prototype.node = function (type) {
