@@ -1420,7 +1420,7 @@ module.exports =
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+   value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1446,47 +1446,45 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Layout = function (_EX$Container) {
-  _inherits(Layout, _EX$Container);
+   _inherits(Layout, _EX$Container);
 
-  function Layout() {
-    _classCallCheck(this, Layout);
+   function Layout() {
+      _classCallCheck(this, Layout);
 
-    return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
-  }
+      return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
+   }
 
-  _createClass(Layout, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          dispatch = _props.dispatch,
-          store = _props.store;
-      var guests = store.guests;
+   _createClass(Layout, [{
+      key: 'render',
+      value: function render() {
+         var _props = this.props,
+             dispatch = _props.dispatch,
+             store = _props.store;
+         var guests = store.guests;
 
 
-      var ppl = guests.map(function (itm, ii) {
-        return _reactalikeSource2.default.node(_name_tag2.default, { ex_person: itm });
-      });
-      return _reactalikeSource2.default.node(
-        'div',
-        { 'class': 'container' },
-        _reactalikeSource2.default.node(
-          'div',
-          { 'class': 'col-md-10' },
-          ppl
-        ),
-        _reactalikeSource2.default.node(
-          'div',
-          { 'class': 'col-md-2' },
-          _reactalikeSource2.default.node(_side_edit2.default, { ex_dispatch: dispatch })
-        )
-      );
-    }
-  }]);
+         var ppl = guests.map(function (itm, ii) {
+            return _reactalikeSource2.default.node(_name_tag2.default, { ex_person: itm });
+         });
+         return _reactalikeSource2.default.node(
+            'div',
+            { 'class': 'container' },
+            _reactalikeSource2.default.node(
+               'div',
+               { 'class': 'col-md-10' },
+               ppl
+            ),
+            _reactalikeSource2.default.node(
+               'div',
+               { 'class': 'col-md-2' },
+               _reactalikeSource2.default.node(_side_edit2.default, { ex_dispatch: dispatch })
+            )
+         );
+      }
+   }]);
 
-  return Layout;
+   return Layout;
 }(_reactalikeSource2.default.Container);
-
-;
 
 exports.default = Layout;
 
@@ -1498,7 +1496,7 @@ exports.default = Layout;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+   value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1512,35 +1510,41 @@ var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AppState = {
-  view: 'list_view',
-  guests: [{
-    name: 'Pete',
-    job: 'Orderly Drifter'
-  }, {
-    name: 'Bing Bing',
-    job: 'works at 呷哺呷哺'
-  }, {
-    name: 'Jackie',
-    job: 'Movie Star'
-  }, {
-    name: 'Bachman',
-    job: 'chief innovation officer'
-  }]
+   view: 'list_view',
+   guests: [{
+      name: 'Pete',
+      job: 'Orderly Drifter'
+   }, {
+      name: 'Bing Bing',
+      job: 'works at 呷哺呷哺'
+   }, {
+      name: 'Jackie',
+      job: 'Movie Star'
+   }, {
+      name: 'Bachman',
+      job: 'chief innovation officer'
+   }]
 };
 function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : AppState;
-  var action = arguments[1];
+   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : AppState;
+   var action = arguments[1];
 
-  switch (action.type) {
-    case 'ADD_GUEST':
-      return _extends({}, state, { guests: action.payload });
-    case 'REMOVE_GUEST':
-      return _extends({}, state, { guests: action.payload });
-    case 'VIEW_CHANGE':
-      return _extends({}, state, { view: action.payload });
-    default:
-      return state;
-  }
+   switch (action.type) {
+      case 'ADD_GUEST':
+         return _extends({}, state, {
+            guests: action.payload
+         });
+      case 'REMOVE_GUEST':
+         return _extends({}, state, {
+            guests: action.payload
+         });
+      case 'VIEW_CHANGE':
+         return _extends({}, state, {
+            view: action.payload
+         });
+      default:
+         return state;
+   }
 }
 
 var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxLogger2.default));
@@ -3011,7 +3015,7 @@ function symbolObservablePonyfill(root) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+   value: true
 });
 
 var _reactalikeSource = __webpack_require__(0);
@@ -3021,37 +3025,37 @@ var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var NameTag = _reactalikeSource2.default.component({
-  componentName: 'nametag',
-  componentRender: function componentRender(props) {
-    return _reactalikeSource2.default.node(
-      'div',
-      { 'class': 'padd-center' },
-      _reactalikeSource2.default.node(
-        'div',
-        { 'class': 'tag' },
-        _reactalikeSource2.default.node(
-          'header',
-          null,
-          _reactalikeSource2.default.node(
+   componentName: 'nametag',
+   componentRender: function componentRender(props) {
+      return _reactalikeSource2.default.node(
+         'div',
+         { 'class': 'padd-center' },
+         _reactalikeSource2.default.node(
             'div',
-            { 'class': 'hello' },
-            'HELLO'
-          )
-        ),
-        _reactalikeSource2.default.node(
-          'div',
-          { 'class': 'mynameis' },
-          'my name is'
-        ),
-        _reactalikeSource2.default.node(
-          'div',
-          { 'class': 'my-name-is' },
-          props.ex_person.name
-        ),
-        _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
-      )
-    );
-  }
+            { 'class': 'tag' },
+            _reactalikeSource2.default.node(
+               'header',
+               null,
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': 'hello' },
+                  'HELLO'
+               )
+            ),
+            _reactalikeSource2.default.node(
+               'div',
+               { 'class': 'mynameis' },
+               'my name is'
+            ),
+            _reactalikeSource2.default.node(
+               'div',
+               { 'class': 'my-name-is' },
+               props.ex_person.name
+            ),
+            _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
+         )
+      );
+   }
 });
 
 exports.default = NameTag;
@@ -3064,7 +3068,7 @@ exports.default = NameTag;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+   value: true
 });
 
 var _reactalikeSource = __webpack_require__(0);
@@ -3074,31 +3078,31 @@ var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SideEdit = _reactalikeSource2.default.component({
-  componentName: 'SideEdit',
-  componentRender: function componentRender(props) {
-    var ex_dispatch = props.ex_dispatch;
+   componentName: 'SideEdit',
+   componentRender: function componentRender(props) {
+      var ex_dispatch = props.ex_dispatch;
 
-    return _reactalikeSource2.default.node(
-      'section',
-      null,
-      _reactalikeSource2.default.node(
-        'h4',
-        null,
-        'Edit'
-      ),
-      _reactalikeSource2.default.node(
-        'div',
-        { 'class': 'row' },
-        _reactalikeSource2.default.node(
-          'button',
-          { 'class': 'btn btn-info', onClick: function onClick() {
-              return ex_dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
-            } },
-          'Add NameTag'
-        )
-      )
-    );
-  }
+      return _reactalikeSource2.default.node(
+         'section',
+         null,
+         _reactalikeSource2.default.node(
+            'h4',
+            null,
+            'Edit'
+         ),
+         _reactalikeSource2.default.node(
+            'div',
+            { 'class': 'row' },
+            _reactalikeSource2.default.node(
+               'button',
+               { 'class': 'btn btn-info', onClick: function onClick() {
+                     return ex_dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
+                  } },
+               'Add NameTag'
+            )
+         )
+      );
+   }
 });
 
 exports.default = SideEdit;
