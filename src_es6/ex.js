@@ -15,6 +15,7 @@ function NodeMap(appTitle = 'default') {
    this.appTitle = appTitle;
    this.domComponents = {};
    this.rootComponent = null;
+   this.devEnv = true;
    this.appRootDom = {
       domElement: null,
       nested: []
@@ -110,7 +111,9 @@ function NodeMap(appTitle = 'default') {
 
    this.objectChange = (newRender) => {
       let newOb = NodeMapContext.rerender(newRender, 'Root');
-      console.log('newRender', newOb);
+      if (NodeMapContext.devEnv) {
+        console.log('%c New Render:', 'color: lime; font-weight: bold;', newOb);
+      }
       NodeMapContext.updateElement(NodeMapContext.domComponents, newOb)
       NodeMapContext.mountedCallbacks.forEach((cb) => {
          cb();
@@ -135,11 +138,37 @@ function NodeMap(appTitle = 'default') {
       };
    };
 
-   this.viewObjects = () => {
-      console.log('appRootDom', NodeMapContext.appRootDom);
-      console.log('domBranches', NodeMapContext.domComponents);
-      console.log('this.events', NodeMapContext.events);
+   function Provider(component,store, context) {
+     component.__proto__.name === 'Container'
 
+     let initialProps = Object.assign({
+        dispatch: store.dispatch,
+        store: store.getState()
+      })
+      let compInstance = component.__proto__.name === 'Container' ?  new component(initialProps) : Object.assign(component, {props: initialProps})
+
+
+
+     store.subscribe(() =>  {
+      compInstance.props = Object.assign(
+        compInstance.props,
+        {
+         dispatch: store.dispatch,
+         store: store.getState()
+       })
+      context.objectChange(compInstance.render());
+     })
+     return compInstance
+   }
+
+   this.ReduxConnect = (component,store) => {
+      return new Provider(component,store, NodeMapContext)
+   }
+
+   this.viewObjects = () => {
+      console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
+      console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
+      console.log('this.events', NodeMapContext.events);
    };
 
    this.mountApp = (obj) => {
@@ -258,6 +287,10 @@ NodeMap.prototype.component = (obj) => {
 };
 
 NodeMap.prototype.Component = function Component(props) {
+    this.props = props;
+}
+
+NodeMap.prototype.Container = function Container(props) {
     this.props = props;
 }
 

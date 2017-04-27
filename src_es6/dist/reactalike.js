@@ -324,6 +324,7 @@ function NodeMap() {
    this.appTitle = appTitle;
    this.domComponents = {};
    this.rootComponent = null;
+   this.devEnv = true;
    this.appRootDom = {
       domElement: null,
       nested: []
@@ -416,7 +417,9 @@ function NodeMap() {
 
    this.objectChange = function (newRender) {
       var newOb = NodeMapContext.rerender(newRender, 'Root');
-      console.log('newRender', newOb);
+      if (NodeMapContext.devEnv) {
+         console.log('%c New Render:', 'color: lime; font-weight: bold;', newOb);
+      }
       NodeMapContext.updateElement(NodeMapContext.domComponents, newOb);
       NodeMapContext.mountedCallbacks.forEach(function (cb) {
          cb();
@@ -441,9 +444,32 @@ function NodeMap() {
       };
    };
 
+   function Provider(component, store, context) {
+      component.__proto__.name === 'Container';
+
+      var initialProps = Object.assign({
+         dispatch: store.dispatch,
+         store: store.getState()
+      });
+      var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
+
+      store.subscribe(function () {
+         compInstance.props = Object.assign(compInstance.props, {
+            dispatch: store.dispatch,
+            store: store.getState()
+         });
+         context.objectChange(compInstance.render());
+      });
+      return compInstance;
+   }
+
+   this.ReduxConnect = function (component, store) {
+      return new Provider(component, store, NodeMapContext);
+   };
+
    this.viewObjects = function () {
-      console.log('appRootDom', NodeMapContext.appRootDom);
-      console.log('domBranches', NodeMapContext.domComponents);
+      console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
+      console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
       console.log('this.events', NodeMapContext.events);
    };
 
@@ -560,6 +586,10 @@ NodeMap.prototype.component = function (obj) {
 };
 
 NodeMap.prototype.Component = function Component(props) {
+   this.props = props;
+};
+
+NodeMap.prototype.Container = function Container(props) {
    this.props = props;
 };
 
