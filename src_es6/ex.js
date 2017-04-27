@@ -1,5 +1,6 @@
 import events from "./events.js";
 import setDiff from "./diffing.js";
+import Provider from "./lib/redux_wrapper"
 const handyHelpers = require("./lib/handy_funcs.js");
 const smoothNested = handyHelpers.smoothArray();
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -137,29 +138,6 @@ function NodeMap(appTitle = 'default') {
          NodeMapContext.mountApp(appRender);
       };
    };
-
-   function Provider(component,store, context) {
-     component.__proto__.name === 'Container'
-
-     let initialProps = Object.assign({
-        dispatch: store.dispatch,
-        store: store.getState()
-      })
-      let compInstance = component.__proto__.name === 'Container' ?  new component(initialProps) : Object.assign(component, {props: initialProps})
-
-
-
-     store.subscribe(() =>  {
-      compInstance.props = Object.assign(
-        compInstance.props,
-        {
-         dispatch: store.dispatch,
-         store: store.getState()
-       })
-      context.objectChange(compInstance.render());
-     })
-     return compInstance
-   }
 
    this.ReduxConnect = (component,store) => {
       return new Provider(component,store, NodeMapContext)

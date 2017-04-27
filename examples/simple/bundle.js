@@ -821,7 +821,7 @@ module.exports =
    /******/__webpack_require__.p = "";
    /******/
    /******/ // Load entry module and return exports
-   /******/return __webpack_require__(__webpack_require__.s = 3);
+   /******/return __webpack_require__(__webpack_require__.s = 4);
    /******/
 }(
 /************************************************************************/
@@ -954,7 +954,7 @@ module.exports =
       value: true
    });
 
-   var _eventlist = __webpack_require__(4);
+   var _eventlist = __webpack_require__(5);
 
    var _eventlist2 = _interopRequireDefault(_eventlist);
 
@@ -1052,6 +1052,37 @@ module.exports =
    Object.defineProperty(exports, "__esModule", {
       value: true
    });
+   function Provider(component, store, context) {
+
+      var initialProps = Object.assign({
+         dispatch: store.dispatch,
+         store: store.getState()
+      });
+      var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
+
+      store.subscribe(function () {
+         compInstance.props = Object.assign(compInstance.props, {
+            dispatch: store.dispatch,
+            store: store.getState()
+         });
+         context.objectChange(compInstance.render());
+      });
+
+      return compInstance;
+   }
+
+   exports.default = Provider;
+
+   /***/
+},
+/* 4 */
+/***/function (module, exports, __webpack_require__) {
+
+   "use strict";
+
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
    exports.exNode = undefined;
 
    var _typeof2 = typeof Symbol === "function" && _typeof3(Symbol.iterator) === "symbol" ? function (obj) {
@@ -1067,6 +1098,10 @@ module.exports =
    var _diffing = __webpack_require__(0);
 
    var _diffing2 = _interopRequireDefault(_diffing);
+
+   var _redux_wrapper = __webpack_require__(3);
+
+   var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
 
    function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : { default: obj };
@@ -1213,27 +1248,8 @@ module.exports =
          };
       };
 
-      function Provider(component, store, context) {
-         component.__proto__.name === 'Container';
-
-         var initialProps = Object.assign({
-            dispatch: store.dispatch,
-            store: store.getState()
-         });
-         var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
-
-         store.subscribe(function () {
-            compInstance.props = Object.assign(compInstance.props, {
-               dispatch: store.dispatch,
-               store: store.getState()
-            });
-            context.objectChange(compInstance.render());
-         });
-         return compInstance;
-      }
-
       this.ReduxConnect = function (component, store) {
-         return new Provider(component, store, NodeMapContext);
+         return new _redux_wrapper2.default(component, store, NodeMapContext);
       };
 
       this.viewObjects = function () {
@@ -1397,7 +1413,7 @@ module.exports =
 
    /***/
 },
-/* 4 */
+/* 5 */
 /***/function (module, exports, __webpack_require__) {
 
    "use strict";
