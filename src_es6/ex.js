@@ -1,5 +1,6 @@
 import events from "./events.js";
 import setDiff from "./diffing.js";
+import Provider from "./lib/redux_wrapper"
 const handyHelpers = require("./lib/handy_funcs.js");
 const smoothNested = handyHelpers.smoothArray();
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -15,6 +16,7 @@ function NodeMap(appTitle = 'default') {
    this.appTitle = appTitle;
    this.domComponents = {};
    this.rootComponent = null;
+   this.devEnv = true;
    this.appRootDom = {
       domElement: null,
       nested: []
@@ -110,7 +112,9 @@ function NodeMap(appTitle = 'default') {
 
    this.objectChange = (newRender) => {
       let newOb = NodeMapContext.rerender(newRender, 'Root');
-      console.log('newRender', newOb);
+      if (NodeMapContext.devEnv) {
+        console.log('%c New Render:', 'color: lime; font-weight: bold;', newOb);
+      }
       NodeMapContext.updateElement(NodeMapContext.domComponents, newOb)
       NodeMapContext.mountedCallbacks.forEach((cb) => {
          cb();
@@ -135,11 +139,14 @@ function NodeMap(appTitle = 'default') {
       };
    };
 
-   this.viewObjects = () => {
-      console.log('appRootDom', NodeMapContext.appRootDom);
-      console.log('domBranches', NodeMapContext.domComponents);
-      console.log('this.events', NodeMapContext.events);
+   this.ReduxConnect = (component,store) => {
+      return new Provider(component,store, NodeMapContext)
+   }
 
+   this.viewObjects = () => {
+      console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
+      console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
+      console.log('this.events', NodeMapContext.events);
    };
 
    this.mountApp = (obj) => {
@@ -258,12 +265,14 @@ NodeMap.prototype.component = (obj) => {
 };
 
 NodeMap.prototype.Component = function Component(props) {
-    this.props = props;
+    this.props = props || {};
+}
+
+NodeMap.prototype.Container = function Container(props) {
+    this.props = props || {};
 }
 
 NodeMap.prototype.node = (type, props = {}, ...nested) => {
-   console.log('EX.node', type)
-
    if (typeof type === "function") {
       if (type.__proto__.name === 'Component') {
         return new type(props).render()

@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -193,7 +193,7 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
-var _eventlist = __webpack_require__(4);
+var _eventlist = __webpack_require__(5);
 
 var _eventlist2 = _interopRequireDefault(_eventlist);
 
@@ -287,6 +287,37 @@ module.exports = {
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function Provider(component, store, context) {
+
+  var initialProps = Object.assign({
+    dispatch: store.dispatch,
+    store: store.getState()
+  });
+  var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
+
+  store.subscribe(function () {
+    compInstance.props = Object.assign(compInstance.props, {
+      dispatch: store.dispatch,
+      store: store.getState()
+    });
+    context.objectChange(compInstance.render());
+  });
+
+  return compInstance;
+}
+
+exports.default = Provider;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
    value: true
 });
 exports.exNode = undefined;
@@ -300,6 +331,10 @@ var _events2 = _interopRequireDefault(_events);
 var _diffing = __webpack_require__(0);
 
 var _diffing2 = _interopRequireDefault(_diffing);
+
+var _redux_wrapper = __webpack_require__(3);
+
+var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -324,6 +359,7 @@ function NodeMap() {
    this.appTitle = appTitle;
    this.domComponents = {};
    this.rootComponent = null;
+   this.devEnv = true;
    this.appRootDom = {
       domElement: null,
       nested: []
@@ -416,7 +452,9 @@ function NodeMap() {
 
    this.objectChange = function (newRender) {
       var newOb = NodeMapContext.rerender(newRender, 'Root');
-      console.log('newRender', newOb);
+      if (NodeMapContext.devEnv) {
+         console.log('%c New Render:', 'color: lime; font-weight: bold;', newOb);
+      }
       NodeMapContext.updateElement(NodeMapContext.domComponents, newOb);
       NodeMapContext.mountedCallbacks.forEach(function (cb) {
          cb();
@@ -441,9 +479,13 @@ function NodeMap() {
       };
    };
 
+   this.ReduxConnect = function (component, store) {
+      return new _redux_wrapper2.default(component, store, NodeMapContext);
+   };
+
    this.viewObjects = function () {
-      console.log('appRootDom', NodeMapContext.appRootDom);
-      console.log('domBranches', NodeMapContext.domComponents);
+      console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
+      console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
       console.log('this.events', NodeMapContext.events);
    };
 
@@ -560,7 +602,11 @@ NodeMap.prototype.component = function (obj) {
 };
 
 NodeMap.prototype.Component = function Component(props) {
-   this.props = props;
+   this.props = props || {};
+};
+
+NodeMap.prototype.Container = function Container(props) {
+   this.props = props || {};
 };
 
 NodeMap.prototype.node = function (type) {
@@ -569,8 +615,6 @@ NodeMap.prototype.node = function (type) {
    }
 
    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-   console.log('EX.node', type);
 
    if (typeof type === "function") {
       if (type.__proto__.name === 'Component') {
@@ -599,7 +643,7 @@ exports.default = EX;
 exports.exNode = exNode;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
