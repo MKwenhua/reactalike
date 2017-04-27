@@ -600,8 +600,6 @@ NodeMap.prototype.node = function (type) {
 
    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-   console.log('EX.node', type);
-
    if (typeof type === "function") {
       if (type.__proto__.name === 'Component') {
          return new type(props).render();

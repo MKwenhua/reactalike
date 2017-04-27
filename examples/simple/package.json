@@ -8,5 +8,9 @@
     "bundle": "webpack --config webpack.config.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1"
+  }
 }
