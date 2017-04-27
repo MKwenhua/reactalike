@@ -295,8 +295,6 @@ NodeMap.prototype.Container = function Container(props) {
 }
 
 NodeMap.prototype.node = (type, props = {}, ...nested) => {
-   console.log('EX.node', type)
-
    if (typeof type === "function") {
       if (type.__proto__.name === 'Component') {
         return new type(props).render()
