@@ -1,4 +1,4 @@
-const setDiff = (self, createElem) => {
+module.exports = (self, createElem) => {
    const re = new RegExp(/^ex_/i)
 
    function removeProp(element, attr) {
@@ -93,5 +93,3 @@ const setDiff = (self, createElem) => {
    };
    return updateElement;
 };
-
-export default setDiff

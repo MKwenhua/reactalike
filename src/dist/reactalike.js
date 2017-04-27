@@ -1,3 +1,4 @@
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,7 +64,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,9 +74,13 @@
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-module.exports = function (self, createElem) {
+var setDiff = function setDiff(self, createElem) {
    var re = new RegExp(/^ex_/i);
 
    function removeProp(element, attr) {
@@ -175,6 +180,8 @@ module.exports = function (self, createElem) {
    return updateElement;
 };
 
+exports.default = setDiff;
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -182,44 +189,55 @@ module.exports = function (self, createElem) {
 "use strict";
 
 
-var Eventlist = __webpack_require__(4);
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _eventlist = __webpack_require__(5);
+
+var _eventlist2 = _interopRequireDefault(_eventlist);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function extractEventName(name) {
-  return name.slice(2).toLowerCase();
-};
+   return name.slice(2).toLowerCase();
+}
+
 var videoEvents = {
-  onLoadedData: {},
-  onLoadedMetadata: {},
-  onLoadStart: {},
-  onPause: {},
-  onPlay: {},
-  onPlaying: {},
-  onProgress: {},
-  onRateChange: {},
-  onSeeked: {},
-  onSeeking: {},
-  onWaiting: {},
-  onLoad: {}
+   onLoadedData: {},
+   onLoadedMetadata: {},
+   onLoadStart: {},
+   onPause: {},
+   onPlay: {},
+   onPlaying: {},
+   onProgress: {},
+   onRateChange: {},
+   onSeeked: {},
+   onSeeking: {},
+   onWaiting: {},
+   onLoad: {}
 };
 
 var formEvents = {
-  onChange: {},
-  onFocus: {},
-  onBlur: {},
-  onSelect: {},
-  onSearch: {}
+   onChange: {},
+   onFocus: {},
+   onBlur: {},
+   onSelect: {},
+   onSearch: {}
 };
 
-module.exports = Eventlist.reduce(function (ob, itm) {
-  ob[itm] = {
-    registered: false,
-    eventName: extractEventName(itm),
-    eventNS: itm,
-    mediaEvent: videoEvents[itm] !== undefined,
-    formEvent: formEvents[itm] !== undefined
-  };
-  return ob;
+var events = _eventlist2.default.reduce(function (ob, itm) {
+   ob[itm] = {
+      registered: false,
+      eventName: extractEventName(itm),
+      eventNS: itm,
+      mediaEvent: videoEvents[itm] !== undefined,
+      formEvent: formEvents[itm] !== undefined
+   };
+   return ob;
 }, {});
+
+exports.default = events;
 
 /***/ }),
 /* 2 */
@@ -247,7 +265,6 @@ function flattenIteration(arr, flatArr) {
 module.exports = {
    smoothArray: function smoothArray() {
       return function (nested) {
-         // if( Array.isArray(nested) ) return [];
 
          return nested.reduce(_flatten, []).filter(function (ne) {
             return ne !== null && ne !== undefined;
@@ -269,295 +286,29 @@ module.exports = {
 "use strict";
 
 
-var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function Provider(component, store, context) {
 
-var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
-  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-};
+  var initialProps = Object.assign({
+    dispatch: store.dispatch,
+    store: store.getState()
+  });
+  var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
 
-var events = __webpack_require__(1);
-var setDiff = __webpack_require__(0);
-var handyHelpers = __webpack_require__(2);
-var smoothNested = handyHelpers.smoothArray();
-var formTags = {
-  textarea: true,
-  select: true,
-  input: true,
-  output: true,
-  form: true
-};
-
-function NodeMap() {
-  var _this = this;
-
-  var appTitle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
-
-  this.appTitle = appTitle;
-  this.domComponents = {};
-  this.rootComponent = null;
-  this.appRootDom = {
-    domElement: null,
-    nested: []
-  };
-  this.appRoot = null;
-  this.mountedCallbacks = [];
-  this.events = events;
-
-  this.createUdid = function () {
-    return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);
-  };
-
-  this.randomFuncId = function () {
-    return 'func' + Math.random().toString(36).substring(18);
-  };
-
-  this.getElement = function (domElement) {
-    if (domElement instanceof HTMLElement) {
-      _this.appRoot = domElement;
-      _this.appRootDom.domElement = domElement;
-      return true;
-    }
-    var elem = document.querySelector(domElement);
-    if (elem) {
-      _this.appRoot = elem;
-      _this.appRootDom.domElement = domElement;
-      return true;
-    }
-    console.error("Element: " + domElement + " not found");
-    return false;
-  };
-  this.setListener = function (listener, type) {
-    var self = _this;
-    _this.appRoot.addEventListener(listener, function (e) {
-      self.lookUpRegistry(e.target, type, e);
+  store.subscribe(function () {
+    compInstance.props = Object.assign(compInstance.props, {
+      dispatch: store.dispatch,
+      store: store.getState()
     });
-  };
+    context.objectChange(compInstance.render());
+  });
 
-  this.setListenerEl = function (eventOb, cb, node) {
-    var self = _this;
-    var evnName = eventOb.eventNS;
-    node.props.ex_eventFuncName = _this.randomFuncId();
-    node.props.ex_attachedFunc = evnName;
-    console.log('node', node);
-    _this.events[evnName][node.props.ex_eventFuncName] = function (e) {
-      node.props[evnName](e, node.domElement, node);
-    };
-    node.domElement.addEventListener(eventOb.eventName, _this.events[evnName][node.props.ex_eventFuncName]);
-  };
-
-  this.applyListener = function (listener, node) {
-    var eventInfo = _this.events[listener];
-    var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
-    if (!eventInfo.registered && !onSelf) {
-      eventInfo.registered = true;
-      _this.setListener(eventInfo.eventName, listener);
-      return;
-    }
-    if (onSelf && !node.props.ex_eventFuncName) {
-      _this.setListenerEl(eventInfo, listener, node);
-    }
-  };
-
-  this.lookUpRegistry = function (target, eventName, e) {
-    var tgTrace = target.getAttribute('trace');
-    var traceArray = tgTrace.split('.');
-    console.log('traceArray', traceArray);
-    var vDom = _this.domComponents;
-    console.log('vDom', vDom);
-    traceArray.shift();
-    traceArray.map(function (itm, i) {
-      if (!vDom.nested) {
-        return false;
-      }
-      var nest = vDom.nested[itm];
-      vDom = nest;
-      return nest;
-    }).reverse().forEach(function (itm, ii) {
-      if (itm) {
-        var hasAction = itm.props[eventName];
-        if (hasAction) {
-          hasAction(e);
-        }
-      }
-    });
-  };
-
-  this.WhenMounted = function (afterMountCB) {
-    _this.mountedCallbacks.push(afterMountCB);
-  };
-
-  this.objectChange = function (newRender) {
-    var newOb = _this.rerender(newRender, 'Root');
-    console.log('newRender', newOb);
-    _this.updateElement(_this.domComponents, newOb);
-    _this.mountedCallbacks.forEach(function (cb) {
-      cb();
-    });
-    _this.mountedCallbacks = [];
-  };
-
-  this.createComponent = function (obj, containerElement) {
-
-    if (_this.getElement(containerElement)) {
-      obj.domElement = _this.appRoot;
-      _this.mountApp(obj);
-    };
-  };
-
-  this.viewObjects = function () {
-    console.log('appRootDom', _this.appRootDom);
-    console.log('domBranches', _this.domComponents);
-    console.log('this.events', _this.events);
-  };
-
-  this.mountApp = function (obj) {
-    _this.domComponents = obj;
-    _this.appRootDom.nested.push(_this.domComponents);
-    _this.appRoot.appendChild(_this.htmlBuild(obj, "Root"));
-  };
-
-  var self = this;
-  var re = new RegExp(/^ex_/i);
-  var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
-  this.createElement = function createElement(name, attrs) {
-    var element = document.createElement(String(name));
-    if (!attrs) return element;
-
-    for (var attr in attrs) {
-      if (!self.events[attr] && !re.test(attr)) {
-        element.setAttribute(attr, attrs[attr]);
-      }
-    }
-    return element;
-  };
-
-  this.createElementNS = function createElementNS(name, attrs) {
-    var element = document.createElementNS('http://www.w3.org/2000/svg', name);
-
-    if (!attrs) return element;
-
-    for (var attr in attrs) {
-      if (!self.events[attr] && !re.test(attr)) {
-        element.setAttribute(attr, attrs[attr]);
-      }
-    }
-    return element;
-  };
-
-  var createElem = function createElem(node, group, parent) {
-
-    if (typeof node === 'string' || typeof node === 'number' || (typeof node === "undefined" ? "undefined" : _typeof(node)) !== "object" && node !== null && node !== undefined) {
-
-      return document.createTextNode(node);
-    }
-    node.props = Object.assign({}, node.props, {
-      trace: group,
-      parent: parent
-    });
-
-    var el = isSVG.test(node.type) ? self.createElementNS(node.type, node.props) : self.createElement(node.type, node.props);
-    node.domElement = el;
-    for (var prop in node.props) {
-      if (self.events[prop]) {
-        self.applyListener(prop, node);
-      }
-    };
-
-    node.nested = node.nested ? node.nested : [];
-    if (node.nested.length === 0) {
-      return el;
-    }
-    node.nested.map(function (elm, ii) {
-      var elmId = group + '.' + ii;
-      return createElem(elm, elmId, group);
-    }).forEach(el.appendChild.bind(el));
-    return el;
-  };
-
-  var reRenderElem = function reRenderElem(node, group, parent) {
-    if (typeof node === 'string' || typeof node === 'number' || (typeof node === "undefined" ? "undefined" : _typeof(node)) !== "object" && node !== null && node !== undefined) {
-      return node;
-    }
-
-    node.nested = node.nested ? node.nested : [];
-    node.props = Object.assign({}, node.props, {
-      trace: group,
-      parent: parent
-    });
-    node.nested.map(function (elm, ii) {
-      var elmId = group + '.' + ii;
-      return reRenderElem(elm, elmId, group);
-    });
-    return node;
-  };
-
-  this.htmlBuild = function (node, group) {
-    return createElem(node, group, 'Root');
-  };
-
-  this.rerender = function (node, group) {
-    return reRenderElem(node, group, 'Root');
-  };
-
-  this.diffElements = setDiff(self, createElem);
-
-  this.updateElement = function (oldNode, newNode) {
-    _this.diffElements(_this.appRootDom, newNode, oldNode);
-    _this.domComponents = Object.assign({}, oldNode, newNode);
-  };
-
-  this.SetState = function (data) {
-    console.log('not yet set');
-  };
-};
-
-NodeMap.prototype.component = function (obj) {
-  if (!(obj instanceof Array) && obj instanceof Object) {
-    if (!obj["componentName"] || !obj["componentRender"]) {
-      console.error("Object must have a branchName and branchObject");
-      return false;
-    }
-
-    obj.vdomId = '@' + obj.componentName;
-    return function (opts) {
-
-      return obj.componentRender(opts);
-    };
-  }
-};
-
-NodeMap.prototype.node = function (type) {
-  for (var _len = arguments.length, nested = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-    nested[_key - 2] = arguments[_key];
-  }
-
-  var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  if (typeof type === "function") {
-    return type(props);
-  }
-  if (nested) {
-    nested = smoothNested(nested);
-  } else {
-    nested = [];
-  }
-
-  return {
-    type: type,
-    props: props,
-    nested: nested
-  };
-};
-
-function exNode(appName) {
-  if (!appName) return new NodeMap('example');
-
-  return new NodeMap(appName);
+  return compInstance;
 }
 
-module.exports = exNode;
+exports.default = Provider;
 
 /***/ }),
 /* 4 */
@@ -566,7 +317,344 @@ module.exports = exNode;
 "use strict";
 
 
-module.exports = ["onCopy", "onCut", "onPaste", "onKeyDown", "onKeyPress", "onKeyUp", "onFocus", "onBlur", "onChange", "onInput", "onSubmit", "onClick", "onContextMenu", "onDoubleClick", "onDrag", "onDragEnd", "onDragEnter", "onDragExit", "onDragLeave", "onDragOver", "onDragStart", "onDrop", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp", "onSelect", "onScroll", "onAbort", "onCanPlay", "onCanPlayThrough", "onDurationChange", "onEmptied", "onEnded", "onError", "onLoadedData", "onLoadedMetadata", "onLoadStart", "onPause", "onPlay", "onPlaying", "onProgress", "onRateChange", "onSeeked", "onSeeking", "onWaiting", "onLoad", "onError", "onAnimationStart", "onAnimationEnd", "onAnimationIteration", "onTransitionEnd"];
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+exports.exNode = undefined;
+
+var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _events = __webpack_require__(1);
+
+var _events2 = _interopRequireDefault(_events);
+
+var _diffing = __webpack_require__(0);
+
+var _diffing2 = _interopRequireDefault(_diffing);
+
+var _redux_wrapper = __webpack_require__(3);
+
+var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var handyHelpers = __webpack_require__(2);
+var smoothNested = handyHelpers.smoothArray();
+var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+   return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
+var formTags = {
+   textarea: true,
+   select: true,
+   input: true,
+   output: true,
+   form: true
+};
+
+function NodeMap() {
+   var appTitle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+
+   this.appTitle = appTitle;
+   this.domComponents = {};
+   this.rootComponent = null;
+   this.devEnv = true;
+   this.appRootDom = {
+      domElement: null,
+      nested: []
+   };
+   this.appRoot = null;
+   this.mountedCallbacks = [];
+   this.events = _events2.default;
+   var NodeMapContext = this;
+
+   this.createUdid = function () {
+      return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);
+   };
+
+   this.randomFuncId = function () {
+      return 'func' + Math.random().toString(36).substring(18);
+   };
+
+   this.getElement = function (domElement) {
+      if (domElement instanceof HTMLElement) {
+         NodeMapContext.appRoot = domElement;
+         NodeMapContext.appRootDom.domElement = domElement;
+         return true;
+      }
+      var elem = document.querySelector(domElement);
+      if (elem) {
+         NodeMapContext.appRoot = elem;
+         NodeMapContext.appRootDom.domElement = domElement;
+         return true;
+      }
+      console.error("Element: " + domElement + " not found");
+      return false;
+   };
+   this.setListener = function (listener, type) {
+      NodeMapContext.appRoot.addEventListener(listener, function (e) {
+         NodeMapContext.lookUpRegistry(e.target, type, e);
+      });
+   };
+
+   this.setListenerEl = function (eventOb, cb, node) {
+      var evnName = eventOb.eventNS;
+      node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
+      node.props.ex_attachedFunc = evnName;
+      console.log('node', node);
+      NodeMapContext.events[evnName][node.props.ex_eventFuncName] = function (e) {
+         node.props[evnName](e, node.domElement, node);
+      };
+      node.domElement.addEventListener(eventOb.eventName, NodeMapContext.events[evnName][node.props.ex_eventFuncName]);
+   };
+
+   this.applyListener = function (listener, node) {
+      var eventInfo = NodeMapContext.events[listener];
+      var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
+      if (!eventInfo.registered && !onSelf) {
+         eventInfo.registered = true;
+         NodeMapContext.setListener(eventInfo.eventName, listener);
+         return;
+      }
+      if (onSelf && !node.props.ex_eventFuncName) {
+         NodeMapContext.setListenerEl(eventInfo, listener, node);
+      }
+   };
+
+   this.lookUpRegistry = function (target, eventName, e) {
+      var tgTrace = target.getAttribute('trace');
+      var traceArray = tgTrace.split('.');
+      console.log('traceArray', traceArray);
+      var vDom = NodeMapContext.domComponents;
+      console.log('vDom', vDom);
+      traceArray.shift();
+      traceArray.map(function (itm, i) {
+         if (!vDom.nested) {
+            return false;
+         }
+         var nest = vDom.nested[itm];
+         vDom = nest;
+         return nest;
+      }).reverse().forEach(function (itm, ii) {
+         if (itm) {
+            var hasAction = itm.props[eventName];
+            if (hasAction) {
+               hasAction(e);
+            }
+         }
+      });
+   };
+
+   this.WhenMounted = function (afterMountCB) {
+      NodeMapContext.mountedCallbacks.push(afterMountCB);
+   };
+
+   this.objectChange = function (newRender) {
+      var newOb = NodeMapContext.rerender(newRender, 'Root');
+      if (NodeMapContext.devEnv) {
+         console.log('%c New Render:', 'color: lime; font-weight: bold;', newOb);
+      }
+      NodeMapContext.updateElement(NodeMapContext.domComponents, newOb);
+      NodeMapContext.mountedCallbacks.forEach(function (cb) {
+         cb();
+      });
+      NodeMapContext.mountedCallbacks = [];
+   };
+
+   this.mountAppToNode = function (AppContainer, containerElement) {
+      NodeMapContext.rootComponent = AppContainer;
+      AppContainer.state = AppContainer.state ? AppContainer.state : {};
+      NodeMapContext.SetState = function () {
+         return function (payload) {
+            AppContainer.state = Object.assign({}, AppContainer.state, payload);
+            NodeMapContext.objectChange(AppContainer.render());
+         };
+      }();
+
+      if (NodeMapContext.getElement(containerElement)) {
+         var appRender = AppContainer.render();
+         appRender.domElement = NodeMapContext.appRoot;
+         NodeMapContext.mountApp(appRender);
+      };
+   };
+
+   this.ReduxConnect = function (component, store) {
+      return new _redux_wrapper2.default(component, store, NodeMapContext);
+   };
+
+   this.viewObjects = function () {
+      console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
+      console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
+      console.log('this.events', NodeMapContext.events);
+   };
+
+   this.mountApp = function (obj) {
+      NodeMapContext.domComponents = obj;
+      NodeMapContext.appRootDom.nested.push(NodeMapContext.domComponents);
+      NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
+   };
+
+   var re = new RegExp(/^ex_/i);
+   var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
+   this.createElement = function createElement(name, attrs) {
+      var element = document.createElement(String(name));
+
+      if (!attrs) return element;
+
+      for (var attr in attrs) {
+         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+            element.setAttribute(attr, attrs[attr]);
+         }
+      }
+      return element;
+   };
+
+   this.createElementNS = function createElementNS(name, attrs) {
+      var element = document.createElementNS('http://www.w3.org/2000/svg', name);
+
+      if (!attrs) return element;
+
+      for (var attr in attrs) {
+         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+            element.setAttribute(attr, attrs[attr]);
+         }
+      }
+      return element;
+   };
+
+   var createElem = function createElem(node, group, parent) {
+
+      if (typeof node === 'string' || typeof node === 'number' || (typeof node === "undefined" ? "undefined" : _typeof(node)) !== "object" && node !== null && node !== undefined) {
+
+         return document.createTextNode(node);
+      }
+      node.props = Object.assign({}, node.props, {
+         trace: group,
+         parent: parent
+      });
+
+      var el = isSVG.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
+      node.domElement = el;
+      for (var prop in node.props) {
+         if (NodeMapContext.events[prop]) {
+            NodeMapContext.applyListener(prop, node);
+         }
+      };
+
+      node.nested = node.nested ? node.nested : [];
+      if (node.nested.length === 0) {
+         return el;
+      }
+      node.nested.map(function (elm, ii) {
+         var elmId = group + '.' + ii;
+         return createElem(elm, elmId, group);
+      }).forEach(el.appendChild.bind(el));
+      return el;
+   };
+
+   var reRenderElem = function reRenderElem(node, group, parent) {
+      if (typeof node === 'string' || typeof node === 'number' || (typeof node === "undefined" ? "undefined" : _typeof(node)) !== "object" && node !== null && node !== undefined) {
+         return node;
+      }
+
+      node.nested = node.nested ? node.nested : [];
+      node.props = Object.assign({}, node.props, {
+         trace: group,
+         parent: parent
+      });
+      node.nested.map(function (elm, ii) {
+         var elmId = group + '.' + ii;
+         return reRenderElem(elm, elmId, group);
+      });
+      return node;
+   };
+
+   this.htmlBuild = function (node, group) {
+      return createElem(node, group, 'Root');
+   };
+
+   this.rerender = function (node, group) {
+      return reRenderElem(node, group, 'Root');
+   };
+
+   this.diffElements = (0, _diffing2.default)(NodeMapContext, createElem);
+
+   this.updateElement = function (oldNode, newNode) {
+      NodeMapContext.diffElements(NodeMapContext.appRootDom, newNode, oldNode);
+      NodeMapContext.domComponents = Object.assign({}, oldNode, newNode);
+   };
+};
+
+NodeMap.prototype.component = function (obj) {
+   if (!(obj instanceof Array) && obj instanceof Object) {
+      if (!obj["componentName"] || !obj["componentRender"]) {
+         console.error("Object must have a branchName and branchObject");
+         return false;
+      }
+
+      obj.vdomId = '@' + obj.componentName;
+      return function (opts) {
+
+         return obj.componentRender(opts);
+      };
+   }
+};
+
+NodeMap.prototype.Component = function Component(props) {
+   this.props = props || {};
+};
+
+NodeMap.prototype.Container = function Container(props) {
+   this.props = props || {};
+};
+
+NodeMap.prototype.node = function (type) {
+   for (var _len = arguments.length, nested = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      nested[_key - 2] = arguments[_key];
+   }
+
+   var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+   if (typeof type === "function") {
+      if (type.__proto__.name === 'Component') {
+         return new type(props).render();
+      }
+      return type(props);
+   }
+
+   if (nested) {
+      nested = smoothNested(nested);
+   } else {
+      nested = [];
+   }
+
+   return { type: type, props: props, nested: nested };
+};
+
+function exNode(appName) {
+   if (!appName) return new NodeMap('example');
+
+   return new NodeMap(appName);
+}
+
+var EX = exNode('main');
+exports.default = EX;
+exports.exNode = exNode;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+var EventList = ["onCopy", "onCut", "onPaste", "onKeyDown", "onKeyPress", "onKeyUp", "onFocus", "onBlur", "onChange", "onInput", "onSubmit", "onClick", "onContextMenu", "onDoubleClick", "onDrag", "onDragEnd", "onDragEnter", "onDragExit", "onDragLeave", "onDragOver", "onDragStart", "onDrop", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp", "onSelect", "onScroll", "onAbort", "onCanPlay", "onCanPlayThrough", "onDurationChange", "onEmptied", "onEnded", "onError", "onLoadedData", "onLoadedMetadata", "onLoadStart", "onPause", "onPlay", "onPlaying", "onProgress", "onRateChange", "onSeeked", "onSeeking", "onWaiting", "onLoad", "onError", "onAnimationStart", "onAnimationEnd", "onAnimationIteration", "onTransitionEnd"];
+
+exports.default = EventList;
 
 /***/ })
 /******/ ]);

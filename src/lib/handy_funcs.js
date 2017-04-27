@@ -1,8 +1,6 @@
-"use strict";
-
-var _flatten = function _flatten(a, b) {
-   return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
-};
+const flatten = (a, b) => {
+   return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
+}
 
 function flattenIteration(arr, flatArr) {
    flatArr = flatArr || [];
@@ -17,18 +15,16 @@ function flattenIteration(arr, flatArr) {
    return flatArr;
 }
 module.exports = {
-   smoothArray: function smoothArray() {
-      return function (nested) {
+   smoothArray: () => {
+      return (nested) => {
 
-         return nested.reduce(_flatten, []).filter(function (ne) {
-            return ne !== null && ne !== undefined;
-         });
-      };
+         return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined);
+      }
    },
-   flatten: function flatten(nested) {
-      return nested.reduce(_flatten, []);
+   flatten: (nested) => {
+      return nested.reduce(flatten, []);
    },
-   capitalize: function capitalize(string) {
+   capitalize: (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
    }
-};
+}
