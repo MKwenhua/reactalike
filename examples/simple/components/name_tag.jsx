@@ -7,12 +7,14 @@ const NameTag = EX.component({
          <div class="padd-center">
             <div class="tag">
                <header>
-                  <div class="hello">HELLO</div>
+                  <div class="hello" contentEditable="true">HELLO</div>
                </header>
-               <div class="mynameis">my name is</div>
-               <div class="my-name-is">
-                  {props.ex_person.name}
-               </div>
+               <section contentEditable="true">
+                  <div class="mynameis">my name is</div>
+                  <div class="my-name-is">
+                     {props.ex_person.name}
+                  </div>
+               </section>
                <div class="dottedline"></div>
             </div>
          </div>

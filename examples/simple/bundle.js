@@ -1232,17 +1232,18 @@ module.exports =
       };
 
       this.mountAppToNode = function (AppContainer, containerElement) {
-         NodeMapContext.rootComponent = AppContainer;
-         AppContainer.state = AppContainer.state ? AppContainer.state : {};
+         var appContainer = AppContainer.__proto__.name === 'Container' ? new AppContainer() : AppContainer;
+         NodeMapContext.rootComponent = appContainer;
+         appContainer.state = appContainer.state ? appContainer.state : {};
          NodeMapContext.SetState = function () {
             return function (payload) {
-               AppContainer.state = Object.assign({}, AppContainer.state, payload);
-               NodeMapContext.objectChange(AppContainer.render());
+               appContainer.state = Object.assign({}, appContainer.state, payload);
+               NodeMapContext.objectChange(appContainer.render());
             };
          }();
 
          if (NodeMapContext.getElement(containerElement)) {
-            var appRender = AppContainer.render();
+            var appRender = appContainer.render();
             appRender.domElement = NodeMapContext.appRoot;
             NodeMapContext.mountApp(appRender);
          };
@@ -3054,19 +3055,23 @@ var NameTag = _reactalikeSource2.default.component({
                null,
                _reactalikeSource2.default.node(
                   'div',
-                  { 'class': 'hello' },
+                  { 'class': 'hello', contentEditable: 'true' },
                   'HELLO'
                )
             ),
             _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'mynameis' },
-               'my name is'
-            ),
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'my-name-is' },
-               props.ex_person.name
+               'section',
+               { contentEditable: 'true' },
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': 'mynameis' },
+                  'my name is'
+               ),
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': 'my-name-is' },
+                  props.ex_person.name
+               )
             ),
             _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
          )

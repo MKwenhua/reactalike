@@ -123,17 +123,18 @@ function NodeMap(appTitle = 'default') {
    };
 
    this.mountAppToNode = (AppContainer, containerElement) => {
-      NodeMapContext.rootComponent = AppContainer;
-      AppContainer.state = AppContainer.state ? AppContainer.state : {};
+      const appContainer = AppContainer.__proto__.name === 'Container' ? new AppContainer() : AppContainer
+      NodeMapContext.rootComponent = appContainer;
+      appContainer.state = appContainer.state ? appContainer.state : {};
       NodeMapContext.SetState = (() => {
         return (payload) => {
-          AppContainer.state = Object.assign({}, AppContainer.state, payload);
-          NodeMapContext.objectChange(AppContainer.render());
+          appContainer.state = Object.assign({}, appContainer.state, payload);
+          NodeMapContext.objectChange(appContainer.render());
         }
       })()
 
       if (NodeMapContext.getElement(containerElement)) {
-         const appRender = AppContainer.render()
+         const appRender = appContainer.render()
          appRender.domElement = NodeMapContext.appRoot;
          NodeMapContext.mountApp(appRender);
       };
