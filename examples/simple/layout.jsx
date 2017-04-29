@@ -1,23 +1,46 @@
 import EX from 'reactalikeSource';
-import NameTag from './components/name_tag'
-import SideEdit from './components/side_edit'
+import NameTag from 'component/name_tag'
+import SideEdit from 'component/side_edit'
+import Profile from 'component/profile'
 
+const setNameTagId = () => {
+   return ("nt" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-6);
+}
+
+const setUserProfileLink = (personId, dispatch) => {
+   console.log('setUserProfileLink personId', personId)
+   return () => {
+
+      dispatch({type: 'VIEW_PROFILE', payload: personId})
+   }
+}
+window.EX = EX
 class Layout extends EX.Container {
    render() {
       let { dispatch, store } = this.props;
-      let { guests } = store;
+      let { guests, nameTags, view, profile} = store;
 
-      const ppl = guests.map((itm, ii) => {
-         return <NameTag ex_person={itm}/>;
+      const ppl = Object.keys(guests).map((personId, ii) => {
+         return ( 
+            <div onClick={setUserProfileLink(personId, dispatch)}>
+
+               <NameTag ex_person={guests[personId]} ex_nametag={nameTags[personId]} ex_editMode="false" />
+            </div>
+            )
       });
       return (
          <div class="container">
-            <div class="col-md-10">
-               {ppl}
-            </div>
-            <div class="col-md-2">
+         <section class={view === 'list_view' ? 'row' : 'hidden'}>
+            <div class="col-md-2 pull-md-10">
                <SideEdit ex_dispatch={dispatch}/>
             </div>
+            <div class="col-md-10 push-md-2">
+               {ppl}
+            </div>
+         </section>
+         <section class={view === 'profile_view' ? 'row' : 'hidden'}>
+            <Profile ex_profile={profile}  ex_person={guests[profile.guest]}  ex_nametags={nameTags} ex_dispatch={dispatch}/>
+         </section>
          </div>
       )
    }

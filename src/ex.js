@@ -31,7 +31,7 @@ function NodeMap(appTitle = 'default') {
    };
 
    this.randomFuncId = () => {
-      return 'func' + Math.random().toString(36).substring(18);
+      return ("FUNC" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-10)
    };
 
    this.getElement = (domElement) => {
@@ -60,7 +60,6 @@ function NodeMap(appTitle = 'default') {
       let evnName = eventOb.eventNS;
       node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
       node.props.ex_attachedFunc = evnName;
-      console.log('node', node);
       NodeMapContext.events[evnName][node.props.ex_eventFuncName] = (e) => {
          node.props[evnName](e, node.domElement, node);
       };
@@ -76,7 +75,7 @@ function NodeMap(appTitle = 'default') {
          NodeMapContext.setListener(eventInfo.eventName, listener);
          return
       }
-      if (onSelf && !node.props.ex_eventFuncName) {
+      if (onSelf ) {
          NodeMapContext.setListenerEl(eventInfo, listener, node)
       }
    };

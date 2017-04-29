@@ -103,6 +103,9 @@ var setDiff = function setDiff(self, createElem) {
          changeProp(element, name, newVal);
       }
    };
+   function updateEvent(eventName, props) {
+      self.applyListener(eventName, props);
+   };
 
    function updateProps(element, newProps) {
       var oldProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
@@ -120,6 +123,15 @@ var setDiff = function setDiff(self, createElem) {
    function checkForEvents(node) {
       if (node.props.ex_eventFuncName) {
          node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      }
+   };
+
+   function checkForEventUpdates(oldnode, newnode) {
+      console.log('oldnode', oldnode);
+      if (oldnode.props.ex_attachedFunc) console.log('newnode', newnode);
+      if (oldnode.props.ex_eventFuncName && oldnode.props.ex_attachedFunc) {
+         console.log('checkForEventUpdates self', self);
+         self.applyListener(oldnode.props.ex_attachedFunc, newnode);
       }
    };
 
@@ -160,7 +172,7 @@ var setDiff = function setDiff(self, createElem) {
          newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
 
          updateProps(newNode.domElement, newNode.props, oldNode.props);
-
+         checkForEventUpdates(oldNode, newNode);
          var newLength = newNode.nested ? newNode.nested.length : 0;
 
          if (typeof oldNode === 'string' || typeof oldNode === 'number') {
@@ -374,7 +386,7 @@ function NodeMap() {
    };
 
    this.randomFuncId = function () {
-      return 'func' + Math.random().toString(36).substring(18);
+      return ("FUNC" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-10);
    };
 
    this.getElement = function (domElement) {
@@ -402,7 +414,6 @@ function NodeMap() {
       var evnName = eventOb.eventNS;
       node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
       node.props.ex_attachedFunc = evnName;
-      console.log('node', node);
       NodeMapContext.events[evnName][node.props.ex_eventFuncName] = function (e) {
          node.props[evnName](e, node.domElement, node);
       };
@@ -417,7 +428,7 @@ function NodeMap() {
          NodeMapContext.setListener(eventInfo.eventName, listener);
          return;
       }
-      if (onSelf && !node.props.ex_eventFuncName) {
+      if (onSelf) {
          NodeMapContext.setListenerEl(eventInfo, listener, node);
       }
    };

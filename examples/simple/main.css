@@ -8,10 +8,18 @@ found here: https://codepen.io/ryantk/pen/jxkvp
   src: local('Permanent Marker'), local('PermanentMarker'), 
   url(http://fonts.gstatic.com/s/permanentmarker/v5/9vYsg5VgPHKK8SXYbf3sMmVSxyvLCPm9firj_jMeQtQ.woff) format('woff');
 }
+
+.hidden {
+  display:none;
+}
+
 .padd-center{
     text-align:center;
     width:100%;
     padding:5px;
+}
+.full-btn {
+  display: block;
 }
 .my-name-is {
   text-align:center;

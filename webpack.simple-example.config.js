@@ -8,6 +8,7 @@ module.exports = {
    extensions: ['.js', '.jsx'],
    alias: {
      reactalikeSource: path.resolve( __dirname, 'index.js'),
+     component: path.resolve( __dirname, 'examples/simple/components'),
      redux: path.resolve( __dirname, 'examples/simple/node_modules/redux')
    }
  },
