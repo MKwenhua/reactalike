@@ -103,9 +103,6 @@ var setDiff = function setDiff(self, createElem) {
          changeProp(element, name, newVal);
       }
    };
-   function updateEvent(eventName, props) {
-      self.applyListener(eventName, props);
-   };
 
    function updateProps(element, newProps) {
       var oldProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
@@ -123,15 +120,6 @@ var setDiff = function setDiff(self, createElem) {
    function checkForEvents(node) {
       if (node.props.ex_eventFuncName) {
          node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
-      }
-   };
-
-   function checkForEventUpdates(oldnode, newnode) {
-      console.log('oldnode', oldnode);
-      if (oldnode.props.ex_attachedFunc) console.log('newnode', newnode);
-      if (oldnode.props.ex_eventFuncName && oldnode.props.ex_attachedFunc) {
-         console.log('checkForEventUpdates self', self);
-         self.applyListener(oldnode.props.ex_attachedFunc, newnode);
       }
    };
 
@@ -172,7 +160,7 @@ var setDiff = function setDiff(self, createElem) {
          newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
 
          updateProps(newNode.domElement, newNode.props, oldNode.props);
-         checkForEventUpdates(oldNode, newNode);
+
          var newLength = newNode.nested ? newNode.nested.length : 0;
 
          if (typeof oldNode === 'string' || typeof oldNode === 'number') {
@@ -508,9 +496,11 @@ function NodeMap() {
    };
 
    var re = new RegExp(/^ex_/i);
+   var imgTag = new RegExp(/img/i);
    var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
-      var element = document.createElement(String(name));
+
+      var element = imgTag.test(name) ? new Image() : document.createElement(String(name));
 
       if (!attrs) return element;
 
