@@ -24,6 +24,7 @@ function NodeMap(appTitle = 'default') {
    this.appRoot = null;
    this.mountedCallbacks = [];
    this.events = events;
+   this.setEvents = {}
    const NodeMapContext = this;
 
    this.createUdid = () => {
@@ -55,15 +56,28 @@ function NodeMap(appTitle = 'default') {
       });
 
    };
-
+   this.replaceListenerFunctions = (attachedFuncs, newNode) => {
+      newNode.props.ex_attachedFuncs = attachedFuncs
+      Object.keys(attachedFuncs).forEach((eventNAME) => {
+         if (newNode.props[eventNAME]) {
+            NodeMapContext.events[eventNAME][attachedFuncs[eventNAME]] = (e) => {
+               newNode.props[eventNAME](e, newNode.domElement, newNode);
+            };
+         }else {
+            NodeMapContext.events[eventNAME][attachedFuncs[eventNAME]] = (e) => {}
+         }
+      })
+   }
    this.setListenerEl = (eventOb, cb, node) => {
       let evnName = eventOb.eventNS;
-      node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
-      node.props.ex_attachedFunc = evnName;
-      NodeMapContext.events[evnName][node.props.ex_eventFuncName] = (e) => {
+      let eventFuncId = NodeMapContext.randomFuncId()
+      node.props.ex_attachedFuncs = node.props.ex_attachedFuncs || {};
+      node.props.ex_attachedFuncs[evnName] = eventFuncId;
+      NodeMapContext.setEvents[node.props.ex_attachedFunc] = evnName
+      NodeMapContext.events[evnName][eventFuncId] = (e) => {
          node.props[evnName](e, node.domElement, node);
       };
-      node.domElement.addEventListener(eventOb.eventName, NodeMapContext.events[evnName][node.props.ex_eventFuncName]);
+      node.domElement.addEventListener(eventOb.eventName, (e) => NodeMapContext.events[evnName][eventFuncId](e));
 
    };
 
