@@ -1,6 +1,6 @@
 {
   "name": "reactalike",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "\"React-like library I made\"",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/MKwenhua/reactalike#readme",
   "dependencies": {
-    "action-autocomplete": "^1.0.0",
     "babel": "^6.5.2",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.3.2",
@@ -28,6 +27,7 @@
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.23.0",
-    "sort-by": "^1.1.1"
+    "sort-by": "^1.1.1",
+    "action-autocomplete": "1.1.1"
   }
 }

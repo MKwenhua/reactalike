@@ -1,6 +1,7 @@
 import EX from 'reactalikeSource';
 import BuildTrie from 'action-autocomplete';
 import ListItem from 'component/list_item'
+import ResultAction from 'component/result_action';
 import AppState from '../state/appstate'
 const WordList  = require('src/word_list');
 const WordActions = require('src/word_actions');
@@ -31,8 +32,11 @@ const Layout = {
     } = Layout.state;
 
     let movieSuggestions = suggestions.map((itm) => {
-      let data = {suggestion: itm, typed: typed, clickAction: logAction(itm)}
-      return <ListItem ex_data={data}/>
+      if (typeof itm === 'string') {
+        let data = {suggestion: itm, typed: typed, clickAction: logAction(itm)}
+        return <ListItem ex_data={data}/>
+      }
+      return <ResultAction ex_data={itm}/>
     })
     return (
     	<div class="row">

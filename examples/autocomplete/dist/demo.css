@@ -2,11 +2,11 @@
     margin-top:20%; /* Don't copy this */
 }
 .stylish-input-group .input-group-addon{
-    background: white !important; 
+    background: white !important;
 }
 .stylish-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
+	border-right:0;
+	box-shadow:0 0 0;
 	border-color:#ccc;
 }
 .stylish-input-group button{
@@ -28,4 +28,9 @@
 .has-action {
 	color: #1E90FF;
 	cursor: pointer;
+}
+.action-list-item {
+	height: 60px;
+	padding:5px;
+	background: rgba(0, 191, 255, 0.5);
 }

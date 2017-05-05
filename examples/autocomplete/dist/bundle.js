@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -206,7 +206,7 @@ function Trie(wordList, actions) {
       function mineWord(brn) {
          if (brn.word) {
             if (!TrieContext.foundWordsIndex[brn.word]) {
-               list.push(brn.word);
+               list.push(brn.action || brn.word);
                TrieContext.foundWordsIndex[brn.word] = true;
             }
             if (list.length === TrieContext.wordLimit) return list;
@@ -1197,14 +1197,18 @@ var _list_item = __webpack_require__(6);
 
 var _list_item2 = _interopRequireDefault(_list_item);
 
-var _appstate = __webpack_require__(10);
+var _result_action = __webpack_require__(7);
+
+var _result_action2 = _interopRequireDefault(_result_action);
+
+var _appstate = __webpack_require__(11);
 
 var _appstate2 = _interopRequireDefault(_appstate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var WordList = __webpack_require__(9);
-var WordActions = __webpack_require__(8);
+var WordList = __webpack_require__(10);
+var WordActions = __webpack_require__(9);
 var Autocomplete = (0, _actionAutocomplete2.default)(WordList, WordActions);
 
 var logAction = function logAction(word) {
@@ -1232,8 +1236,11 @@ var Layout = {
 
 
     var movieSuggestions = suggestions.map(function (itm) {
-      var data = { suggestion: itm, typed: typed, clickAction: logAction(itm) };
-      return _reactalikeSource2.default.node(_list_item2.default, { ex_data: data });
+      if (typeof itm === 'string') {
+        var data = { suggestion: itm, typed: typed, clickAction: logAction(itm) };
+        return _reactalikeSource2.default.node(_list_item2.default, { ex_data: data });
+      }
+      return _reactalikeSource2.default.node(_result_action2.default, { ex_data: itm });
     });
     return _reactalikeSource2.default.node(
       'div',
@@ -1366,6 +1373,83 @@ exports.default = ListItem;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactalikeSource = __webpack_require__(0);
+
+var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ResultAction = function (_EX$Component) {
+  _inherits(ResultAction, _EX$Component);
+
+  function ResultAction() {
+    _classCallCheck(this, ResultAction);
+
+    return _possibleConstructorReturn(this, (ResultAction.__proto__ || Object.getPrototypeOf(ResultAction)).apply(this, arguments));
+  }
+
+  _createClass(ResultAction, [{
+    key: "render",
+    value: function render() {
+      var _props$ex_data = this.props.ex_data,
+          word = _props$ex_data.word,
+          img_src = _props$ex_data.img_src,
+          imdb = _props$ex_data.imdb;
+
+      return _reactalikeSource2.default.node(
+        "div",
+        { "class": "action-list-item" },
+        _reactalikeSource2.default.node(
+          "div",
+          { "class": "col-xs-4" },
+          _reactalikeSource2.default.node("img", { src: img_src, height: "50" })
+        ),
+        _reactalikeSource2.default.node(
+          "div",
+          { "class": "col-xs-8" },
+          _reactalikeSource2.default.node(
+            "b",
+            null,
+            word
+          ),
+          _reactalikeSource2.default.node(
+            "p",
+            null,
+            _reactalikeSource2.default.node(
+              "a",
+              { href: imdb },
+              "IMDB Link"
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ResultAction;
+}(_reactalikeSource2.default.Component);
+
+exports.default = ResultAction;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
@@ -1379,7 +1463,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactalikeSource2.default.mountAppToNode(_layout2.default, document.getElementById('root'));
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1387,97 +1471,104 @@ _reactalikeSource2.default.mountAppToNode(_layout2.default, document.getElementB
 
 module.exports = {
    "Weird Science": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BNTE2MzkxNzExM15BMl5BanBnXkFtZTgwNzIwODQxMTE@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Weird Science',
+      img_src: 'http://i.imgur.com/8U9iw9W.jpg',
       imdb: 'http://www.imdb.com/title/tt0090305'
    },
    "Raiders of the Lost Ark": {
+      word: 'Raiders of the Lost Ark',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMjA0ODEzMTc1Nl5BMl5BanBnXkFtZTcwODM2MjAxNA@@._V1_SY1000_CR0,0,664,1000_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0082971'
    },
    "Indiana Jones and the Temple of Doom": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTMyNzI4OTA5OV5BMl5BanBnXkFtZTcwMDQ2MjAxNA@@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Indiana Jones and the Temple of Doom',
+      img_src: 'http://imgur.com/56UIDV4.jpg',
       imdb: 'http://www.imdb.com/title/tt0087469'
    },
    "The Terminator": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
-      imdb: 'http://www.imdb.com/title/tt0087363'
-   },
-   "Who Framed Roger Rabbit": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'The Terminator',
+      img_src: 'http://imgur.com/DHf55pG.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Bill & Ted's Excellent Adventure": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Bill & Ted\'s Excellent Adventure',
+      img_src: 'http://imgur.com/LIvTcVW.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Ghostbusters": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Ghostbusters',
+      img_src: 'http://imgur.com/lWH1FVN.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Ghostbusters II": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Ghostbusters II',
+      img_src: 'https://s-media-cache-ak0.pinimg.com/736x/04/1e/ed/041eedf9189f8c7d292788abfcb8e3ff.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Gremlins": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Gremlins',
+      img_src: 'http://imgur.com/5EpAbN0.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Adventures in Babysitting": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Adventures in Babysitting',
+      img_src: 'http://imgur.com/sEvnd9N.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Beetlejuice": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
+      word: 'Beetlejuice',
+      img_src: 'http://imgur.com/O6y5FRK.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "The Karate Kid": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
-      imdb: 'http://www.imdb.com/title/tt0087363'
-   },
-   "The Karate Kid Part II": {
+      word: 'The Karate Kid',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Weekend at Bernie's": {
-      img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
-      imdb: 'http://www.imdb.com/title/tt0087363'
-   },
-   "The Untouchables": {
+      word: 'Weekend at Bernie\'s',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Die Hard": {
+      word: 'Die Hard',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "A Christmas Story": {
+      word: 'A Christmas Story',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Ferris Bueller's Day Off": {
+      word: 'Ferris Bueller\'s Day Off',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Akira": {
+      word: 'Akira',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0094625'
    },
    "Aliens": {
+      word: 'Aliens',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BNGYxMTA0M2EtYjg0Yy00NzI5LTg4NjEtZDA2MTcyOWM0YTVjL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0090605'
    },
    "Robocop": {
+      word: 'Robocop',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0087363'
    },
    "Revenge of the Nerds": {
+      word: 'Revenge of the Nerds',
       img_src: 'https://images-na.ssl-images-amazon.com/images/M/MV5BODU1NzM4NTA4Nl5BMl5BanBnXkFtZTgwMTkxMzcxMTE@._V1_UX182_CR0,0,182,268_AL_.jpg',
       imdb: 'http://www.imdb.com/title/tt0088000'
    }
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1486,7 +1577,7 @@ module.exports = {
 module.exports = ["The Breakfast Club", "Real Genius", "Sixteen Candles", "Weird Science", "Pretty in Pink", "Back to the Future", "Back to the Future Part II", "Star Wars: Episode V - The Empire Strikes Back", "Star Wars: Episode VI - Return of the Jedi", "Star Trek II: The Wrath of Khan", "Star Trek IV: The Voyage Home", "E.T. the Extra-Terrestrial", "Dirty Dancing", "Platoon", "The Princess Bride", "Raiders of the Lost Ark", "Indiana Jones and the Temple of Doom", "Indiana Jones and the Last Crusade", "The Terminator", "Who Framed Roger Rabbit", "When Harry Met Sally...", "Labyrinth", "Legend", "Bill & Ted's Excellent Adventure", "Top Gun", "Footloose", "Desperately Seeking Susan", "Poltergeist", "Poltergeist II: The Other Side", "Flashdance", "Ghostbusters", "Ghostbusters II", "Gremlins", "Superman II", "Splash", "Some Kind of Wonderful", "The Legend of Billie Jean", "Risky Business", "Working Girl", "Roxanne", "Ruthless People", "The Lost Boys", "Adventures in Babysitting", "Beetlejuice", "St. Elmo's Fire", "All the Right Moves", "Mannequin", "The Karate Kid", "The Karate Kid Part II", "Weekend at Bernie's", "The Untouchables", "Die Hard", "Raising Arizona", "The Last Emperor", "A Christmas Story", "Terms of Endearment", "The Little Mermaid", "The Fox and the Hound", "Glory", "A Fish Called Wanda", "Witness", "Field of Dreams", "Moonstruck", "Ferris Bueller's Day Off", "The Road Warrior", "Mad Max Beyond Thunderdome", "Stand by Me", "Above the Law", "The Abyss", "The Accused", "Akira", "An American Tail", "The NeverEnding Story", "The Secret of NIMH", "The Last Unicorn", "An American Werewolf in London", "Anne of Green Gables", "Annie", "The Fly", "The Fly II", "Armed and Dangerous", "Batman", "The Bay Boy", "Steel Magnolias", "Beaches", "Benji the Hunted", "Beverly Hills Cop", "Beverly Hills Cop II", "Big", "The Big Chill", "The Black Cauldron", "The Black Stallion Returns", "Bloodsport", "The Blue Lagoon", "Blue Thunder", "Born on the Fourth of July", "Big Trouble in Little China", "The 'Burbs", "Caddyshack", "The Care Bears Movie", "The Muppets Take Manhattan", "Firestarter", "Cat's Eye", "Chariots of Fire", "Children of the Corn", "Child's Play", "Cocktail", "Cocoon", "Cocoon: The Return", "*batteries not included", "The Color Purple", "Commando", "Communion", "Crocodile Dundee", "Crocodile Dundee II", "Crusoe", "Cujo", "Dangerous Liaisons", "The Dark Crystal", "D.A.R.Y.L.", "Police Academy", "Police Academy 2: Their First Assignment", "Police Academy 4: Citizens on Patrol", "Police Academy 6: City Under Siege", "Date with an Angel", "Dead Calm", "Deadly Friend", "The Dead Pool", "Dead Ringers", "The Dead Zone", "D.O.A.", "Dominick and Eugene", "Dragnet", "Troop Beverly Hills", "Dream a Little Dream", "Dreamscape", "The Dream Team", "Drugstore Cowboy", "Earth Girls Are Easy", "Enemy Mine", "Escape from New York", "Lethal Weapon", "Lethal Weapon 2", "Explorers", "Fatal Attraction", "Jumpin' Jack Flash", "The Flamingo Kid", "One Crazy Summer", "Stand and Deliver", "Lean on Me", "Flight of the Navigator", "Flowers in the Attic", "Ferris Bueller's Day Off", "Highlander", "48 Hrs.", "Frantic", "From the Hip", "F/X", "Blade Runner", "Raiders of the Lost Ark", "Gleaming the Cube", "Heathers", "The Golden Child", "Good Morning, Vietnam", "Ghostbusters", "Gremlins", "The Great Outdoors", "Planes, Trains & Automobiles", "Throw Momma from the Train", "Greystoke: The Legend of Tarzan, Lord of the Apes", "Altered States", "The Rescue", "Hannah and Her Sisters", "Harry and the Hendersons", "Heavy Metal", "Her Alibi", "Hiding Out", "Honey, I Shrunk the Kids", "Hoosiers", "The Wizard", "The Name of the Rose", "The Journey of Natty Gann", "Twins", "Kickboxer", "K-9", "La Bamba", "Ladyhawke", "Lady in White", "The Land Before Time", "The Last Starfighter", "Legal Eagles", "Less Than Zero", "Little Shop of Horrors", "Look Who's Talking", "Lucas", "Major League", "The Man from Snowy River", "Return to Snowy River", "The Manhattan Project", "Married to the Mob", "Mask", "Maximum Overdrive", "Midnight Run", "Mississippi Burning", "The Money Pit", "Monkey Shines", "Moscow on the Hudson", "Moving", "Music Box", "My Science Project", "My Stepmother Is an Alien", "Mystic Pizza", "The Naked Gun: From the Files of Police Squad!", "National Lampoon's Vacation", "National Lampoon's European Vacation", "National Lampoon's Christmas Vacation", "Never Cry Wolf", "Next of Kin", "9½ Weeks", "The Big Easy", "9 to 5", "The Outsiders", "Rumble Fish", "Overboard", "Peggy Sue Got Married", "Phar Lap", "Pet Sematary", "The Philadelphia Experiment", "Pink Floyd: The Wall", "Predator", "The Presidio", "Private Benjamin", "Project X", "Quest for Fire", "Raging Bull", "Rain Man", "Red Dawn", "Red Heat", "Renegades", "Aliens", "Robocop", "Revenge of the Nerds", "Revenge of the Nerds II: Nerds in Paradise", "River's Edge", "Rock & Rule", "Romancing the Stone", "The Jewel of the Nile", "The Running Man", "Running on Empty", "Little Nikita", "Russkies", "Say Anything...", "Scanners", "Scrooged", "The Serpent and the Rainbow", "The Seventh Sign", "Short Circuit", "Sid and Nancy"];
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
