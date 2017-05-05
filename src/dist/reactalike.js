@@ -517,9 +517,11 @@ function NodeMap() {
    };
 
    var re = new RegExp(/^ex_/i);
+   var imgTag = new RegExp(/img/i);
    var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
-      var element = document.createElement(String(name));
+
+      var element = imgTag.test(name) ? new Image() : document.createElement(String(name));
 
       if (!attrs) return element;
 
