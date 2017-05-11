@@ -2,7 +2,7 @@ import events from "./events.js";
 import setDiff from "./diffing.js";
 import Provider from "./lib/redux_wrapper"
 const handyHelpers = require("./lib/handy_funcs.js");
-const smoothNested = handyHelpers.smoothArray();
+const smoothNested = handyHelpers.smoothArray;
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 const formTags = {
    textarea: true,
@@ -175,21 +175,22 @@ function NodeMap(appTitle = 'default') {
 
    this.createImage = (attrs) => {
      let img = new Image();
+     img.onerror=function(){console.log("Image failed to load")};
      img.src = attrs['src']
      return img
    }
 
    const re = new RegExp(/^ex_/i)
    const imgTag = new RegExp(/img/i)
-   const isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
+   const isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
 
-      const element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
-
+      //const element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
+       const element = document.createElement(String(name))
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr) && attr !== 'src') {
+         if (!NodeMapContext.events[attr] && !re.test(attr) || attr === 'src') {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -220,7 +221,7 @@ function NodeMap(appTitle = 'default') {
          parent: parent
       });
 
-      const el = isSVG.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
+      const el = (isSVG.test(node.type) && !imgTag.test(node.type)) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
       node.domElement = el;
       for (var prop in node.props) {
          if (NodeMapContext.events[prop]) {
@@ -235,7 +236,9 @@ function NodeMap(appTitle = 'default') {
       node.nested.map((elm, ii) => {
          let elmId = group + '.' + ii;
          return createElem(elm, elmId, group);
-      }).forEach(el.appendChild.bind(el));
+      }).forEach((childElement) => {
+        el.appendChild(childElement)
+      });
       return el;
 
    };
@@ -306,13 +309,7 @@ NodeMap.prototype.node = (type, props = {}, ...nested) => {
       return type(props);
    }
 
-   if (nested) {
-      nested = smoothNested(nested);
-   } else {
-      nested = []
-   }
-
-   return {type, props, nested};
+   return {type: type, props: props, nested: smoothNested(nested) };
 };
 
 function exNode(appName) {

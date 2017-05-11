@@ -8,8 +8,7 @@ const setDiff = (self, createElem) => {
    };
 
    function changeProp(element, attr, val) {
-      if (attr === 'src') self.updateSource(element, val)
-      if (!self.events[attr] && !re.test(attr) && attr !== 'src') {
+      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
          element.setAttribute(attr, val);
       }
    };
@@ -54,7 +53,7 @@ const setDiff = (self, createElem) => {
 
       if (!oldNode) {
          let vdomid = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, vdomid, parent.trace);
+         newNode.domElement = createElem(newNode, vdomid, parent.props.trace);
          parent.domElement.appendChild(newNode.domElement);
          return
       };
@@ -66,7 +65,7 @@ const setDiff = (self, createElem) => {
       if (changed(newNode, oldNode)) {
 
          let vdomid = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, vdomid, newNode.parent);
+         newNode.domElement = createElem(newNode, vdomid, newNode.props.parent);
          let repl = typeof oldNode === 'string' ? parent.domElement.children[index] : oldNode.domElement;
          parent.domElement.replaceChild(newNode.domElement, repl);
 

@@ -15,11 +15,9 @@ function flattenIteration(arr, flatArr) {
    return flatArr;
 }
 module.exports = {
-   smoothArray: () => {
-      return (nested) => {
-
-         return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined);
-      }
+   smoothArray: (nested) => {
+      if (!nested) return []
+      return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined);
    },
    flatten: (nested) => {
       return nested.reduce(flatten, []);

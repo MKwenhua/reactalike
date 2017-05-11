@@ -90,8 +90,7 @@ var setDiff = function setDiff(self, createElem) {
    };
 
    function changeProp(element, attr, val) {
-      if (attr === 'src') self.updateSource(element, val);
-      if (!self.events[attr] && !re.test(attr) && attr !== 'src') {
+      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
          element.setAttribute(attr, val);
       }
    };
@@ -140,7 +139,7 @@ var setDiff = function setDiff(self, createElem) {
 
       if (!oldNode) {
          var _vdomid = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, _vdomid, parent.trace);
+         newNode.domElement = createElem(newNode, _vdomid, parent.props.trace);
          parent.domElement.appendChild(newNode.domElement);
          return;
       };
@@ -152,7 +151,7 @@ var setDiff = function setDiff(self, createElem) {
       if (changed(newNode, oldNode)) {
 
          var _vdomid2 = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, _vdomid2, newNode.parent);
+         newNode.domElement = createElem(newNode, _vdomid2, newNode.props.parent);
          var repl = typeof oldNode === 'string' ? parent.domElement.children[index] : oldNode.domElement;
          parent.domElement.replaceChild(newNode.domElement, repl);
 
@@ -269,13 +268,11 @@ function flattenIteration(arr, flatArr) {
    return flatArr;
 }
 module.exports = {
-   smoothArray: function smoothArray() {
-      return function (nested) {
-
-         return nested.reduce(_flatten, []).filter(function (ne) {
-            return ne !== null && ne !== undefined;
-         });
-      };
+   smoothArray: function smoothArray(nested) {
+      if (!nested) return [];
+      return nested.reduce(_flatten, []).filter(function (ne) {
+         return ne !== null && ne !== undefined;
+      });
    },
    flatten: function flatten(nested) {
       return nested.reduce(_flatten, []);
@@ -345,7 +342,7 @@ var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var handyHelpers = __webpack_require__(2);
-var smoothNested = handyHelpers.smoothArray();
+var smoothNested = handyHelpers.smoothArray;
 var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
    return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 } : function (obj) {
@@ -523,21 +520,24 @@ function NodeMap() {
 
    this.createImage = function (attrs) {
       var img = new Image();
+      img.onerror = function () {
+         console.log("Image failed to load");
+      };
       img.src = attrs['src'];
       return img;
    };
 
    var re = new RegExp(/^ex_/i);
    var imgTag = new RegExp(/img/i);
-   var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
+   var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
 
-      var element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
-
+      //const element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
+      var element = document.createElement(String(name));
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr) && attr !== 'src') {
+         if (!NodeMapContext.events[attr] && !re.test(attr) || attr === 'src') {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -568,7 +568,7 @@ function NodeMap() {
          parent: parent
       });
 
-      var el = isSVG.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
+      var el = isSVG.test(node.type) && !imgTag.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
       node.domElement = el;
       for (var prop in node.props) {
          if (NodeMapContext.events[prop]) {
@@ -583,7 +583,9 @@ function NodeMap() {
       node.nested.map(function (elm, ii) {
          var elmId = group + '.' + ii;
          return createElem(elm, elmId, group);
-      }).forEach(el.appendChild.bind(el));
+      }).forEach(function (childElement) {
+         el.appendChild(childElement);
+      });
       return el;
    };
 
@@ -657,13 +659,7 @@ NodeMap.prototype.node = function (type) {
       return type(props);
    }
 
-   if (nested) {
-      nested = smoothNested(nested);
-   } else {
-      nested = [];
-   }
-
-   return { type: type, props: props, nested: nested };
+   return { type: type, props: props, nested: smoothNested(nested) };
 };
 
 function exNode(appName) {
