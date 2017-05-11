@@ -119,8 +119,10 @@ var setDiff = function setDiff(self, createElem) {
    };
 
    function checkForEvents(node) {
-      if (node.props.ex_eventFuncName) {
-         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      if (node.props.ex_attachedFuncs) {
+         for (var eventName in node.props.ex_attachedFuncs) {
+            node.domElement.removeEventListener(eventName, node.props.ex_attachedFuncs[eventName]);
+         }
       }
    };
 
@@ -161,6 +163,9 @@ var setDiff = function setDiff(self, createElem) {
          newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
 
          updateProps(newNode.domElement, newNode.props, oldNode.props);
+         if (oldNode.props.ex_attachedFuncs) {
+            self.replaceListenerFunctions(oldNode.props.ex_attachedFuncs, newNode);
+         }
 
          var newLength = newNode.nested ? newNode.nested.length : 0;
 
@@ -368,6 +373,7 @@ function NodeMap() {
    this.appRoot = null;
    this.mountedCallbacks = [];
    this.events = _events2.default;
+   this.setEvents = {};
    var NodeMapContext = this;
 
    this.createUdid = function () {
@@ -398,15 +404,30 @@ function NodeMap() {
          NodeMapContext.lookUpRegistry(e.target, type, e);
       });
    };
-
+   this.replaceListenerFunctions = function (attachedFuncs, newNode) {
+      newNode.props.ex_attachedFuncs = attachedFuncs;
+      Object.keys(attachedFuncs).forEach(function (eventNAME) {
+         if (newNode.props[eventNAME]) {
+            NodeMapContext.events[eventNAME][attachedFuncs[eventNAME]] = function (e) {
+               newNode.props[eventNAME](e, newNode.domElement, newNode);
+            };
+         } else {
+            NodeMapContext.events[eventNAME][attachedFuncs[eventNAME]] = function (e) {};
+         }
+      });
+   };
    this.setListenerEl = function (eventOb, cb, node) {
       var evnName = eventOb.eventNS;
-      node.props.ex_eventFuncName = NodeMapContext.randomFuncId();
-      node.props.ex_attachedFunc = evnName;
-      NodeMapContext.events[evnName][node.props.ex_eventFuncName] = function (e) {
+      var eventFuncId = NodeMapContext.randomFuncId();
+      node.props.ex_attachedFuncs = node.props.ex_attachedFuncs || {};
+      node.props.ex_attachedFuncs[evnName] = eventFuncId;
+      NodeMapContext.setEvents[node.props.ex_attachedFunc] = evnName;
+      NodeMapContext.events[evnName][eventFuncId] = function (e) {
          node.props[evnName](e, node.domElement, node);
       };
-      node.domElement.addEventListener(eventOb.eventName, NodeMapContext.events[evnName][node.props.ex_eventFuncName]);
+      node.domElement.addEventListener(eventOb.eventName, function (e) {
+         return NodeMapContext.events[evnName][eventFuncId](e);
+      });
    };
 
    this.applyListener = function (listener, node) {

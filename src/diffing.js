@@ -35,8 +35,10 @@ const setDiff = (self, createElem) => {
    };
 
    function checkForEvents(node) {
-      if (node.props.ex_eventFuncName) {
-         node.domElement.removeEventListener(node.props.ex_attachedFunc, node.props.ex_eventFuncName);
+      if (node.props.ex_attachedFuncs) {
+         for (var eventName in node.props.ex_attachedFuncs) {
+            node.domElement.removeEventListener(eventName, node.props.ex_attachedFuncs[eventName]);
+         }
       }
    };
 
@@ -75,6 +77,9 @@ const setDiff = (self, createElem) => {
          newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
 
          updateProps(newNode.domElement, newNode.props, oldNode.props);
+         if (oldNode.props.ex_attachedFuncs) {
+            self.replaceListenerFunctions(oldNode.props.ex_attachedFuncs, newNode)
+         }
 
          const newLength = newNode.nested ? newNode.nested.length : 0;
 
