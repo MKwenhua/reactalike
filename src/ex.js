@@ -1,17 +1,17 @@
-import events from "./events.js";
+import events from "lib/events.js";
 import setDiff from "./diffing.js";
-import Provider from "./lib/redux_wrapper"
-import isSVG from './lib/svg_tags'
-const handyHelpers = require("./lib/handy_funcs.js");
-const smoothNested = handyHelpers.smoothArray;
+import Provider from "addons/redux_wrapper"
+import isSVG from 'utils/svg_tags'
+import formTags from 'utils/form_tags'
+import  {
+  smoothNested,
+  flatten,
+  capitalize
+} from 'shared/handy_funcs'
+
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-const formTags = {
-   textarea: true,
-   select: true,
-   input: true,
-   output: true,
-   form: true
-}
+
+
 
 function NodeMap(appTitle = 'default') {
    this.appTitle = appTitle;

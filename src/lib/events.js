@@ -1,4 +1,4 @@
-import EventList from "./lib/eventlist.js"
+import EventList from "utils/eventlist"
 
 function extractEventName(name) {
    return name.slice(2).toLowerCase()
