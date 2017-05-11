@@ -90,7 +90,8 @@ var setDiff = function setDiff(self, createElem) {
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
+      if (attr === 'src') self.updateSource(element, val);
+      if (!self.events[attr] && !re.test(attr) && attr !== 'src') {
          element.setAttribute(attr, val);
       }
    };
@@ -495,17 +496,27 @@ function NodeMap() {
       NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
+   this.updateSource = function (element, src) {
+      element.src = src;
+   };
+
+   this.createImage = function (attrs) {
+      var img = new Image();
+      img.src = attrs['src'];
+      return img;
+   };
+
    var re = new RegExp(/^ex_/i);
    var imgTag = new RegExp(/img/i);
    var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
 
-      var element = imgTag.test(name) ? new Image() : document.createElement(String(name));
+      var element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
 
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if (!NodeMapContext.events[attr] && !re.test(attr) && attr !== 'src') {
             element.setAttribute(attr, attrs[attr]);
          }
       }
