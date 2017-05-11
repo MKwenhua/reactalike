@@ -1,7 +1,7 @@
 import events from "./events.js";
 import setDiff from "./diffing.js";
 import Provider from "./lib/redux_wrapper"
-import isSVG from './lib/tags'
+import isSVG from './lib/svg_tags'
 const handyHelpers = require("./lib/handy_funcs.js");
 const smoothNested = handyHelpers.smoothArray;
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
