@@ -5,7 +5,6 @@ module.exports = {
   devtool: debug ? "inline-sourcemap" : false,
   entry: "./src/ex.js",
   resolve: {
-   extensions: ['.js', ''],
    alias: {
      addon: path.resolve( __dirname, 'src/addons'),
      lib: path.resolve( __dirname, 'src/lib'),

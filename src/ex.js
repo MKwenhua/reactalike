@@ -1,6 +1,6 @@
 import events from "lib/events";
 import setDiff from "./diffing.js";
-import Provider from "addons/redux_wrapper"
+import Provider from "addon/redux_wrapper"
 import isSVG from 'utils/svg_tags'
 import formTags from 'utils/form_tags'
 import CheckHTMLattribute from 'utils/html_attributes'

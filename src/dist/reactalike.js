@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,20 +77,195 @@ module.exports =
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
+var htmlAttributes = {
+   'accept': true,
+   'accept-charset': true,
+   'accesskey': true,
+   'action': true,
+   'align': true,
+   'alt': true,
+   'async': true,
+   'autocomplete': true,
+   'autofocus': true,
+   'autoplay': true,
+   'autosave': true,
+   'bgcolor': true,
+   'border': true,
+   'buffered': true,
+   'challenge': true,
+   'charset': true,
+   'checked': true,
+   'cite': true,
+   'class': true,
+   'code': true,
+   'codebase': true,
+   'color': true,
+   'cols': true,
+   'colspan': true,
+   'content': true,
+   'contenteditable': true,
+   'contentEditable': true,
+   'contextmenu': true,
+   'controls': true,
+   'coords': true,
+   'crossorigin': true,
+   'data': true,
+   'data-*': true,
+   'datetime': true,
+   'default': true,
+   'defer': true,
+   'dir': true,
+   'dirname': true,
+   'disabled': true,
+   'download': true,
+   'draggable': true,
+   'dropzone': true,
+   'enctype': true,
+   'for': true,
+   'form': true,
+   'formaction': true,
+   'headers': true,
+   'height': true,
+   'hidden': true,
+   'high': true,
+   'href': true,
+   'hreflang': true,
+   'http-equiv': true,
+   'icon': true,
+   'id': true,
+   'integrity': true,
+   'ismap': true,
+   'itemprop': true,
+   'keytype': true,
+   'kind': true,
+   'label': true,
+   'lang': true,
+   'language': true,
+   'list': true,
+   'loop': true,
+   'low': true,
+   'manifest': true,
+   'max': true,
+   'maxlength': true,
+   'minlength': true,
+   'media': true,
+   'method': true,
+   'min': true,
+   'multiple': true,
+   'muted': true,
+   'name': true,
+   'novalidate': true,
+   'open': true,
+   'optimum': true,
+   'pattern': true,
+   'ping': true,
+   'placeholder': true,
+   'poster': true,
+   'preload': true,
+   'radiogroup': true,
+   'readonly': true,
+   'rel': true,
+   'required': true,
+   'reversed': true,
+   'rows': true,
+   'rowspan': true,
+   'sandbox': true,
+   'scope': true,
+   'scoped': true,
+   'seamless': true,
+   'selected': true,
+   'shape': true,
+   'size': true,
+   'sizes': true,
+   'slot': true,
+   'span': true,
+   'spellcheck': true,
+   'src': true,
+   'srcdoc': true,
+   'srclang': true,
+   'srcset': true,
+   'start': true,
+   'step': true,
+   'style': true,
+   'summary': true,
+   'tabindex': true,
+   'target': true,
+   'title': true,
+   'type': true,
+   'usemap': true,
+   'value': true,
+   'width': true,
+   'wrap': true
+};
+
+var CheckHTMLattribute = function CheckHTMLattribute(attr) {
+   var dataAttr = new RegExp(/^data-/i);
+
+   return htmlAttributes[attr] || dataAttr.test(attr);
+};
+
+exports.default = CheckHTMLattribute;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function Provider(component, store, context) {
+
+  var initialProps = Object.assign({
+    dispatch: store.dispatch,
+    store: store.getState()
+  });
+  var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
+
+  store.subscribe(function () {
+    compInstance.props = Object.assign(compInstance.props, {
+      dispatch: store.dispatch,
+      store: store.getState()
+    });
+    context.objectChange(compInstance.render());
+  });
+
+  return compInstance;
+}
+
+exports.default = Provider;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var _html_attributes = __webpack_require__(0);
+
+var _html_attributes2 = _interopRequireDefault(_html_attributes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var setDiff = function setDiff(self, createElem) {
-   var re = new RegExp(/^ex_/i);
 
    function removeProp(element, attr) {
-      if (!self.events[attr] && !re.test(attr)) {
+      if (!self.events[attr] && (0, _html_attributes2.default)(attr)) {
          element.removeAttribute(attr);
       }
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr)) {
+      if (!self.events[attr] && (0, _html_attributes2.default)(attr)) {
          element.setAttribute(attr, val);
       }
    };
@@ -188,7 +363,7 @@ var setDiff = function setDiff(self, createElem) {
 exports.default = setDiff;
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,7 +373,7 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
-var _eventlist = __webpack_require__(6);
+var _eventlist = __webpack_require__(8);
 
 var _eventlist2 = _interopRequireDefault(_eventlist);
 
@@ -245,76 +420,27 @@ var events = _eventlist2.default.reduce(function (ob, itm) {
 exports.default = events;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _flatten = function _flatten(a, b) {
-   return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
-};
-
-function flattenIteration(arr, flatArr) {
-   flatArr = flatArr || [];
-
-   var length = arr.length | 0;
-
-   for (var index = 0; index < length; index = index + 1) {
-      var item = arr[index];
-      item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
-   }
-
-   return flatArr;
-}
-module.exports = {
-   smoothArray: function smoothArray(nested) {
-      if (!nested) return [];
-      return nested.reduce(_flatten, []).filter(function (ne) {
-         return ne !== null && ne !== undefined;
-      });
-   },
-   flatten: function flatten(nested) {
-      return nested.reduce(_flatten, []);
-   },
-   capitalize: function capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-   }
-};
-
-/***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+   value: true
 });
-function Provider(component, store, context) {
+var formTags = {
+   textarea: true,
+   select: true,
+   input: true,
+   output: true,
+   form: true
+};
 
-  var initialProps = Object.assign({
-    dispatch: store.dispatch,
-    store: store.getState()
-  });
-  var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
-
-  store.subscribe(function () {
-    compInstance.props = Object.assign(compInstance.props, {
-      dispatch: store.dispatch,
-      store: store.getState()
-    });
-    context.objectChange(compInstance.render());
-  });
-
-  return compInstance;
-}
-
-exports.default = Provider;
+exports.default = formTags;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -347,7 +473,53 @@ var isSVG = {
 exports.default = isSVG;
 
 /***/ }),
-/* 5 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+var flattenArray = function flattenArray(a, b) {
+   return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
+};
+
+function flattenIteration(arr, flatArr) {
+   flatArr = flatArr || [];
+
+   var length = arr.length | 0;
+
+   for (var index = 0; index < length; index = index + 1) {
+      var item = arr[index];
+      item.constructor === Array ? flattenIteration(item, flatArr) : flatArr[flatArr.length] = item;
+   }
+
+   return flatArr;
+}
+
+var smoothNested = function smoothNested(nested) {
+   if (!nested) return [];
+   return nested.reduce(flattenArray, []).filter(function (ne) {
+      return ne !== null && ne !== undefined;
+   });
+};
+
+var flatten = function flatten(nested) {
+   return nested.reduce(flattenArray, []);
+};
+
+var capitalize = function capitalize(string) {
+   return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+exports.smoothNested = smoothNested;
+exports.flatten = flatten;
+exports.capitalize = capitalize;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -360,37 +532,38 @@ exports.exNode = undefined;
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _events = __webpack_require__(1);
+var _events = __webpack_require__(3);
 
 var _events2 = _interopRequireDefault(_events);
 
-var _diffing = __webpack_require__(0);
+var _diffing = __webpack_require__(2);
 
 var _diffing2 = _interopRequireDefault(_diffing);
 
-var _redux_wrapper = __webpack_require__(3);
+var _redux_wrapper = __webpack_require__(1);
 
 var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
 
-var _tags = __webpack_require__(4);
+var _svg_tags = __webpack_require__(5);
 
-var _tags2 = _interopRequireDefault(_tags);
+var _svg_tags2 = _interopRequireDefault(_svg_tags);
+
+var _form_tags = __webpack_require__(4);
+
+var _form_tags2 = _interopRequireDefault(_form_tags);
+
+var _html_attributes = __webpack_require__(0);
+
+var _html_attributes2 = _interopRequireDefault(_html_attributes);
+
+var _handy_funcs = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var handyHelpers = __webpack_require__(2);
-var smoothNested = handyHelpers.smoothArray;
 var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
    return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 } : function (obj) {
    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-};
-var formTags = {
-   textarea: true,
-   select: true,
-   input: true,
-   output: true,
-   form: true
 };
 
 function NodeMap() {
@@ -466,7 +639,7 @@ function NodeMap() {
 
    this.applyListener = function (listener, node) {
       var eventInfo = NodeMapContext.events[listener];
-      var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
+      var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || _form_tags2.default[node.type];
       if (!eventInfo.registered && !onSelf) {
          eventInfo.registered = true;
          NodeMapContext.setListener(eventInfo.eventName, listener);
@@ -551,18 +724,13 @@ function NodeMap() {
       NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
-   this.updateSource = function (element, src) {
-      element.src = src;
-   };
-
-   var re = new RegExp(/^ex_/i);
    this.createElement = function createElement(name, attrs) {
 
       var element = document.createElement(String(name));
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if (!NodeMapContext.events[attr] && (0, _html_attributes2.default)(attr)) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -593,7 +761,7 @@ function NodeMap() {
          parent: parent
       });
 
-      var el = _tags2.default[node.type] ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
+      var el = _svg_tags2.default[node.type] ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
       node.domElement = el;
       for (var prop in node.props) {
          if (NodeMapContext.events[prop]) {
@@ -684,7 +852,7 @@ NodeMap.prototype.node = function (type) {
       return type(props);
    }
 
-   return { type: type, props: props, nested: smoothNested(nested) };
+   return { type: type, props: props, nested: (0, _handy_funcs.smoothNested)(nested) };
 };
 
 function exNode(appName) {
@@ -698,7 +866,7 @@ exports.default = EX;
 exports.exNode = exNode;
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
