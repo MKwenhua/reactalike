@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -90,7 +90,7 @@ var setDiff = function setDiff(self, createElem) {
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
+      if (!self.events[attr] && !re.test(attr)) {
          element.setAttribute(attr, val);
       }
    };
@@ -198,7 +198,7 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
-var _eventlist = __webpack_require__(5);
+var _eventlist = __webpack_require__(6);
 
 var _eventlist2 = _interopRequireDefault(_eventlist);
 
@@ -323,6 +323,39 @@ exports.default = Provider;
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
+var isSVG = {
+   circle: true,
+   clipPath: true,
+   defs: true,
+   ellipse: true,
+   g: true,
+   line: true,
+   linearGradient: true,
+   mask: true,
+   path: true,
+   pattern: true,
+   polygon: true,
+   polyline: true,
+   radialGradient: true,
+   rect: true,
+   stop: true,
+   svg: true,
+   text: true,
+   tspan: true
+};
+
+exports.default = isSVG;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
 exports.exNode = undefined;
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -338,6 +371,10 @@ var _diffing2 = _interopRequireDefault(_diffing);
 var _redux_wrapper = __webpack_require__(3);
 
 var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
+
+var _tags = __webpack_require__(4);
+
+var _tags2 = _interopRequireDefault(_tags);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -518,26 +555,14 @@ function NodeMap() {
       element.src = src;
    };
 
-   this.createImage = function (attrs) {
-      var img = new Image();
-      img.onerror = function () {
-         console.log("Image failed to load");
-      };
-      img.src = attrs['src'];
-      return img;
-   };
-
    var re = new RegExp(/^ex_/i);
-   var imgTag = new RegExp(/img/i);
-   var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
 
-      //const element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
       var element = document.createElement(String(name));
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr) || attr === 'src') {
+         if (!NodeMapContext.events[attr] && !re.test(attr)) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -568,7 +593,7 @@ function NodeMap() {
          parent: parent
       });
 
-      var el = isSVG.test(node.type) && !imgTag.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
+      var el = _tags2.default[node.type] ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
       node.domElement = el;
       for (var prop in node.props) {
          if (NodeMapContext.events[prop]) {
@@ -673,7 +698,7 @@ exports.default = EX;
 exports.exNode = exNode;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
