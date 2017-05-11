@@ -155,17 +155,27 @@ function NodeMap(appTitle = 'default') {
       NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
+   this.updateSource = (element, src) => {
+     element.src = src;
+   }
+
+   this.createImage = (attrs) => {
+     let img = new Image();
+     img.src = attrs['src']
+     return img
+   }
+
    const re = new RegExp(/^ex_/i)
    const imgTag = new RegExp(/img/i)
    const isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
    this.createElement = function createElement(name, attrs) {
 
-      var element = imgTag.test(name) ? new Image() : document.createElement(String(name));
+      const element = imgTag.test(name) ? NodeMapContext.createImage(attrs) : document.createElement(String(name));
 
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if (!NodeMapContext.events[attr] && !re.test(attr) && attr !== 'src') {
             element.setAttribute(attr, attrs[attr]);
          }
       }

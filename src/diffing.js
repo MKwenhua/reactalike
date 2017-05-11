@@ -8,7 +8,8 @@ const setDiff = (self, createElem) => {
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
+      if (attr === 'src') self.updateSource(element, val)
+      if (!self.events[attr] && !re.test(attr) && attr !== 'src') {
          element.setAttribute(attr, val);
       }
    };
