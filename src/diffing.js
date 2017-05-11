@@ -1,14 +1,16 @@
+import CheckHTMLattribute from 'utils/html_attributes'
+
 const setDiff = (self, createElem) => {
    const re = new RegExp(/^ex_/i)
 
    function removeProp(element, attr) {
-      if (!self.events[attr] && !re.test(attr)) {
+      if (!self.events[attr] && CheckHTMLattribute(attr)) {
          element.removeAttribute(attr);
       }
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr)) {
+      if (!self.events[attr] && CheckHTMLattribute(attr)) {
          element.setAttribute(attr, val);
       }
    };

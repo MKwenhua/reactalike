@@ -1,8 +1,9 @@
-import events from "lib/events.js";
+import events from "lib/events";
 import setDiff from "./diffing.js";
 import Provider from "addons/redux_wrapper"
 import isSVG from 'utils/svg_tags'
 import formTags from 'utils/form_tags'
+import CheckHTMLattribute from 'utils/html_attributes'
 import  {
   smoothNested,
   flatten,
@@ -170,18 +171,13 @@ function NodeMap(appTitle = 'default') {
       NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
-   this.updateSource = (element, src) => {
-     element.src = src;
-   }
-
-   const re = new RegExp(/^ex_/i)
    this.createElement = function createElement(name, attrs) {
 
        const element = document.createElement(String(name))
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if (!NodeMapContext.events[attr] && CheckHTMLattribute(attr)) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
