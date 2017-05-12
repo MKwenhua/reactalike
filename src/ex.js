@@ -98,11 +98,8 @@ function NodeMap(appTitle = 'default') {
    };
 
    this.lookUpRegistry = (target, eventName, e) => {
-      let tgTrace = target.getAttribute('trace');
-      let traceArray = tgTrace.split('.');
-      console.log('traceArray', traceArray);
+      let traceArray = target.getAttribute('trace').split('.');
       let vDom = NodeMapContext.domComponents;
-      console.log('vDom', vDom);
       traceArray.shift()
       traceArray.map((itm, i) => {
          if (!vDom.nested) {
@@ -163,7 +160,7 @@ function NodeMap(appTitle = 'default') {
    this.viewObjects = () => {
       console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
       console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
-      console.log('this.events', NodeMapContext.events);
+      console.log('NodeMapContext.events', NodeMapContext.events);
    };
 
    this.mountApp = (obj) => {
@@ -173,8 +170,7 @@ function NodeMap(appTitle = 'default') {
    };
 
    this.createElement = function createElement(name, attrs) {
-
-       const element = document.createElement(String(name))
+      const element = document.createElement(String(name))
       if (!attrs) return element;
 
       for (let attr in attrs) {
