@@ -15,18 +15,18 @@ const setOnBlur = (keyName, nametag, cb) => {
 
 class NameTag extends EX.Component {
   render() {
-      let { ex_nametag, ex_person, ex_change, ex_editMode } = this.props;
-      let {color} = ex_nametag;
+      let {  nametag,  person,  change,  editMode } = this.props;
+      let {color} =  nametag;
       return (
          <div class="padd-center">
             <div class="tag" style={`border-color:${color}`} >
                <header style={`background:${color}`}>
-                  <div class="hello" contentEditable={ex_editMode} onBlur={setOnBlur('headerText', ex_nametag, ex_change)}>{ex_nametag.headerText}</div>
+                  <div class="hello" contentEditable={ editMode} onBlur={setOnBlur('headerText',  nametag,  change)}>{ nametag.headerText}</div>
                </header>
                <section>
-                  <div class="mynameis" contentEditable={ex_editMode} onBlur={setOnBlur('intro', ex_nametag, ex_change)}>{ex_nametag.intro}</div>
-                  <div class="my-name-is" contentEditable={ex_editMode} onBlur={setOnBlur('displayName', ex_nametag, ex_change)}>
-                     {ex_nametag.displayName}
+                  <div class="mynameis" contentEditable={ editMode} onBlur={setOnBlur('intro',  nametag,  change)}>{ nametag.intro}</div>
+                  <div class="my-name-is" contentEditable={ editMode} onBlur={setOnBlur('displayName',  nametag,  change)}>
+                     { nametag.displayName}
                   </div>
                </section>
                <div class="dottedline"></div>

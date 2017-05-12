@@ -24,7 +24,7 @@ class Layout extends EX.Container {
          return (
             <div onClick={setUserProfileLink(personId, dispatch)}>
 
-               <NameTag ex_person={guests[personId]} ex_nametag={nameTags[personId]} ex_editMode="false" />
+               <NameTag  person={guests[personId]}  nametag={nameTags[personId]}  editMode="false" />
             </div>
             )
       });
@@ -35,14 +35,14 @@ class Layout extends EX.Container {
          <div class="container">
          <section class={view === 'list_view' ? 'row' : 'hidden'}>
             <div class="col-md-2 pull-md-10">
-               <SideEdit ex_dispatch={dispatch}/>
+               <SideEdit  dispatch={dispatch}/>
             </div>
             <div class="col-md-10 push-md-2">
                {ppl}
             </div>
          </section>
          <section class={view === 'profile_view' ? 'row' : 'hidden'}>
-            <Profile ex_profile={profile}  ex_person={guests[profile.guest]}  ex_nametags={nameTags} ex_dispatch={dispatch}/>
+            <Profile  profile={profile}   person={guests[profile.guest]}   nametags={nameTags}  dispatch={dispatch}/>
          </section>
          </div>
       )

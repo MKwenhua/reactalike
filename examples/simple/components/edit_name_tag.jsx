@@ -37,34 +37,34 @@ const setColorChange = ( nametag, cb) => {
 class EditNameTag extends EX.Component {
  render() {
       console.log('EditNameTag props', this.props)
-      let {ex_person, ex_nametags, ex_editMode , ex_dispatch} = this.props;
-      let nametag = ex_nametags[ex_person.id];
+      let {person, nametags, editMode , dispatch} = this.props;
+      let nametag =  nametags[ person.id];
       if(!nametag) {
-         let newNametag = nameTagStarter(ex_person);
+         let newNametag = nameTagStarter( person);
 
          return (
             <div class="text-center">
             <h4>You do not have a nametag</h4>
-               <button class="btn btn-info" onClick={() => ex_dispatch({type: 'ADD_NAMETAG', payload: Object.assign({}, ex_nametags ,newNametag) })}>Generate NameTag</button>
+               <button class="btn btn-info" onClick={() =>  dispatch({type: 'ADD_NAMETAG', payload: Object.assign({},  nametags ,newNametag) })}>Generate NameTag</button>
             </div>
             )
       }
-      const nameTagChange = setNameTagChange( ex_nametags, ex_dispatch)
+      const nameTagChange = setNameTagChange(  nametags,  dispatch)
       return (
          <section>
 
              <div class="col-md-8">
-                <NameTag ex_person={ex_person} ex_nametag={nametag} ex_change={nameTagChange} ex_editMode={ex_editMode} />
+                <NameTag  person={ person}  nametag={nametag}  change={nameTagChange}  editMode={ editMode} />
             </div>
             <div class="col-md-4">
-               <div class={ex_editMode ? '' : 'hidden'}>
+               <div class={ editMode ? '' : 'hidden'}>
                <input type="color" value={nametag.color} onBlur={setColorChange(nametag,nameTagChange )} />
                </div>
-               <div class={ex_editMode ? '' : 'hidden'}>
-                  <button class="btn btn-success full-btn" onClick={() => ex_dispatch({type: 'NAMETAG_SAVE', payload: { mode: 'default', guest: ex_person.id }})}>Save</button>
+               <div class={ editMode ? '' : 'hidden'}>
+                  <button class="btn btn-success full-btn" onClick={() =>  dispatch({type: 'NAMETAG_SAVE', payload: { mode: 'default', guest:  person.id }})}>Save</button>
                </div>
-               <div class={ex_editMode ? 'hidden' : ''}>
-                  <button class="btn btn-success full-btn" onClick={() => ex_dispatch({type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest: ex_person.id } })}>Edit</button>
+               <div class={ editMode ? 'hidden' : ''}>
+                  <button class="btn btn-success full-btn" onClick={() =>  dispatch({type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest:  person.id } })}>Edit</button>
                </div>
             </div>
          </section>

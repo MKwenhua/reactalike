@@ -132,11 +132,11 @@ var NameTag = function (_EX$Component) {
       key: 'render',
       value: function render() {
          var _props = this.props,
-             ex_nametag = _props.ex_nametag,
-             ex_person = _props.ex_person,
-             ex_change = _props.ex_change,
-             ex_editMode = _props.ex_editMode;
-         var color = ex_nametag.color;
+             nametag = _props.nametag,
+             person = _props.person,
+             change = _props.change,
+             editMode = _props.editMode;
+         var color = nametag.color;
 
          return _reactalikeSource2.default.node(
             'div',
@@ -149,8 +149,8 @@ var NameTag = function (_EX$Component) {
                   { style: 'background:' + color },
                   _reactalikeSource2.default.node(
                      'div',
-                     { 'class': 'hello', contentEditable: ex_editMode, onBlur: setOnBlur('headerText', ex_nametag, ex_change) },
-                     ex_nametag.headerText
+                     { 'class': 'hello', contentEditable: editMode, onBlur: setOnBlur('headerText', nametag, change) },
+                     nametag.headerText
                   )
                ),
                _reactalikeSource2.default.node(
@@ -158,13 +158,13 @@ var NameTag = function (_EX$Component) {
                   null,
                   _reactalikeSource2.default.node(
                      'div',
-                     { 'class': 'mynameis', contentEditable: ex_editMode, onBlur: setOnBlur('intro', ex_nametag, ex_change) },
-                     ex_nametag.intro
+                     { 'class': 'mynameis', contentEditable: editMode, onBlur: setOnBlur('intro', nametag, change) },
+                     nametag.intro
                   ),
                   _reactalikeSource2.default.node(
                      'div',
-                     { 'class': 'my-name-is', contentEditable: ex_editMode, onBlur: setOnBlur('displayName', ex_nametag, ex_change) },
-                     ex_nametag.displayName
+                     { 'class': 'my-name-is', contentEditable: editMode, onBlur: setOnBlur('displayName', nametag, change) },
+                     nametag.displayName
                   )
                ),
                _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
@@ -1760,7 +1760,7 @@ var Layout = function (_EX$Container) {
             return _reactalikeSource2.default.node(
                'div',
                { onClick: setUserProfileLink(personId, dispatch) },
-               _reactalikeSource2.default.node(_name_tag2.default, { ex_person: guests[personId], ex_nametag: nameTags[personId], ex_editMode: 'false' })
+               _reactalikeSource2.default.node(_name_tag2.default, { person: guests[personId], nametag: nameTags[personId], editMode: 'false' })
             );
          });
          var b = ['w', '1', '3'].map(function (u) {
@@ -1779,7 +1779,7 @@ var Layout = function (_EX$Container) {
                _reactalikeSource2.default.node(
                   'div',
                   { 'class': 'col-md-2 pull-md-10' },
-                  _reactalikeSource2.default.node(_side_edit2.default, { ex_dispatch: dispatch })
+                  _reactalikeSource2.default.node(_side_edit2.default, { dispatch: dispatch })
                ),
                _reactalikeSource2.default.node(
                   'div',
@@ -1790,7 +1790,7 @@ var Layout = function (_EX$Container) {
             _reactalikeSource2.default.node(
                'section',
                { 'class': view === 'profile_view' ? 'row' : 'hidden' },
-               _reactalikeSource2.default.node(_profile2.default, { ex_profile: profile, ex_person: guests[profile.guest], ex_nametags: nameTags, ex_dispatch: dispatch })
+               _reactalikeSource2.default.node(_profile2.default, { profile: profile, person: guests[profile.guest], nametags: nameTags, dispatch: dispatch })
             )
          );
       }
@@ -3464,14 +3464,14 @@ var EditNameTag = function (_EX$Component) {
       value: function render() {
          console.log('EditNameTag props', this.props);
          var _props = this.props,
-             ex_person = _props.ex_person,
-             ex_nametags = _props.ex_nametags,
-             ex_editMode = _props.ex_editMode,
-             ex_dispatch = _props.ex_dispatch;
+             person = _props.person,
+             nametags = _props.nametags,
+             editMode = _props.editMode,
+             dispatch = _props.dispatch;
 
-         var nametag = ex_nametags[ex_person.id];
+         var nametag = nametags[person.id];
          if (!nametag) {
-            var newNametag = nameTagStarter(ex_person);
+            var newNametag = nameTagStarter(person);
 
             return _reactalikeSource2.default.node(
                'div',
@@ -3484,47 +3484,47 @@ var EditNameTag = function (_EX$Component) {
                _reactalikeSource2.default.node(
                   'button',
                   { 'class': 'btn btn-info', onClick: function onClick() {
-                        return ex_dispatch({ type: 'ADD_NAMETAG', payload: Object.assign({}, ex_nametags, newNametag) });
+                        return dispatch({ type: 'ADD_NAMETAG', payload: Object.assign({}, nametags, newNametag) });
                      } },
                   'Generate NameTag'
                )
             );
          }
-         var nameTagChange = setNameTagChange(ex_nametags, ex_dispatch);
+         var nameTagChange = setNameTagChange(nametags, dispatch);
          return _reactalikeSource2.default.node(
             'section',
             null,
             _reactalikeSource2.default.node(
                'div',
                { 'class': 'col-md-8' },
-               _reactalikeSource2.default.node(_name_tag2.default, { ex_person: ex_person, ex_nametag: nametag, ex_change: nameTagChange, ex_editMode: ex_editMode })
+               _reactalikeSource2.default.node(_name_tag2.default, { person: person, nametag: nametag, change: nameTagChange, editMode: editMode })
             ),
             _reactalikeSource2.default.node(
                'div',
                { 'class': 'col-md-4' },
                _reactalikeSource2.default.node(
                   'div',
-                  { 'class': ex_editMode ? '' : 'hidden' },
+                  { 'class': editMode ? '' : 'hidden' },
                   _reactalikeSource2.default.node('input', { type: 'color', value: nametag.color, onBlur: setColorChange(nametag, nameTagChange) })
                ),
                _reactalikeSource2.default.node(
                   'div',
-                  { 'class': ex_editMode ? '' : 'hidden' },
+                  { 'class': editMode ? '' : 'hidden' },
                   _reactalikeSource2.default.node(
                      'button',
                      { 'class': 'btn btn-success full-btn', onClick: function onClick() {
-                           return ex_dispatch({ type: 'NAMETAG_SAVE', payload: { mode: 'default', guest: ex_person.id } });
+                           return dispatch({ type: 'NAMETAG_SAVE', payload: { mode: 'default', guest: person.id } });
                         } },
                      'Save'
                   )
                ),
                _reactalikeSource2.default.node(
                   'div',
-                  { 'class': ex_editMode ? 'hidden' : '' },
+                  { 'class': editMode ? 'hidden' : '' },
                   _reactalikeSource2.default.node(
                      'button',
                      { 'class': 'btn btn-success full-btn', onClick: function onClick() {
-                           return ex_dispatch({ type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest: ex_person.id } });
+                           return dispatch({ type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest: person.id } });
                         } },
                      'Edit'
                   )
@@ -3585,12 +3585,12 @@ var Profile = function (_EX$Component) {
       key: 'render',
       value: function render() {
          var _props = this.props,
-             ex_profile = _props.ex_profile,
-             ex_person = _props.ex_person,
-             ex_nametags = _props.ex_nametags,
-             ex_dispatch = _props.ex_dispatch;
-         var mode = ex_profile.mode,
-             guest = ex_profile.guest;
+             profile = _props.profile,
+             person = _props.person,
+             nametags = _props.nametags,
+             dispatch = _props.dispatch;
+         var mode = profile.mode,
+             guest = profile.guest;
 
          console.log('profile props', this.props);
          return _reactalikeSource2.default.node(
@@ -3599,7 +3599,7 @@ var Profile = function (_EX$Component) {
             _reactalikeSource2.default.node(
                'button',
                { 'class': 'btn btn-info', onClick: function onClick() {
-                     return ex_dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
+                     return dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
                   } },
                'Go Back'
             ),
@@ -3611,7 +3611,7 @@ var Profile = function (_EX$Component) {
                   null,
                   'Name:'
                ),
-               ex_person.name
+               person.name
             ),
             _reactalikeSource2.default.node(
                'h4',
@@ -3621,7 +3621,7 @@ var Profile = function (_EX$Component) {
                   null,
                   'Occupation:'
                ),
-               ex_person.job
+               person.job
             ),
             _reactalikeSource2.default.node(
                'div',
@@ -3629,7 +3629,7 @@ var Profile = function (_EX$Component) {
                _reactalikeSource2.default.node(
                   'div',
                   { 'class': 'col-md-10' },
-                  _reactalikeSource2.default.node(_edit_name_tag2.default, { ex_person: ex_person, ex_nametags: ex_nametags, ex_dispatch: ex_dispatch, ex_editMode: mode === 'edit_nametag' })
+                  _reactalikeSource2.default.node(_edit_name_tag2.default, { person: person, nametags: nametags, dispatch: dispatch, editMode: mode === 'edit_nametag' })
                )
             )
          );
@@ -3678,7 +3678,7 @@ var SideEdit = function (_EX$Component) {
    _createClass(SideEdit, [{
       key: "render",
       value: function render() {
-         var ex_dispatch = this.props.ex_dispatch;
+         var dispatch = this.props.dispatch;
 
          return _reactalikeSource2.default.node(
             "section",
@@ -3694,7 +3694,7 @@ var SideEdit = function (_EX$Component) {
                _reactalikeSource2.default.node(
                   "button",
                   { "class": "btn btn-info", onClick: function onClick() {
-                        return ex_dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
+                        return dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
                      } },
                   "Add NameTag"
                )
