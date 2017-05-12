@@ -28,9 +28,6 @@ class Layout extends EX.Container {
             </div>
             )
       });
-    let b =  ['w','1', '3'].map((u) => {
-        return <div>{u}</div>
-      })
       return (
          <div class="container">
          <section class={view === 'list_view' ? 'row' : 'hidden'}>
