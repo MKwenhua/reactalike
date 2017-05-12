@@ -14,15 +14,19 @@ function flattenIteration(arr, flatArr) {
 
    return flatArr;
 }
-module.exports = {
-   smoothArray: (nested) => {
-      if (!nested) return []
-      return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined);
-   },
-   flatten: (nested) => {
-      return nested.reduce(flatten, []);
-   },
-   capitalize: (string) => {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-   }
+
+const smoothNested = (nested) => {
+   if (!nested) return []
+   return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined);
+}
+
+
+const capitalize = (string) => {
+   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export {
+  smoothNested,
+  flatten,
+  capitalize
 }

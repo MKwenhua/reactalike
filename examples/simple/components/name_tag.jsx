@@ -1,5 +1,5 @@
 import EX from 'reactalikeSource';
-const setOnBlur = (keyName, nametag, cb) => { 
+const setOnBlur = (keyName, nametag, cb) => {
    if(!cb) return () => {}
    return (e,a,b) => {
       console.log('keyName e', e)
@@ -13,21 +13,20 @@ const setOnBlur = (keyName, nametag, cb) => {
    }
 }
 
-const NameTag = EX.component({
-   componentName: 'nametag',
-   componentRender: (props) => {
-      let { ex_nametag, ex_person, ex_change, ex_editMode } = props;
-      let {color} = ex_nametag;
+class NameTag extends EX.Component {
+  render() {
+      let {  nametag,  person,  change,  editMode } = this.props;
+      let {color} =  nametag;
       return (
          <div class="padd-center">
             <div class="tag" style={`border-color:${color}`} >
                <header style={`background:${color}`}>
-                  <div class="hello" contentEditable={ex_editMode} onBlur={setOnBlur('headerText', ex_nametag, ex_change)}>{ex_nametag.headerText}</div>
+                  <div class="hello" contentEditable={ editMode} onBlur={setOnBlur('headerText',  nametag,  change)}>{ nametag.headerText}</div>
                </header>
                <section>
-                  <div class="mynameis" contentEditable={ex_editMode} onBlur={setOnBlur('intro', ex_nametag, ex_change)}>{ex_nametag.intro}</div>
-                  <div class="my-name-is" contentEditable={ex_editMode} onBlur={setOnBlur('displayName', ex_nametag, ex_change)}>
-                     {ex_nametag.displayName}
+                  <div class="mynameis" contentEditable={ editMode} onBlur={setOnBlur('intro',  nametag,  change)}>{ nametag.intro}</div>
+                  <div class="my-name-is" contentEditable={ editMode} onBlur={setOnBlur('displayName',  nametag,  change)}>
+                     { nametag.displayName}
                   </div>
                </section>
                <div class="dottedline"></div>
@@ -35,6 +34,6 @@ const NameTag = EX.component({
          </div>
       )
    }
-})
+}
 
 export default NameTag;

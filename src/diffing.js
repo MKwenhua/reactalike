@@ -1,14 +1,16 @@
+import CheckHTMLattribute from 'utils/html_attributes'
+import { EX_tags } from 'shared/namespace'
+
 const setDiff = (self, createElem) => {
-   const re = new RegExp(/^ex_/i)
 
    function removeProp(element, attr) {
-      if (!self.events[attr] && !re.test(attr)) {
+      if (CheckHTMLattribute(attr) || EX_tags[attr]) {
          element.removeAttribute(attr);
       }
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && !re.test(attr)) {
+      if (CheckHTMLattribute(attr) || EX_tags[attr]) {
          element.setAttribute(attr, val);
       }
    };

@@ -91,11 +91,19 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var setOnBlur = function setOnBlur(keyName, nametag, cb) {
    if (!cb) return function () {};
@@ -111,49 +119,62 @@ var setOnBlur = function setOnBlur(keyName, nametag, cb) {
    };
 };
 
-var NameTag = _reactalikeSource2.default.component({
-   componentName: 'nametag',
-   componentRender: function componentRender(props) {
-      var ex_nametag = props.ex_nametag,
-          ex_person = props.ex_person,
-          ex_change = props.ex_change,
-          ex_editMode = props.ex_editMode;
-      var color = ex_nametag.color;
+var NameTag = function (_EX$Component) {
+   _inherits(NameTag, _EX$Component);
 
-      return _reactalikeSource2.default.node(
-         'div',
-         { 'class': 'padd-center' },
-         _reactalikeSource2.default.node(
+   function NameTag() {
+      _classCallCheck(this, NameTag);
+
+      return _possibleConstructorReturn(this, (NameTag.__proto__ || Object.getPrototypeOf(NameTag)).apply(this, arguments));
+   }
+
+   _createClass(NameTag, [{
+      key: 'render',
+      value: function render() {
+         var _props = this.props,
+             nametag = _props.nametag,
+             person = _props.person,
+             change = _props.change,
+             editMode = _props.editMode;
+         var color = nametag.color;
+
+         return _reactalikeSource2.default.node(
             'div',
-            { 'class': 'tag', style: 'border-color:' + color },
+            { 'class': 'padd-center' },
             _reactalikeSource2.default.node(
-               'header',
-               { style: 'background:' + color },
+               'div',
+               { 'class': 'tag', style: 'border-color:' + color },
                _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': 'hello', contentEditable: ex_editMode, onBlur: setOnBlur('headerText', ex_nametag, ex_change) },
-                  ex_nametag.headerText
-               )
-            ),
-            _reactalikeSource2.default.node(
-               'section',
-               null,
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': 'mynameis', contentEditable: ex_editMode, onBlur: setOnBlur('intro', ex_nametag, ex_change) },
-                  ex_nametag.intro
+                  'header',
+                  { style: 'background:' + color },
+                  _reactalikeSource2.default.node(
+                     'div',
+                     { 'class': 'hello', contentEditable: editMode, onBlur: setOnBlur('headerText', nametag, change) },
+                     nametag.headerText
+                  )
                ),
                _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': 'my-name-is', contentEditable: ex_editMode, onBlur: setOnBlur('displayName', ex_nametag, ex_change) },
-                  ex_nametag.displayName
-               )
-            ),
-            _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
-         )
-      );
-   }
-});
+                  'section',
+                  null,
+                  _reactalikeSource2.default.node(
+                     'div',
+                     { 'class': 'mynameis', contentEditable: editMode, onBlur: setOnBlur('intro', nametag, change) },
+                     nametag.intro
+                  ),
+                  _reactalikeSource2.default.node(
+                     'div',
+                     { 'class': 'my-name-is', contentEditable: editMode, onBlur: setOnBlur('displayName', nametag, change) },
+                     nametag.displayName
+                  )
+               ),
+               _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
+            )
+         );
+      }
+   }]);
+
+   return NameTag;
+}(_reactalikeSource2.default.Component);
 
 exports.default = NameTag;
 
@@ -527,11 +548,11 @@ function compose() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
+/* harmony export (immutable) */ __webpack_exports__["a"] = createStore;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
-/* harmony export (immutable) */ __webpack_exports__["a"] = createStore;
 
 
 
@@ -898,12 +919,119 @@ module.exports =
    /******/__webpack_require__.p = "";
    /******/
    /******/ // Load entry module and return exports
-   /******/return __webpack_require__(__webpack_require__.s = 4);
+   /******/return __webpack_require__(__webpack_require__.s = 8);
    /******/
 }(
 /************************************************************************/
 /******/[
 /* 0 */
+/***/function (module, exports, __webpack_require__) {
+
+   "use strict";
+
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
+
+   var _htmlAttributes;
+
+   function _defineProperty(obj, key, value) {
+      if (key in obj) {
+         Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+         obj[key] = value;
+      }return obj;
+   }
+
+   var htmlAttributes = (_htmlAttributes = {
+      'accept': true,
+      'accept-charset': true,
+      'accesskey': true,
+      'action': true,
+      'align': true,
+      'alt': true,
+      'async': true,
+      'autocomplete': true,
+      'autofocus': true,
+      'autoplay': true,
+      'autosave': true,
+      'bgcolor': true,
+      'border': true,
+      'buffered': true,
+      'challenge': true,
+      'charset': true,
+      'checked': true,
+      'cite': true,
+      'class': true,
+      'code': true,
+      'codebase': true,
+      'color': true,
+      'cols': true,
+      'colspan': true,
+      'content': true,
+      'contenteditable': true,
+      'contentEditable': true
+   }, _defineProperty(_htmlAttributes, 'contentEditable', true), _defineProperty(_htmlAttributes, 'contextmenu', true), _defineProperty(_htmlAttributes, 'controls', true), _defineProperty(_htmlAttributes, 'coords', true), _defineProperty(_htmlAttributes, 'crossorigin', true), _defineProperty(_htmlAttributes, 'data', true), _defineProperty(_htmlAttributes, 'data-*', true), _defineProperty(_htmlAttributes, 'datetime', true), _defineProperty(_htmlAttributes, 'default', true), _defineProperty(_htmlAttributes, 'defer', true), _defineProperty(_htmlAttributes, 'dir', true), _defineProperty(_htmlAttributes, 'dirname', true), _defineProperty(_htmlAttributes, 'disabled', true), _defineProperty(_htmlAttributes, 'download', true), _defineProperty(_htmlAttributes, 'draggable', true), _defineProperty(_htmlAttributes, 'dropzone', true), _defineProperty(_htmlAttributes, 'enctype', true), _defineProperty(_htmlAttributes, 'for', true), _defineProperty(_htmlAttributes, 'form', true), _defineProperty(_htmlAttributes, 'formaction', true), _defineProperty(_htmlAttributes, 'headers', true), _defineProperty(_htmlAttributes, 'height', true), _defineProperty(_htmlAttributes, 'hidden', true), _defineProperty(_htmlAttributes, 'high', true), _defineProperty(_htmlAttributes, 'href', true), _defineProperty(_htmlAttributes, 'hreflang', true), _defineProperty(_htmlAttributes, 'http-equiv', true), _defineProperty(_htmlAttributes, 'icon', true), _defineProperty(_htmlAttributes, 'id', true), _defineProperty(_htmlAttributes, 'integrity', true), _defineProperty(_htmlAttributes, 'ismap', true), _defineProperty(_htmlAttributes, 'itemprop', true), _defineProperty(_htmlAttributes, 'keytype', true), _defineProperty(_htmlAttributes, 'kind', true), _defineProperty(_htmlAttributes, 'label', true), _defineProperty(_htmlAttributes, 'lang', true), _defineProperty(_htmlAttributes, 'language', true), _defineProperty(_htmlAttributes, 'list', true), _defineProperty(_htmlAttributes, 'loop', true), _defineProperty(_htmlAttributes, 'low', true), _defineProperty(_htmlAttributes, 'manifest', true), _defineProperty(_htmlAttributes, 'max', true), _defineProperty(_htmlAttributes, 'maxlength', true), _defineProperty(_htmlAttributes, 'minlength', true), _defineProperty(_htmlAttributes, 'media', true), _defineProperty(_htmlAttributes, 'method', true), _defineProperty(_htmlAttributes, 'min', true), _defineProperty(_htmlAttributes, 'multiple', true), _defineProperty(_htmlAttributes, 'muted', true), _defineProperty(_htmlAttributes, 'name', true), _defineProperty(_htmlAttributes, 'novalidate', true), _defineProperty(_htmlAttributes, 'open', true), _defineProperty(_htmlAttributes, 'optimum', true), _defineProperty(_htmlAttributes, 'pattern', true), _defineProperty(_htmlAttributes, 'ping', true), _defineProperty(_htmlAttributes, 'placeholder', true), _defineProperty(_htmlAttributes, 'poster', true), _defineProperty(_htmlAttributes, 'preload', true), _defineProperty(_htmlAttributes, 'radiogroup', true), _defineProperty(_htmlAttributes, 'readonly', true), _defineProperty(_htmlAttributes, 'rel', true), _defineProperty(_htmlAttributes, 'required', true), _defineProperty(_htmlAttributes, 'reversed', true), _defineProperty(_htmlAttributes, 'rows', true), _defineProperty(_htmlAttributes, 'rowspan', true), _defineProperty(_htmlAttributes, 'sandbox', true), _defineProperty(_htmlAttributes, 'scope', true), _defineProperty(_htmlAttributes, 'scoped', true), _defineProperty(_htmlAttributes, 'seamless', true), _defineProperty(_htmlAttributes, 'selected', true), _defineProperty(_htmlAttributes, 'shape', true), _defineProperty(_htmlAttributes, 'size', true), _defineProperty(_htmlAttributes, 'sizes', true), _defineProperty(_htmlAttributes, 'slot', true), _defineProperty(_htmlAttributes, 'span', true), _defineProperty(_htmlAttributes, 'spellcheck', true), _defineProperty(_htmlAttributes, 'src', true), _defineProperty(_htmlAttributes, 'srcdoc', true), _defineProperty(_htmlAttributes, 'srclang', true), _defineProperty(_htmlAttributes, 'srcset', true), _defineProperty(_htmlAttributes, 'start', true), _defineProperty(_htmlAttributes, 'step', true), _defineProperty(_htmlAttributes, 'style', true), _defineProperty(_htmlAttributes, 'summary', true), _defineProperty(_htmlAttributes, 'tabindex', true), _defineProperty(_htmlAttributes, 'target', true), _defineProperty(_htmlAttributes, 'title', true), _defineProperty(_htmlAttributes, 'type', true), _defineProperty(_htmlAttributes, 'usemap', true), _defineProperty(_htmlAttributes, 'value', true), _defineProperty(_htmlAttributes, 'width', true), _defineProperty(_htmlAttributes, 'wrap', true), _htmlAttributes);
+   var dataAttr = new RegExp(/^data-/i);
+
+   var CheckHTMLattribute = function CheckHTMLattribute(attr) {
+      if (htmlAttributes[attr]) return true;
+      return dataAttr.test(attr);
+   };
+
+   exports.default = CheckHTMLattribute;
+
+   /***/
+},
+/* 1 */
+/***/function (module, exports, __webpack_require__) {
+
+   "use strict";
+
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
+   var EX_tags = {
+      trace: true,
+      parent: true
+   };
+
+   exports.EX_tags = EX_tags;
+
+   /***/
+},
+/* 2 */
+/***/function (module, exports, __webpack_require__) {
+
+   "use strict";
+
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
+   function Provider(component, store, context) {
+
+      var initialProps = Object.assign({
+         dispatch: store.dispatch,
+         store: store.getState()
+      });
+      var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
+
+      store.subscribe(function () {
+         compInstance.props = Object.assign(compInstance.props, {
+            dispatch: store.dispatch,
+            store: store.getState()
+         });
+         context.objectChange(compInstance.render());
+      });
+
+      return compInstance;
+   }
+
+   exports.default = Provider;
+
+   /***/
+},
+/* 3 */
 /***/function (module, exports, __webpack_require__) {
 
    "use strict";
@@ -918,17 +1046,26 @@ module.exports =
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof3(obj);
    };
 
+   var _html_attributes = __webpack_require__(0);
+
+   var _html_attributes2 = _interopRequireDefault(_html_attributes);
+
+   var _namespace = __webpack_require__(1);
+
+   function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : { default: obj };
+   }
+
    var setDiff = function setDiff(self, createElem) {
-      var re = new RegExp(/^ex_/i);
 
       function removeProp(element, attr) {
-         if (!self.events[attr] && !re.test(attr)) {
+         if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
             element.removeAttribute(attr);
          }
       };
 
       function changeProp(element, attr, val) {
-         if (!self.events[attr] && !re.test(attr) || attr === 'src') {
+         if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
             element.setAttribute(attr, val);
          }
       };
@@ -977,7 +1114,7 @@ module.exports =
 
          if (!oldNode) {
             var _vdomid = parent.props.trace + '.' + index;
-            newNode.domElement = createElem(newNode, _vdomid, parent.trace);
+            newNode.domElement = createElem(newNode, _vdomid, parent.props.trace);
             parent.domElement.appendChild(newNode.domElement);
             return;
          };
@@ -989,7 +1126,7 @@ module.exports =
          if (changed(newNode, oldNode)) {
 
             var _vdomid2 = parent.props.trace + '.' + index;
-            newNode.domElement = createElem(newNode, _vdomid2, newNode.parent);
+            newNode.domElement = createElem(newNode, _vdomid2, newNode.props.parent);
             var repl = typeof oldNode === 'string' ? parent.domElement.children[index] : oldNode.domElement;
             parent.domElement.replaceChild(newNode.domElement, repl);
 
@@ -1027,7 +1164,7 @@ module.exports =
 
    /***/
 },
-/* 1 */
+/* 4 */
 /***/function (module, exports, __webpack_require__) {
 
    "use strict";
@@ -1036,7 +1173,7 @@ module.exports =
       value: true
    });
 
-   var _eventlist = __webpack_require__(5);
+   var _eventlist = __webpack_require__(9);
 
    var _eventlist2 = _interopRequireDefault(_eventlist);
 
@@ -1086,13 +1223,69 @@ module.exports =
 
    /***/
 },
-/* 2 */
+/* 5 */
 /***/function (module, exports, __webpack_require__) {
 
    "use strict";
 
-   var _flatten = function _flatten(a, b) {
-      return a.concat(Array.isArray(b) ? b.reduce(_flatten, []) : b);
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
+   var formTags = {
+      textarea: true,
+      select: true,
+      input: true,
+      output: true,
+      form: true
+   };
+
+   exports.default = formTags;
+
+   /***/
+},
+/* 6 */
+/***/function (module, exports, __webpack_require__) {
+
+   "use strict";
+
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
+   var isSVG = {
+      circle: true,
+      clipPath: true,
+      defs: true,
+      ellipse: true,
+      g: true,
+      line: true,
+      linearGradient: true,
+      mask: true,
+      path: true,
+      pattern: true,
+      polygon: true,
+      polyline: true,
+      radialGradient: true,
+      rect: true,
+      stop: true,
+      svg: true,
+      text: true,
+      tspan: true
+   };
+
+   exports.default = isSVG;
+
+   /***/
+},
+/* 7 */
+/***/function (module, exports, __webpack_require__) {
+
+   "use strict";
+
+   Object.defineProperty(exports, "__esModule", {
+      value: true
+   });
+   var flatten = function flatten(a, b) {
+      return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
    };
 
    function flattenIteration(arr, flatArr) {
@@ -1107,57 +1300,25 @@ module.exports =
 
       return flatArr;
    }
-   module.exports = {
-      smoothArray: function smoothArray() {
-         return function (nested) {
 
-            return nested.reduce(_flatten, []).filter(function (ne) {
-               return ne !== null && ne !== undefined;
-            });
-         };
-      },
-      flatten: function flatten(nested) {
-         return nested.reduce(_flatten, []);
-      },
-      capitalize: function capitalize(string) {
-         return string.charAt(0).toUpperCase() + string.slice(1);
-      }
+   var smoothNested = function smoothNested(nested) {
+      if (!nested) return [];
+      return nested.reduce(flatten, []).filter(function (ne) {
+         return ne !== null && ne !== undefined;
+      });
    };
 
-   /***/
-},
-/* 3 */
-/***/function (module, exports, __webpack_require__) {
+   var capitalize = function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+   };
 
-   "use strict";
-
-   Object.defineProperty(exports, "__esModule", {
-      value: true
-   });
-   function Provider(component, store, context) {
-
-      var initialProps = Object.assign({
-         dispatch: store.dispatch,
-         store: store.getState()
-      });
-      var compInstance = component.__proto__.name === 'Container' ? new component(initialProps) : Object.assign(component, { props: initialProps });
-
-      store.subscribe(function () {
-         compInstance.props = Object.assign(compInstance.props, {
-            dispatch: store.dispatch,
-            store: store.getState()
-         });
-         context.objectChange(compInstance.render());
-      });
-
-      return compInstance;
-   }
-
-   exports.default = Provider;
+   exports.smoothNested = smoothNested;
+   exports.flatten = flatten;
+   exports.capitalize = capitalize;
 
    /***/
 },
-/* 4 */
+/* 8 */
 /***/function (module, exports, __webpack_require__) {
 
    "use strict";
@@ -1173,35 +1334,42 @@ module.exports =
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof3(obj);
    };
 
-   var _events = __webpack_require__(1);
+   var _events = __webpack_require__(4);
 
    var _events2 = _interopRequireDefault(_events);
 
-   var _diffing = __webpack_require__(0);
+   var _diffing = __webpack_require__(3);
 
    var _diffing2 = _interopRequireDefault(_diffing);
 
-   var _redux_wrapper = __webpack_require__(3);
+   var _redux_wrapper = __webpack_require__(2);
 
    var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
+
+   var _svg_tags = __webpack_require__(6);
+
+   var _svg_tags2 = _interopRequireDefault(_svg_tags);
+
+   var _form_tags = __webpack_require__(5);
+
+   var _form_tags2 = _interopRequireDefault(_form_tags);
+
+   var _html_attributes = __webpack_require__(0);
+
+   var _html_attributes2 = _interopRequireDefault(_html_attributes);
+
+   var _handy_funcs = __webpack_require__(7);
+
+   var _namespace = __webpack_require__(1);
 
    function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : { default: obj };
    }
 
-   var handyHelpers = __webpack_require__(2);
-   var smoothNested = handyHelpers.smoothArray();
    var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
       return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
    } : function (obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-   };
-   var formTags = {
-      textarea: true,
-      select: true,
-      input: true,
-      output: true,
-      form: true
    };
 
    function NodeMap() {
@@ -1277,7 +1445,7 @@ module.exports =
 
       this.applyListener = function (listener, node) {
          var eventInfo = NodeMapContext.events[listener];
-         var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || formTags[node.type];
+         var onSelf = eventInfo.formEvent || eventInfo.mediaEvent || _form_tags2.default[node.type];
          if (!eventInfo.registered && !onSelf) {
             eventInfo.registered = true;
             NodeMapContext.setListener(eventInfo.eventName, listener);
@@ -1362,15 +1530,13 @@ module.exports =
          NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
       };
 
-      var re = new RegExp(/^ex_/i);
-      var isSVG = new RegExp(/(circle|clipPath|defs|ellipse|g|image|line|linearGradient|mask|path|pattern|polygon|polyline|radialGradient|rect|stop|svg|text|tspan)/i);
       this.createElement = function createElement(name, attrs) {
-         var element = document.createElement(String(name));
 
+         var element = document.createElement(String(name));
          if (!attrs) return element;
 
          for (var attr in attrs) {
-            if (!NodeMapContext.events[attr] && !re.test(attr)) {
+            if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
                element.setAttribute(attr, attrs[attr]);
             }
          }
@@ -1383,7 +1549,7 @@ module.exports =
          if (!attrs) return element;
 
          for (var attr in attrs) {
-            if (!NodeMapContext.events[attr] && !re.test(attr)) {
+            if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
                element.setAttribute(attr, attrs[attr]);
             }
          }
@@ -1401,7 +1567,7 @@ module.exports =
             parent: parent
          });
 
-         var el = isSVG.test(node.type) ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
+         var el = _svg_tags2.default[node.type] ? NodeMapContext.createElementNS(node.type, node.props) : NodeMapContext.createElement(node.type, node.props);
          node.domElement = el;
          for (var prop in node.props) {
             if (NodeMapContext.events[prop]) {
@@ -1410,13 +1576,12 @@ module.exports =
          };
 
          node.nested = node.nested ? node.nested : [];
-         if (node.nested.length === 0) {
-            return el;
-         }
          node.nested.map(function (elm, ii) {
             var elmId = group + '.' + ii;
             return createElem(elm, elmId, group);
-         }).forEach(el.appendChild.bind(el));
+         }).forEach(function (childElement) {
+            el.appendChild(childElement);
+         });
          return el;
       };
 
@@ -1490,13 +1655,7 @@ module.exports =
          return type(props);
       }
 
-      if (nested) {
-         nested = smoothNested(nested);
-      } else {
-         nested = [];
-      }
-
-      return { type: type, props: props, nested: nested };
+      return { type: type, props: props, nested: (0, _handy_funcs.smoothNested)(nested) };
    };
 
    function exNode(appName) {
@@ -1511,7 +1670,7 @@ module.exports =
 
    /***/
 },
-/* 5 */
+/* 9 */
 /***/function (module, exports, __webpack_require__) {
 
    "use strict";
@@ -1601,7 +1760,14 @@ var Layout = function (_EX$Container) {
             return _reactalikeSource2.default.node(
                'div',
                { onClick: setUserProfileLink(personId, dispatch) },
-               _reactalikeSource2.default.node(_name_tag2.default, { ex_person: guests[personId], ex_nametag: nameTags[personId], ex_editMode: 'false' })
+               _reactalikeSource2.default.node(_name_tag2.default, { person: guests[personId], nametag: nameTags[personId], editMode: 'false' })
+            );
+         });
+         var b = ['w', '1', '3'].map(function (u) {
+            return _reactalikeSource2.default.node(
+               'div',
+               null,
+               u
             );
          });
          return _reactalikeSource2.default.node(
@@ -1613,7 +1779,7 @@ var Layout = function (_EX$Container) {
                _reactalikeSource2.default.node(
                   'div',
                   { 'class': 'col-md-2 pull-md-10' },
-                  _reactalikeSource2.default.node(_side_edit2.default, { ex_dispatch: dispatch })
+                  _reactalikeSource2.default.node(_side_edit2.default, { dispatch: dispatch })
                ),
                _reactalikeSource2.default.node(
                   'div',
@@ -1624,7 +1790,7 @@ var Layout = function (_EX$Container) {
             _reactalikeSource2.default.node(
                'section',
                { 'class': view === 'profile_view' ? 'row' : 'hidden' },
-               _reactalikeSource2.default.node(_profile2.default, { ex_profile: profile, ex_person: guests[profile.guest], ex_nametags: nameTags, ex_dispatch: dispatch })
+               _reactalikeSource2.default.node(_profile2.default, { profile: profile, person: guests[profile.guest], nametags: nameTags, dispatch: dispatch })
             )
          );
       }
@@ -2868,8 +3034,8 @@ exports.default = defaultLogger;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(7);
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(7);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -2978,10 +3144,10 @@ function bindActionCreators(actionCreators, dispatch) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(8);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(9);
-/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
 
 
 
@@ -3118,8 +3284,8 @@ function combineReducers(reducers) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(8);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(26);
@@ -3233,6 +3399,8 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
@@ -3242,6 +3410,12 @@ var _name_tag = __webpack_require__(1);
 var _name_tag2 = _interopRequireDefault(_name_tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var nameTagStarter = function nameTagStarter(person) {
    var newNametag = {};
@@ -3275,79 +3449,93 @@ var setColorChange = function setColorChange(nametag, cb) {
       cb(nametagCopy);
    };
 };
-var EditNameTag = _reactalikeSource2.default.component({
-   componentName: 'EditNameTag',
-   componentRender: function componentRender(props) {
-      console.log('EditNameTag props', props);
-      var ex_person = props.ex_person,
-          ex_nametags = props.ex_nametags,
-          ex_editMode = props.ex_editMode,
-          ex_dispatch = props.ex_dispatch;
 
-      var nametag = ex_nametags[ex_person.id];
-      if (!nametag) {
-         var newNametag = nameTagStarter(ex_person);
+var EditNameTag = function (_EX$Component) {
+   _inherits(EditNameTag, _EX$Component);
 
+   function EditNameTag() {
+      _classCallCheck(this, EditNameTag);
+
+      return _possibleConstructorReturn(this, (EditNameTag.__proto__ || Object.getPrototypeOf(EditNameTag)).apply(this, arguments));
+   }
+
+   _createClass(EditNameTag, [{
+      key: 'render',
+      value: function render() {
+         console.log('EditNameTag props', this.props);
+         var _props = this.props,
+             person = _props.person,
+             nametags = _props.nametags,
+             editMode = _props.editMode,
+             dispatch = _props.dispatch;
+
+         var nametag = nametags[person.id];
+         if (!nametag) {
+            var newNametag = nameTagStarter(person);
+
+            return _reactalikeSource2.default.node(
+               'div',
+               { 'class': 'text-center' },
+               _reactalikeSource2.default.node(
+                  'h4',
+                  null,
+                  'You do not have a nametag'
+               ),
+               _reactalikeSource2.default.node(
+                  'button',
+                  { 'class': 'btn btn-info', onClick: function onClick() {
+                        return dispatch({ type: 'ADD_NAMETAG', payload: Object.assign({}, nametags, newNametag) });
+                     } },
+                  'Generate NameTag'
+               )
+            );
+         }
+         var nameTagChange = setNameTagChange(nametags, dispatch);
          return _reactalikeSource2.default.node(
-            'div',
-            { 'class': 'text-center' },
+            'section',
+            null,
             _reactalikeSource2.default.node(
-               'h4',
-               null,
-               'You do not have a nametag'
+               'div',
+               { 'class': 'col-md-8' },
+               _reactalikeSource2.default.node(_name_tag2.default, { person: person, nametag: nametag, change: nameTagChange, editMode: editMode })
             ),
             _reactalikeSource2.default.node(
-               'button',
-               { 'class': 'btn btn-info', onClick: function onClick() {
-                     return ex_dispatch({ type: 'ADD_NAMETAG', payload: Object.assign({}, ex_nametags, newNametag) });
-                  } },
-               'Generate NameTag'
+               'div',
+               { 'class': 'col-md-4' },
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': editMode ? '' : 'hidden' },
+                  _reactalikeSource2.default.node('input', { type: 'color', value: nametag.color, onBlur: setColorChange(nametag, nameTagChange) })
+               ),
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': editMode ? '' : 'hidden' },
+                  _reactalikeSource2.default.node(
+                     'button',
+                     { 'class': 'btn btn-success full-btn', onClick: function onClick() {
+                           return dispatch({ type: 'NAMETAG_SAVE', payload: { mode: 'default', guest: person.id } });
+                        } },
+                     'Save'
+                  )
+               ),
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': editMode ? 'hidden' : '' },
+                  _reactalikeSource2.default.node(
+                     'button',
+                     { 'class': 'btn btn-success full-btn', onClick: function onClick() {
+                           return dispatch({ type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest: person.id } });
+                        } },
+                     'Edit'
+                  )
+               )
             )
          );
       }
-      var nameTagChange = setNameTagChange(ex_nametags, ex_dispatch);
-      return _reactalikeSource2.default.node(
-         'section',
-         null,
-         _reactalikeSource2.default.node(
-            'div',
-            { 'class': 'col-md-8' },
-            _reactalikeSource2.default.node(_name_tag2.default, { ex_person: ex_person, ex_nametag: nametag, ex_change: nameTagChange, ex_editMode: ex_editMode })
-         ),
-         _reactalikeSource2.default.node(
-            'div',
-            { 'class': 'col-md-4' },
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': ex_editMode ? '' : 'hidden' },
-               _reactalikeSource2.default.node('input', { type: 'color', value: nametag.color, onBlur: setColorChange(nametag, nameTagChange) })
-            ),
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': ex_editMode ? '' : 'hidden' },
-               _reactalikeSource2.default.node(
-                  'button',
-                  { 'class': 'btn btn-success full-btn', onClick: function onClick() {
-                        return ex_dispatch({ type: 'NAMETAG_SAVE', payload: { mode: 'default', guest: ex_person.id } });
-                     } },
-                  'Save'
-               )
-            ),
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': ex_editMode ? 'hidden' : '' },
-               _reactalikeSource2.default.node(
-                  'button',
-                  { 'class': 'btn btn-success full-btn', onClick: function onClick() {
-                        return ex_dispatch({ type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest: ex_person.id } });
-                     } },
-                  'Edit'
-               )
-            )
-         )
-      );
-   }
-});
+   }]);
+
+   return EditNameTag;
+}(_reactalikeSource2.default.Component);
 
 exports.default = EditNameTag;
 
@@ -3361,6 +3549,8 @@ exports.default = EditNameTag;
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _reactalikeSource = __webpack_require__(0);
 
@@ -3376,59 +3566,78 @@ var _edit_name_tag2 = _interopRequireDefault(_edit_name_tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Profile = _reactalikeSource2.default.component({
-   componentName: 'Profile',
-   componentRender: function componentRender(props) {
-      var ex_profile = props.ex_profile,
-          ex_person = props.ex_person,
-          ex_nametags = props.ex_nametags,
-          ex_dispatch = props.ex_dispatch;
-      var mode = ex_profile.mode,
-          guest = ex_profile.guest;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-      console.log('profile props', props);
-      return _reactalikeSource2.default.node(
-         'section',
-         null,
-         _reactalikeSource2.default.node(
-            'button',
-            { 'class': 'btn btn-info', onClick: function onClick() {
-                  return ex_dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
-               } },
-            'Go Back'
-         ),
-         _reactalikeSource2.default.node(
-            'h2',
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Profile = function (_EX$Component) {
+   _inherits(Profile, _EX$Component);
+
+   function Profile() {
+      _classCallCheck(this, Profile);
+
+      return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+   }
+
+   _createClass(Profile, [{
+      key: 'render',
+      value: function render() {
+         var _props = this.props,
+             profile = _props.profile,
+             person = _props.person,
+             nametags = _props.nametags,
+             dispatch = _props.dispatch;
+         var mode = profile.mode,
+             guest = profile.guest;
+
+         console.log('profile props', this.props);
+         return _reactalikeSource2.default.node(
+            'section',
             null,
             _reactalikeSource2.default.node(
-               'b',
-               null,
-               'Name:'
+               'button',
+               { 'class': 'btn btn-info', onClick: function onClick() {
+                     return dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
+                  } },
+               'Go Back'
             ),
-            ex_person.name
-         ),
-         _reactalikeSource2.default.node(
-            'h4',
-            null,
             _reactalikeSource2.default.node(
-               'b',
+               'h2',
                null,
-               'Occupation:'
+               _reactalikeSource2.default.node(
+                  'b',
+                  null,
+                  'Name:'
+               ),
+               person.name
             ),
-            ex_person.job
-         ),
-         _reactalikeSource2.default.node(
-            'div',
-            { 'class': 'row align-items-center' },
+            _reactalikeSource2.default.node(
+               'h4',
+               null,
+               _reactalikeSource2.default.node(
+                  'b',
+                  null,
+                  'Occupation:'
+               ),
+               person.job
+            ),
             _reactalikeSource2.default.node(
                'div',
-               { 'class': 'col-md-10' },
-               _reactalikeSource2.default.node(_edit_name_tag2.default, { ex_person: ex_person, ex_nametags: ex_nametags, ex_dispatch: ex_dispatch, ex_editMode: mode === 'edit_nametag' })
+               { 'class': 'row align-items-center' },
+               _reactalikeSource2.default.node(
+                  'div',
+                  { 'class': 'col-md-10' },
+                  _reactalikeSource2.default.node(_edit_name_tag2.default, { person: person, nametags: nametags, dispatch: dispatch, editMode: mode === 'edit_nametag' })
+               )
             )
-         )
-      );
-   }
-});
+         );
+      }
+   }]);
+
+   return Profile;
+}(_reactalikeSource2.default.Component);
 
 exports.default = Profile;
 
@@ -3443,39 +3652,59 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SideEdit = _reactalikeSource2.default.component({
-   componentName: 'SideEdit',
-   componentRender: function componentRender(props) {
-      var ex_dispatch = props.ex_dispatch;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-      return _reactalikeSource2.default.node(
-         'section',
-         null,
-         _reactalikeSource2.default.node(
-            'h4',
-            null,
-            'Edit'
-         ),
-         _reactalikeSource2.default.node(
-            'div',
-            { 'class': 'row' },
-            _reactalikeSource2.default.node(
-               'button',
-               { 'class': 'btn btn-info', onClick: function onClick() {
-                     return ex_dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
-                  } },
-               'Add NameTag'
-            )
-         )
-      );
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SideEdit = function (_EX$Component) {
+   _inherits(SideEdit, _EX$Component);
+
+   function SideEdit() {
+      _classCallCheck(this, SideEdit);
+
+      return _possibleConstructorReturn(this, (SideEdit.__proto__ || Object.getPrototypeOf(SideEdit)).apply(this, arguments));
    }
-});
+
+   _createClass(SideEdit, [{
+      key: "render",
+      value: function render() {
+         var dispatch = this.props.dispatch;
+
+         return _reactalikeSource2.default.node(
+            "section",
+            null,
+            _reactalikeSource2.default.node(
+               "h4",
+               null,
+               "Edit"
+            ),
+            _reactalikeSource2.default.node(
+               "div",
+               { "class": "row" },
+               _reactalikeSource2.default.node(
+                  "button",
+                  { "class": "btn btn-info", onClick: function onClick() {
+                        return dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
+                     } },
+                  "Add NameTag"
+               )
+            )
+         );
+      }
+   }]);
+
+   return SideEdit;
+}(_reactalikeSource2.default.Component);
 
 exports.default = SideEdit;
 

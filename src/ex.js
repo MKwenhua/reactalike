@@ -1,17 +1,19 @@
-import events from "./events.js";
+import events from "lib/events";
 import setDiff from "./diffing.js";
-import Provider from "./lib/redux_wrapper"
-import isSVG from './lib/tags'
-const handyHelpers = require("./lib/handy_funcs.js");
-const smoothNested = handyHelpers.smoothArray;
+import Provider from "addon/redux_wrapper"
+import isSVG from 'utils/svg_tags'
+import formTags from 'utils/form_tags'
+import CheckHTMLattribute from 'utils/html_attributes'
+import  {
+  smoothNested,
+  flatten,
+  capitalize
+} from 'shared/handy_funcs'
+import { EX_tags } from 'shared/namespace'
+
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-const formTags = {
-   textarea: true,
-   select: true,
-   input: true,
-   output: true,
-   form: true
-}
+
+
 
 function NodeMap(appTitle = 'default') {
    this.appTitle = appTitle;
@@ -170,18 +172,13 @@ function NodeMap(appTitle = 'default') {
       NodeMapContext.appRoot.appendChild(NodeMapContext.htmlBuild(obj, "Root"));
    };
 
-   this.updateSource = (element, src) => {
-     element.src = src;
-   }
-
-   const re = new RegExp(/^ex_/i)
    this.createElement = function createElement(name, attrs) {
 
        const element = document.createElement(String(name))
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if ( CheckHTMLattribute(attr)  || EX_tags[attr] ) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -194,7 +191,7 @@ function NodeMap(appTitle = 'default') {
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if ( CheckHTMLattribute(attr) || EX_tags[attr] ) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -221,9 +218,6 @@ function NodeMap(appTitle = 'default') {
       };
 
       node.nested = node.nested ? node.nested : [];
-      if (node.nested.length === 0) {
-         return el;
-      }
       node.nested.map((elm, ii) => {
          let elmId = group + '.' + ii;
          return createElem(elm, elmId, group);
