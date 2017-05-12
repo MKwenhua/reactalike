@@ -26,6 +26,7 @@ const htmlAttributes = {
    'content': true,
    'contenteditable': true,
    'contentEditable': true,
+   'contentEditable': true,
    'contextmenu': true,
    'controls': true,
    'coords': true,
@@ -118,11 +119,11 @@ const htmlAttributes = {
    'width': true,
    'wrap': true
 }
+const dataAttr = new RegExp(/^data-/i);
 
 const CheckHTMLattribute = (attr) => {
-  const dataAttr = new RegExp(/^data-/i)
-
-  return htmlAttributes[attr] || dataAttr.test(attr)
+    if (htmlAttributes[attr]) return true;
+    return dataAttr.test(attr)
 }
 
 export default CheckHTMLattribute

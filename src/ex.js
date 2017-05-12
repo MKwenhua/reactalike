@@ -9,6 +9,7 @@ import  {
   flatten,
   capitalize
 } from 'shared/handy_funcs'
+import { EX_tags } from 'shared/namespace'
 
 const _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?  (obj) => { return typeof obj; } : (obj) => { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -177,7 +178,7 @@ function NodeMap(appTitle = 'default') {
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && CheckHTMLattribute(attr)) {
+         if ( CheckHTMLattribute(attr)  || EX_tags[attr] ) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -190,7 +191,7 @@ function NodeMap(appTitle = 'default') {
       if (!attrs) return element;
 
       for (let attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if ( CheckHTMLattribute(attr) || EX_tags[attr] ) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -217,9 +218,6 @@ function NodeMap(appTitle = 'default') {
       };
 
       node.nested = node.nested ? node.nested : [];
-      if (node.nested.length === 0) {
-         return el;
-      }
       node.nested.map((elm, ii) => {
          let elmId = group + '.' + ii;
          return createElem(elm, elmId, group);

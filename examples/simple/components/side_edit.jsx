@@ -1,9 +1,8 @@
 import EX from 'reactalikeSource';
 
-const SideEdit = EX.component({
-   componentName: 'SideEdit',
-   componentRender: (props) => {
-      let {ex_dispatch} = props;
+class SideEdit extends EX.Component {
+   render () {
+      let {ex_dispatch} = this.props;
       return (
          <section>
             <h4>Edit</h4>
@@ -13,6 +12,6 @@ const SideEdit = EX.component({
          </section>
       )
    }
-})
+}
 
 export default SideEdit;

@@ -21,13 +21,16 @@ class Layout extends EX.Container {
       let { guests, nameTags, view, profile} = store;
 
       const ppl = Object.keys(guests).map((personId, ii) => {
-         return ( 
+         return (
             <div onClick={setUserProfileLink(personId, dispatch)}>
 
                <NameTag ex_person={guests[personId]} ex_nametag={nameTags[personId]} ex_editMode="false" />
             </div>
             )
       });
+    let b =  ['w','1', '3'].map((u) => {
+        return <div>{u}</div>
+      })
       return (
          <div class="container">
          <section class={view === 'list_view' ? 'row' : 'hidden'}>

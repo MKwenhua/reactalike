@@ -2,12 +2,11 @@ import EX from 'reactalikeSource';
 import NameTag from 'component/name_tag'
 import EditNameTag from 'component/edit_name_tag'
 
-const Profile = EX.component({
-   componentName: 'Profile',
-   componentRender: (props) => {
-      let {ex_profile, ex_person, ex_nametags, ex_dispatch} = props;
+class Profile extends EX.Component {
+   render () {
+      let {ex_profile, ex_person, ex_nametags, ex_dispatch} = this.props;
       let {mode, guest} = ex_profile
-      console.log('profile props', props)
+      console.log('profile props', this.props)
       return (
          <section>
             <button class="btn btn-info" onClick={() => ex_dispatch({type: 'VIEW_CHANGE', payload: 'list_view'})}>Go Back</button>
@@ -21,6 +20,6 @@ const Profile = EX.component({
          </section>
       )
    }
-})
+}
 
 export default Profile;

@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,7 +77,12 @@ module.exports =
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
-var htmlAttributes = {
+
+var _htmlAttributes;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var htmlAttributes = (_htmlAttributes = {
    'accept': true,
    'accept-charset': true,
    'accesskey': true,
@@ -104,110 +109,36 @@ var htmlAttributes = {
    'colspan': true,
    'content': true,
    'contenteditable': true,
-   'contentEditable': true,
-   'contextmenu': true,
-   'controls': true,
-   'coords': true,
-   'crossorigin': true,
-   'data': true,
-   'data-*': true,
-   'datetime': true,
-   'default': true,
-   'defer': true,
-   'dir': true,
-   'dirname': true,
-   'disabled': true,
-   'download': true,
-   'draggable': true,
-   'dropzone': true,
-   'enctype': true,
-   'for': true,
-   'form': true,
-   'formaction': true,
-   'headers': true,
-   'height': true,
-   'hidden': true,
-   'high': true,
-   'href': true,
-   'hreflang': true,
-   'http-equiv': true,
-   'icon': true,
-   'id': true,
-   'integrity': true,
-   'ismap': true,
-   'itemprop': true,
-   'keytype': true,
-   'kind': true,
-   'label': true,
-   'lang': true,
-   'language': true,
-   'list': true,
-   'loop': true,
-   'low': true,
-   'manifest': true,
-   'max': true,
-   'maxlength': true,
-   'minlength': true,
-   'media': true,
-   'method': true,
-   'min': true,
-   'multiple': true,
-   'muted': true,
-   'name': true,
-   'novalidate': true,
-   'open': true,
-   'optimum': true,
-   'pattern': true,
-   'ping': true,
-   'placeholder': true,
-   'poster': true,
-   'preload': true,
-   'radiogroup': true,
-   'readonly': true,
-   'rel': true,
-   'required': true,
-   'reversed': true,
-   'rows': true,
-   'rowspan': true,
-   'sandbox': true,
-   'scope': true,
-   'scoped': true,
-   'seamless': true,
-   'selected': true,
-   'shape': true,
-   'size': true,
-   'sizes': true,
-   'slot': true,
-   'span': true,
-   'spellcheck': true,
-   'src': true,
-   'srcdoc': true,
-   'srclang': true,
-   'srcset': true,
-   'start': true,
-   'step': true,
-   'style': true,
-   'summary': true,
-   'tabindex': true,
-   'target': true,
-   'title': true,
-   'type': true,
-   'usemap': true,
-   'value': true,
-   'width': true,
-   'wrap': true
-};
+   'contentEditable': true
+}, _defineProperty(_htmlAttributes, 'contentEditable', true), _defineProperty(_htmlAttributes, 'contextmenu', true), _defineProperty(_htmlAttributes, 'controls', true), _defineProperty(_htmlAttributes, 'coords', true), _defineProperty(_htmlAttributes, 'crossorigin', true), _defineProperty(_htmlAttributes, 'data', true), _defineProperty(_htmlAttributes, 'data-*', true), _defineProperty(_htmlAttributes, 'datetime', true), _defineProperty(_htmlAttributes, 'default', true), _defineProperty(_htmlAttributes, 'defer', true), _defineProperty(_htmlAttributes, 'dir', true), _defineProperty(_htmlAttributes, 'dirname', true), _defineProperty(_htmlAttributes, 'disabled', true), _defineProperty(_htmlAttributes, 'download', true), _defineProperty(_htmlAttributes, 'draggable', true), _defineProperty(_htmlAttributes, 'dropzone', true), _defineProperty(_htmlAttributes, 'enctype', true), _defineProperty(_htmlAttributes, 'for', true), _defineProperty(_htmlAttributes, 'form', true), _defineProperty(_htmlAttributes, 'formaction', true), _defineProperty(_htmlAttributes, 'headers', true), _defineProperty(_htmlAttributes, 'height', true), _defineProperty(_htmlAttributes, 'hidden', true), _defineProperty(_htmlAttributes, 'high', true), _defineProperty(_htmlAttributes, 'href', true), _defineProperty(_htmlAttributes, 'hreflang', true), _defineProperty(_htmlAttributes, 'http-equiv', true), _defineProperty(_htmlAttributes, 'icon', true), _defineProperty(_htmlAttributes, 'id', true), _defineProperty(_htmlAttributes, 'integrity', true), _defineProperty(_htmlAttributes, 'ismap', true), _defineProperty(_htmlAttributes, 'itemprop', true), _defineProperty(_htmlAttributes, 'keytype', true), _defineProperty(_htmlAttributes, 'kind', true), _defineProperty(_htmlAttributes, 'label', true), _defineProperty(_htmlAttributes, 'lang', true), _defineProperty(_htmlAttributes, 'language', true), _defineProperty(_htmlAttributes, 'list', true), _defineProperty(_htmlAttributes, 'loop', true), _defineProperty(_htmlAttributes, 'low', true), _defineProperty(_htmlAttributes, 'manifest', true), _defineProperty(_htmlAttributes, 'max', true), _defineProperty(_htmlAttributes, 'maxlength', true), _defineProperty(_htmlAttributes, 'minlength', true), _defineProperty(_htmlAttributes, 'media', true), _defineProperty(_htmlAttributes, 'method', true), _defineProperty(_htmlAttributes, 'min', true), _defineProperty(_htmlAttributes, 'multiple', true), _defineProperty(_htmlAttributes, 'muted', true), _defineProperty(_htmlAttributes, 'name', true), _defineProperty(_htmlAttributes, 'novalidate', true), _defineProperty(_htmlAttributes, 'open', true), _defineProperty(_htmlAttributes, 'optimum', true), _defineProperty(_htmlAttributes, 'pattern', true), _defineProperty(_htmlAttributes, 'ping', true), _defineProperty(_htmlAttributes, 'placeholder', true), _defineProperty(_htmlAttributes, 'poster', true), _defineProperty(_htmlAttributes, 'preload', true), _defineProperty(_htmlAttributes, 'radiogroup', true), _defineProperty(_htmlAttributes, 'readonly', true), _defineProperty(_htmlAttributes, 'rel', true), _defineProperty(_htmlAttributes, 'required', true), _defineProperty(_htmlAttributes, 'reversed', true), _defineProperty(_htmlAttributes, 'rows', true), _defineProperty(_htmlAttributes, 'rowspan', true), _defineProperty(_htmlAttributes, 'sandbox', true), _defineProperty(_htmlAttributes, 'scope', true), _defineProperty(_htmlAttributes, 'scoped', true), _defineProperty(_htmlAttributes, 'seamless', true), _defineProperty(_htmlAttributes, 'selected', true), _defineProperty(_htmlAttributes, 'shape', true), _defineProperty(_htmlAttributes, 'size', true), _defineProperty(_htmlAttributes, 'sizes', true), _defineProperty(_htmlAttributes, 'slot', true), _defineProperty(_htmlAttributes, 'span', true), _defineProperty(_htmlAttributes, 'spellcheck', true), _defineProperty(_htmlAttributes, 'src', true), _defineProperty(_htmlAttributes, 'srcdoc', true), _defineProperty(_htmlAttributes, 'srclang', true), _defineProperty(_htmlAttributes, 'srcset', true), _defineProperty(_htmlAttributes, 'start', true), _defineProperty(_htmlAttributes, 'step', true), _defineProperty(_htmlAttributes, 'style', true), _defineProperty(_htmlAttributes, 'summary', true), _defineProperty(_htmlAttributes, 'tabindex', true), _defineProperty(_htmlAttributes, 'target', true), _defineProperty(_htmlAttributes, 'title', true), _defineProperty(_htmlAttributes, 'type', true), _defineProperty(_htmlAttributes, 'usemap', true), _defineProperty(_htmlAttributes, 'value', true), _defineProperty(_htmlAttributes, 'width', true), _defineProperty(_htmlAttributes, 'wrap', true), _htmlAttributes);
+var dataAttr = new RegExp(/^data-/i);
 
 var CheckHTMLattribute = function CheckHTMLattribute(attr) {
-   var dataAttr = new RegExp(/^data-/i);
-
-   return htmlAttributes[attr] || dataAttr.test(attr);
+   if (htmlAttributes[attr]) return true;
+   return dataAttr.test(attr);
 };
 
 exports.default = CheckHTMLattribute;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var EX_tags = {
+  trace: true,
+  parent: true
+};
+
+exports.EX_tags = EX_tags;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -238,7 +169,7 @@ function Provider(component, store, context) {
 exports.default = Provider;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -254,18 +185,20 @@ var _html_attributes = __webpack_require__(0);
 
 var _html_attributes2 = _interopRequireDefault(_html_attributes);
 
+var _namespace = __webpack_require__(1);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var setDiff = function setDiff(self, createElem) {
 
    function removeProp(element, attr) {
-      if (!self.events[attr] && (0, _html_attributes2.default)(attr)) {
+      if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
          element.removeAttribute(attr);
       }
    };
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr] && (0, _html_attributes2.default)(attr)) {
+      if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
          element.setAttribute(attr, val);
       }
    };
@@ -363,7 +296,7 @@ var setDiff = function setDiff(self, createElem) {
 exports.default = setDiff;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -373,7 +306,7 @@ Object.defineProperty(exports, "__esModule", {
    value: true
 });
 
-var _eventlist = __webpack_require__(8);
+var _eventlist = __webpack_require__(9);
 
 var _eventlist2 = _interopRequireDefault(_eventlist);
 
@@ -420,7 +353,7 @@ var events = _eventlist2.default.reduce(function (ob, itm) {
 exports.default = events;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -440,7 +373,7 @@ var formTags = {
 exports.default = formTags;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -473,7 +406,7 @@ var isSVG = {
 exports.default = isSVG;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -482,7 +415,7 @@ exports.default = isSVG;
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
-var flattenArray = function flattenArray(a, b) {
+var flatten = function flatten(a, b) {
    return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
 };
 
@@ -501,13 +434,9 @@ function flattenIteration(arr, flatArr) {
 
 var smoothNested = function smoothNested(nested) {
    if (!nested) return [];
-   return nested.reduce(flattenArray, []).filter(function (ne) {
+   return nested.reduce(flatten, []).filter(function (ne) {
       return ne !== null && ne !== undefined;
    });
-};
-
-var flatten = function flatten(nested) {
-   return nested.reduce(flattenArray, []);
 };
 
 var capitalize = function capitalize(string) {
@@ -519,7 +448,7 @@ exports.flatten = flatten;
 exports.capitalize = capitalize;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -532,23 +461,23 @@ exports.exNode = undefined;
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _events = __webpack_require__(3);
+var _events = __webpack_require__(4);
 
 var _events2 = _interopRequireDefault(_events);
 
-var _diffing = __webpack_require__(2);
+var _diffing = __webpack_require__(3);
 
 var _diffing2 = _interopRequireDefault(_diffing);
 
-var _redux_wrapper = __webpack_require__(1);
+var _redux_wrapper = __webpack_require__(2);
 
 var _redux_wrapper2 = _interopRequireDefault(_redux_wrapper);
 
-var _svg_tags = __webpack_require__(5);
+var _svg_tags = __webpack_require__(6);
 
 var _svg_tags2 = _interopRequireDefault(_svg_tags);
 
-var _form_tags = __webpack_require__(4);
+var _form_tags = __webpack_require__(5);
 
 var _form_tags2 = _interopRequireDefault(_form_tags);
 
@@ -556,7 +485,9 @@ var _html_attributes = __webpack_require__(0);
 
 var _html_attributes2 = _interopRequireDefault(_html_attributes);
 
-var _handy_funcs = __webpack_require__(6);
+var _handy_funcs = __webpack_require__(7);
+
+var _namespace = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -730,7 +661,7 @@ function NodeMap() {
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!NodeMapContext.events[attr] && (0, _html_attributes2.default)(attr)) {
+         if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -743,7 +674,7 @@ function NodeMap() {
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!NodeMapContext.events[attr] && !re.test(attr)) {
+         if ((0, _html_attributes2.default)(attr) || _namespace.EX_tags[attr]) {
             element.setAttribute(attr, attrs[attr]);
          }
       }
@@ -770,9 +701,6 @@ function NodeMap() {
       };
 
       node.nested = node.nested ? node.nested : [];
-      if (node.nested.length === 0) {
-         return el;
-      }
       node.nested.map(function (elm, ii) {
          var elmId = group + '.' + ii;
          return createElem(elm, elmId, group);
@@ -866,7 +794,7 @@ exports.default = EX;
 exports.exNode = exNode;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,4 +1,4 @@
-const flattenArray = (a, b) => {
+const flatten = (a, b) => {
    return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
 }
 
@@ -17,12 +17,9 @@ function flattenIteration(arr, flatArr) {
 
 const smoothNested = (nested) => {
    if (!nested) return []
-   return nested.reduce(flattenArray, []).filter((ne) => ne !== null && ne !== undefined);
+   return nested.reduce(flatten, []).filter((ne) => ne !== null && ne !== undefined);
 }
 
-const flatten = (nested) => {
-   return nested.reduce(flattenArray, []);
-}
 
 const capitalize = (string) => {
    return string.charAt(0).toUpperCase() + string.slice(1);

@@ -21,7 +21,7 @@ const setNameTagChange = (nametags, dispatch) => {
       dispatch({type: 'NAMETAG_CHANGE', payload: nametagsCopy });
    }
 }
-const setColorChange = ( nametag, cb) => { 
+const setColorChange = ( nametag, cb) => {
    if(!cb) return () => {}
    return (e,a,b) => {
       console.log('keyName e', e)
@@ -33,17 +33,17 @@ const setColorChange = ( nametag, cb) => {
       cb(nametagCopy)
    }
 }
-const EditNameTag = EX.component({
-   componentName: 'EditNameTag',
-   componentRender: (props) => {
-      console.log('EditNameTag props', props)
-      let {ex_person, ex_nametags, ex_editMode , ex_dispatch} = props;
+
+class EditNameTag extends EX.Component {
+ render() {
+      console.log('EditNameTag props', this.props)
+      let {ex_person, ex_nametags, ex_editMode , ex_dispatch} = this.props;
       let nametag = ex_nametags[ex_person.id];
       if(!nametag) {
          let newNametag = nameTagStarter(ex_person);
 
          return (
-            <div class="text-center"> 
+            <div class="text-center">
             <h4>You do not have a nametag</h4>
                <button class="btn btn-info" onClick={() => ex_dispatch({type: 'ADD_NAMETAG', payload: Object.assign({}, ex_nametags ,newNametag) })}>Generate NameTag</button>
             </div>
@@ -52,7 +52,7 @@ const EditNameTag = EX.component({
       const nameTagChange = setNameTagChange( ex_nametags, ex_dispatch)
       return (
          <section>
-       
+
              <div class="col-md-8">
                 <NameTag ex_person={ex_person} ex_nametag={nametag} ex_change={nameTagChange} ex_editMode={ex_editMode} />
             </div>
@@ -70,6 +70,6 @@ const EditNameTag = EX.component({
          </section>
       )
    }
-})
+}
 
 export default EditNameTag;

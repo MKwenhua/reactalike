@@ -1,5 +1,5 @@
 import EX from 'reactalikeSource';
-const setOnBlur = (keyName, nametag, cb) => { 
+const setOnBlur = (keyName, nametag, cb) => {
    if(!cb) return () => {}
    return (e,a,b) => {
       console.log('keyName e', e)
@@ -13,10 +13,9 @@ const setOnBlur = (keyName, nametag, cb) => {
    }
 }
 
-const NameTag = EX.component({
-   componentName: 'nametag',
-   componentRender: (props) => {
-      let { ex_nametag, ex_person, ex_change, ex_editMode } = props;
+class NameTag extends EX.Component {
+  render() {
+      let { ex_nametag, ex_person, ex_change, ex_editMode } = this.props;
       let {color} = ex_nametag;
       return (
          <div class="padd-center">
@@ -35,6 +34,6 @@ const NameTag = EX.component({
          </div>
       )
    }
-})
+}
 
 export default NameTag;
