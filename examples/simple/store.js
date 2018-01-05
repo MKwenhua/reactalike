@@ -6,7 +6,7 @@ const AppState = {
    profile: {
       mode: 'default',
       guest: 'nt789w'
-   },  
+   },
    nameTags: {
       nt789w: {
          color: '#ffa500',
@@ -43,17 +43,17 @@ const AppState = {
          name: 'Pete',
          job: 'Orderly Drifter',
          id: 'nt789w'
-      }, 
+      },
       nt5y0r: {
          name: 'Bing Bing',
          job: 'works at 呷哺呷哺',
          id: 'nt5y0r'
-      }, 
+      },
       nthwvu: {
          name: 'Jackie',
          job: 'Movie Star',
          id: 'nthwvu'
-      }, 
+      },
       ntwq8b: {
          name: 'Bachman',
          job: 'chief innovation officer',
@@ -61,6 +61,7 @@ const AppState = {
       }
    }
 }
+
 function reducer(state = AppState, action) {
    switch (action.type) {
       case 'ADD_GUEST':
@@ -81,7 +82,7 @@ function reducer(state = AppState, action) {
       case 'VIEW_PROFILE':
          return {
             ...state,
-            view: 'profile_view', 
+            view: 'profile_view',
             profile: {
                mode: 'default',
                guest: action.payload
@@ -90,12 +91,18 @@ function reducer(state = AppState, action) {
       case 'EDIT_NAMETAG':
          return {
             ...state,
-            profile: action.payload
+            profile: {
+              ...state.profile,
+              ...action.payload
+            }
          }
       case 'NAMETAG_CHANGE':
          return {
              ...state,
-             nameTags: action.payload
+             nameTags: {
+              ...state.nameTags,
+              ...action.payload
+             }
          }
       case 'NAMETAG_SAVE':
          return {
@@ -105,12 +112,14 @@ function reducer(state = AppState, action) {
       case 'ADD_NAMETAG':
             return {
             ...state,
-            nameTags: action.payload 
+            nameTags: {
+              ...state.nameTags,
+              ...action.payload
             }
+          }
       default:
          return state
    }
 }
 
-const store = createStore(reducer, applyMiddleware(logger))
-export default store
+export default createStore(reducer, applyMiddleware(logger))

@@ -88,8 +88,10 @@ if (process.env.NODE_ENV === 'production') {
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -99,81 +101,84 @@ var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var setOnBlur = function setOnBlur(keyName, nametag, cb) {
-   if (!cb) return function () {};
-   return function (e, a, b) {
-      console.log('keyName e', e);
-      console.log('keyName e.target', e.target);
-      var text = e.target.innerText.trim();
-      console.log('keyName text', text);
-
-      var nametagCopy = Object.assign({}, nametag);
-      nametagCopy[keyName] = text;
-      cb(nametagCopy);
-   };
-};
-
 var NameTag = function (_EX$Component) {
-   _inherits(NameTag, _EX$Component);
+  _inherits(NameTag, _EX$Component);
 
-   function NameTag() {
-      _classCallCheck(this, NameTag);
+  function NameTag() {
+    var _ref;
 
-      return _possibleConstructorReturn(this, (NameTag.__proto__ || Object.getPrototypeOf(NameTag)).apply(this, arguments));
-   }
+    var _temp, _this, _ret;
 
-   _createClass(NameTag, [{
-      key: 'render',
-      value: function render() {
-         var _props = this.props,
-             nametag = _props.nametag,
-             person = _props.person,
-             change = _props.change,
-             editMode = _props.editMode;
-         var color = nametag.color;
+    _classCallCheck(this, NameTag);
 
-         return _reactalikeSource2.default.node(
-            'div',
-            { 'class': 'padd-center' },
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = NameTag.__proto__ || Object.getPrototypeOf(NameTag)).call.apply(_ref, [this].concat(args))), _this), _this.setOnBlur = function (keyName, nametag) {
+      return function (e) {
+        return _this.props.change(_extends({}, nametag, _defineProperty({}, keyName, e.target.innerText.trim())));
+      };
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(NameTag, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          nametag = _props.nametag,
+          editMode = _props.editMode;
+
+      return _reactalikeSource2.default.node(
+        'div',
+        { 'class': 'padd-center' },
+        _reactalikeSource2.default.node(
+          'div',
+          { 'class': 'tag', style: 'border-color:' + nametag.color },
+          _reactalikeSource2.default.node(
+            'header',
+            { style: 'background:' + nametag.color },
             _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'tag', style: 'border-color:' + color },
-               _reactalikeSource2.default.node(
-                  'header',
-                  { style: 'background:' + color },
-                  _reactalikeSource2.default.node(
-                     'div',
-                     { 'class': 'hello', contentEditable: editMode, onBlur: setOnBlur('headerText', nametag, change) },
-                     nametag.headerText
-                  )
-               ),
-               _reactalikeSource2.default.node(
-                  'section',
-                  null,
-                  _reactalikeSource2.default.node(
-                     'div',
-                     { 'class': 'mynameis', contentEditable: editMode, onBlur: setOnBlur('intro', nametag, change) },
-                     nametag.intro
-                  ),
-                  _reactalikeSource2.default.node(
-                     'div',
-                     { 'class': 'my-name-is', contentEditable: editMode, onBlur: setOnBlur('displayName', nametag, change) },
-                     nametag.displayName
-                  )
-               ),
-               _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
+              'div',
+              { 'class': 'hello',
+                contentEditable: editMode,
+                onBlur: this.setOnBlur('headerText', nametag) },
+              nametag.headerText
             )
-         );
-      }
-   }]);
+          ),
+          _reactalikeSource2.default.node(
+            'section',
+            null,
+            _reactalikeSource2.default.node(
+              'div',
+              { 'class': 'mynameis',
+                contentEditable: editMode,
+                onBlur: this.setOnBlur('intro', nametag) },
+              nametag.intro
+            ),
+            _reactalikeSource2.default.node(
+              'div',
+              { 'class': 'my-name-is',
+                contentEditable: editMode,
+                onBlur: this.setOnBlur('displayName', nametag) },
+              nametag.displayName
+            )
+          ),
+          _reactalikeSource2.default.node('div', { 'class': 'dottedline' })
+        )
+      );
+    }
+  }]);
 
-   return NameTag;
+  return NameTag;
 }(_reactalikeSource2.default.Component);
 
 exports.default = NameTag;
@@ -1457,11 +1462,8 @@ module.exports =
       };
 
       this.lookUpRegistry = function (target, eventName, e) {
-         var tgTrace = target.getAttribute('trace');
-         var traceArray = tgTrace.split('.');
-         console.log('traceArray', traceArray);
+         var traceArray = target.getAttribute('trace').split('.');
          var vDom = NodeMapContext.domComponents;
-         console.log('vDom', vDom);
          traceArray.shift();
          traceArray.map(function (itm, i) {
             if (!vDom.nested) {
@@ -1521,7 +1523,7 @@ module.exports =
       this.viewObjects = function () {
          console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
          console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
-         console.log('this.events', NodeMapContext.events);
+         console.log('NodeMapContext.events', NodeMapContext.events);
       };
 
       this.mountApp = function (obj) {
@@ -1531,7 +1533,6 @@ module.exports =
       };
 
       this.createElement = function createElement(name, attrs) {
-
          var element = document.createElement(String(name));
          if (!attrs) return element;
 
@@ -1693,7 +1694,7 @@ module.exports =
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1723,80 +1724,76 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var setNameTagId = function setNameTagId() {
-   return ("nt" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-6);
+  return ('nt' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-6);
 };
 
 var setUserProfileLink = function setUserProfileLink(personId, dispatch) {
-   console.log('setUserProfileLink personId', personId);
-   return function () {
-
-      dispatch({ type: 'VIEW_PROFILE', payload: personId });
-   };
+  return function () {
+    return dispatch({ type: 'VIEW_PROFILE', payload: personId });
+  };
 };
+
 window.EX = _reactalikeSource2.default;
 
 var Layout = function (_EX$Container) {
-   _inherits(Layout, _EX$Container);
+  _inherits(Layout, _EX$Container);
 
-   function Layout() {
-      _classCallCheck(this, Layout);
+  function Layout() {
+    _classCallCheck(this, Layout);
 
-      return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
+  }
 
-   _createClass(Layout, [{
-      key: 'render',
-      value: function render() {
-         var _props = this.props,
-             dispatch = _props.dispatch,
-             store = _props.store;
-         var guests = store.guests,
-             nameTags = store.nameTags,
-             view = store.view,
-             profile = store.profile;
+  _createClass(Layout, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          dispatch = _props.dispatch,
+          store = _props.store;
+      var guests = store.guests,
+          nameTags = store.nameTags,
+          view = store.view,
+          profile = store.profile;
 
-
-         var ppl = Object.keys(guests).map(function (personId, ii) {
-            return _reactalikeSource2.default.node(
-               'div',
-               { onClick: setUserProfileLink(personId, dispatch) },
-               _reactalikeSource2.default.node(_name_tag2.default, { person: guests[personId], nametag: nameTags[personId], editMode: 'false' })
-            );
-         });
-         var b = ['w', '1', '3'].map(function (u) {
-            return _reactalikeSource2.default.node(
-               'div',
-               null,
-               u
-            );
-         });
-         return _reactalikeSource2.default.node(
+      var nameTagList = Object.keys(guests).map(function (personId) {
+        return _reactalikeSource2.default.node(
+          'div',
+          { onClick: setUserProfileLink(personId, dispatch) },
+          _reactalikeSource2.default.node(_name_tag2.default, { person: guests[personId], nametag: nameTags[personId], editMode: 'false' })
+        );
+      });
+      return _reactalikeSource2.default.node(
+        'div',
+        { 'class': 'container' },
+        _reactalikeSource2.default.node(
+          'section',
+          { 'class': view === 'list_view' ? 'row' : 'hidden' },
+          _reactalikeSource2.default.node(
             'div',
-            { 'class': 'container' },
+            { 'class': 'col-md-2 pull-md-10' },
+            _reactalikeSource2.default.node(_side_edit2.default, { dispatch: dispatch })
+          ),
+          _reactalikeSource2.default.node(
+            'div',
+            { 'class': 'col-md-8 push-md-2' },
             _reactalikeSource2.default.node(
-               'section',
-               { 'class': view === 'list_view' ? 'row' : 'hidden' },
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': 'col-md-2 pull-md-10' },
-                  _reactalikeSource2.default.node(_side_edit2.default, { dispatch: dispatch })
-               ),
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': 'col-md-10 push-md-2' },
-                  ppl
-               )
+              'h2',
+              { 'class': 'name-tag-list-heading' },
+              'Name Tags'
             ),
-            _reactalikeSource2.default.node(
-               'section',
-               { 'class': view === 'profile_view' ? 'row' : 'hidden' },
-               _reactalikeSource2.default.node(_profile2.default, { profile: profile, person: guests[profile.guest], nametags: nameTags, dispatch: dispatch })
-            )
-         );
-      }
-   }]);
+            nameTagList
+          )
+        ),
+        _reactalikeSource2.default.node(
+          'section',
+          { 'class': view === 'profile_view' ? 'row' : 'hidden' },
+          _reactalikeSource2.default.node(_profile2.default, { profile: profile, person: guests[profile.guest], nametags: nameTags, dispatch: dispatch })
+        )
+      );
+    }
+  }]);
 
-   return Layout;
+  return Layout;
 }(_reactalikeSource2.default.Container);
 
 exports.default = Layout;
@@ -1882,6 +1879,7 @@ var AppState = {
       }
    }
 };
+
 function reducer() {
    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : AppState;
    var action = arguments[1];
@@ -1909,11 +1907,11 @@ function reducer() {
          });
       case 'EDIT_NAMETAG':
          return _extends({}, state, {
-            profile: action.payload
+            profile: _extends({}, state.profile, action.payload)
          });
       case 'NAMETAG_CHANGE':
          return _extends({}, state, {
-            nameTags: action.payload
+            nameTags: _extends({}, state.nameTags, action.payload)
          });
       case 'NAMETAG_SAVE':
          return _extends({}, state, {
@@ -1921,15 +1919,14 @@ function reducer() {
          });
       case 'ADD_NAMETAG':
          return _extends({}, state, {
-            nameTags: action.payload
+            nameTags: _extends({}, state.nameTags, action.payload)
          });
       default:
          return state;
    }
 }
 
-var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxLogger2.default));
-exports.default = store;
+exports.default = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxLogger2.default));
 
 /***/ }),
 /* 13 */
@@ -3396,10 +3393,14 @@ function symbolObservablePonyfill(root) {
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _reactalikeSource = __webpack_require__(0);
 
@@ -3411,6 +3412,8 @@ var _name_tag2 = _interopRequireDefault(_name_tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -3418,123 +3421,127 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var nameTagStarter = function nameTagStarter(person) {
-   var newNametag = {};
-   newNametag[person.id] = {
-      color: '#ffa500',
-      headerText: 'HELLO',
-      intro: 'my name is',
-      displayName: person.name
-   };
-   return newNametag;
-};
-var setNameTagChange = function setNameTagChange(nametags, dispatch) {
-   return function (nameTagChange) {
-      console.log('nameTagChange', nameTagChange);
-      var nametagsCopy = Object.assign({}, nametags);
-      nametagsCopy[nameTagChange.TAGid] = nameTagChange;
-      console.log('nameTagChange.TAGid', nameTagChange.TAGid);
-      console.log('nametagsCopy', nametagsCopy);
-      dispatch({ type: 'NAMETAG_CHANGE', payload: nametagsCopy });
-   };
-};
-var setColorChange = function setColorChange(nametag, cb) {
-   if (!cb) return function () {};
-   return function (e, a, b) {
-      console.log('keyName e', e);
-      console.log('keyName e.target', e.target);
-      var text = e.target.value.trim();
-      console.log('keyName text', text);
-      var nametagCopy = Object.assign({}, nametag);
-      nametagCopy.color = text;
-      cb(nametagCopy);
-   };
+  var _color$headerText$int, _color$headerText$int2;
+
+  return _color$headerText$int = {
+    color: '#ffa500',
+    headerText: 'HELLO',
+    intro: 'my name is',
+    displayName: person.name
+  }, _color$headerText$int2 = _slicedToArray(_color$headerText$int, 1), person.id = _color$headerText$int2[0], _color$headerText$int;
 };
 
 var EditNameTag = function (_EX$Component) {
-   _inherits(EditNameTag, _EX$Component);
+  _inherits(EditNameTag, _EX$Component);
 
-   function EditNameTag() {
-      _classCallCheck(this, EditNameTag);
+  function EditNameTag() {
+    var _ref;
 
-      return _possibleConstructorReturn(this, (EditNameTag.__proto__ || Object.getPrototypeOf(EditNameTag)).apply(this, arguments));
-   }
+    var _temp, _this, _ret;
 
-   _createClass(EditNameTag, [{
-      key: 'render',
-      value: function render() {
-         console.log('EditNameTag props', this.props);
-         var _props = this.props,
-             person = _props.person,
-             nametags = _props.nametags,
-             editMode = _props.editMode,
-             dispatch = _props.dispatch;
+    _classCallCheck(this, EditNameTag);
 
-         var nametag = nametags[person.id];
-         if (!nametag) {
-            var newNametag = nameTagStarter(person);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-            return _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'text-center' },
-               _reactalikeSource2.default.node(
-                  'h4',
-                  null,
-                  'You do not have a nametag'
-               ),
-               _reactalikeSource2.default.node(
-                  'button',
-                  { 'class': 'btn btn-info', onClick: function onClick() {
-                        return dispatch({ type: 'ADD_NAMETAG', payload: Object.assign({}, nametags, newNametag) });
-                     } },
-                  'Generate NameTag'
-               )
-            );
-         }
-         var nameTagChange = setNameTagChange(nametags, dispatch);
-         return _reactalikeSource2.default.node(
-            'section',
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EditNameTag.__proto__ || Object.getPrototypeOf(EditNameTag)).call.apply(_ref, [this].concat(args))), _this), _this.nameTagChanged = function (nameTagChange) {
+      return _this.props.dispatch({
+        type: 'NAMETAG_CHANGE',
+        payload: _defineProperty({}, nameTagChange.TAGid, nameTagChange)
+      });
+    }, _this.setColorChange = function (nametag) {
+      return function (e) {
+        return _this.nameTagChanged(_extends({}, nametag, {
+          color: e.target.value.trim()
+        }));
+      };
+    }, _this.saveNameTag = function () {
+      return _this.props.dispatch({
+        type: 'NAMETAG_SAVE',
+        payload: {
+          mode: 'default',
+          guest: _this.props.person.id
+        }
+      });
+    }, _this.setEditMode = function (payload) {
+      return function () {
+        return _this.props.dispatch({ type: 'EDIT_NAMETAG', payload: payload });
+      };
+    }, _this.addNameTag = function (payload) {
+      return function () {
+        return _this.props.dispatch({ type: 'ADD_NAMETAG', payload: payload });
+      };
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(EditNameTag, [{
+    key: 'render',
+    value: function render() {
+      console.log('EditNameTag props', this.props);
+      var _props = this.props,
+          person = _props.person,
+          nametags = _props.nametags,
+          editMode = _props.editMode,
+          dispatch = _props.dispatch;
+
+      var nametag = nametags[person.id];
+      if (!nametag) {
+        return _reactalikeSource2.default.node(
+          'div',
+          { 'class': 'text-center' },
+          _reactalikeSource2.default.node(
+            'h4',
             null,
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'col-md-8' },
-               _reactalikeSource2.default.node(_name_tag2.default, { person: person, nametag: nametag, change: nameTagChange, editMode: editMode })
-            ),
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'col-md-4' },
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': editMode ? '' : 'hidden' },
-                  _reactalikeSource2.default.node('input', { type: 'color', value: nametag.color, onBlur: setColorChange(nametag, nameTagChange) })
-               ),
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': editMode ? '' : 'hidden' },
-                  _reactalikeSource2.default.node(
-                     'button',
-                     { 'class': 'btn btn-success full-btn', onClick: function onClick() {
-                           return dispatch({ type: 'NAMETAG_SAVE', payload: { mode: 'default', guest: person.id } });
-                        } },
-                     'Save'
-                  )
-               ),
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': editMode ? 'hidden' : '' },
-                  _reactalikeSource2.default.node(
-                     'button',
-                     { 'class': 'btn btn-success full-btn', onClick: function onClick() {
-                           return dispatch({ type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest: person.id } });
-                        } },
-                     'Edit'
-                  )
-               )
-            )
-         );
+            'You do not have a nametag'
+          ),
+          _reactalikeSource2.default.node(
+            'button',
+            { 'class': 'btn btn-info', onClick: this.addNameTag(nameTagStarter(person)) },
+            'Generate NameTag'
+          )
+        );
       }
-   }]);
+      return _reactalikeSource2.default.node(
+        'section',
+        null,
+        _reactalikeSource2.default.node(
+          'div',
+          { 'class': 'col-md-8' },
+          _reactalikeSource2.default.node(_name_tag2.default, { person: person, nametag: nametag, change: this.nameTagChanged, editMode: editMode })
+        ),
+        _reactalikeSource2.default.node(
+          'div',
+          { 'class': 'col-md-4' },
+          _reactalikeSource2.default.node(
+            'div',
+            { 'class': editMode ? '' : 'hidden' },
+            _reactalikeSource2.default.node('input', { type: 'color', value: nametag.color, onBlur: this.setColorChange(nametag) })
+          ),
+          _reactalikeSource2.default.node(
+            'div',
+            { 'class': editMode ? '' : 'hidden' },
+            _reactalikeSource2.default.node(
+              'button',
+              { 'class': 'btn btn-success full-btn', onClick: this.saveNameTag },
+              'Save'
+            )
+          ),
+          _reactalikeSource2.default.node(
+            'div',
+            { 'class': editMode ? 'hidden' : '' },
+            _reactalikeSource2.default.node(
+              'button',
+              { 'class': 'btn btn-success full-btn', onClick: this.setEditMode({ mode: 'edit_nametag', guest: person.id }) },
+              'Edit'
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-   return EditNameTag;
+  return EditNameTag;
 }(_reactalikeSource2.default.Component);
 
 exports.default = EditNameTag;
@@ -3547,7 +3554,7 @@ exports.default = EditNameTag;
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3573,70 +3580,82 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Profile = function (_EX$Component) {
-   _inherits(Profile, _EX$Component);
+  _inherits(Profile, _EX$Component);
 
-   function Profile() {
-      _classCallCheck(this, Profile);
+  function Profile() {
+    var _ref;
 
-      return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
-   }
+    var _temp, _this, _ret;
 
-   _createClass(Profile, [{
-      key: 'render',
-      value: function render() {
-         var _props = this.props,
-             profile = _props.profile,
-             person = _props.person,
-             nametags = _props.nametags,
-             dispatch = _props.dispatch;
-         var mode = profile.mode,
-             guest = profile.guest;
+    _classCallCheck(this, Profile);
 
-         console.log('profile props', this.props);
-         return _reactalikeSource2.default.node(
-            'section',
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Profile.__proto__ || Object.getPrototypeOf(Profile)).call.apply(_ref, [this].concat(args))), _this), _this.goBack = function () {
+      return _this.props.dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Profile, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          profile = _props.profile,
+          person = _props.person,
+          nametags = _props.nametags,
+          dispatch = _props.dispatch;
+      var mode = profile.mode,
+          guest = profile.guest;
+
+      return _reactalikeSource2.default.node(
+        'section',
+        null,
+        _reactalikeSource2.default.node(
+          'button',
+          { 'class': 'btn btn-info',
+            onClick: this.goBack },
+          'Go Back'
+        ),
+        _reactalikeSource2.default.node(
+          'h2',
+          null,
+          _reactalikeSource2.default.node(
+            'b',
             null,
-            _reactalikeSource2.default.node(
-               'button',
-               { 'class': 'btn btn-info', onClick: function onClick() {
-                     return dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
-                  } },
-               'Go Back'
-            ),
-            _reactalikeSource2.default.node(
-               'h2',
-               null,
-               _reactalikeSource2.default.node(
-                  'b',
-                  null,
-                  'Name:'
-               ),
-               person.name
-            ),
-            _reactalikeSource2.default.node(
-               'h4',
-               null,
-               _reactalikeSource2.default.node(
-                  'b',
-                  null,
-                  'Occupation:'
-               ),
-               person.job
-            ),
-            _reactalikeSource2.default.node(
-               'div',
-               { 'class': 'row align-items-center' },
-               _reactalikeSource2.default.node(
-                  'div',
-                  { 'class': 'col-md-10' },
-                  _reactalikeSource2.default.node(_edit_name_tag2.default, { person: person, nametags: nametags, dispatch: dispatch, editMode: mode === 'edit_nametag' })
-               )
-            )
-         );
-      }
-   }]);
+            'Name:'
+          ),
+          person.name
+        ),
+        _reactalikeSource2.default.node(
+          'h4',
+          null,
+          _reactalikeSource2.default.node(
+            'b',
+            null,
+            'Occupation:'
+          ),
+          person.job
+        ),
+        _reactalikeSource2.default.node(
+          'div',
+          { 'class': 'row align-items-center' },
+          _reactalikeSource2.default.node(
+            'div',
+            { 'class': 'col-md-10' },
+            _reactalikeSource2.default.node(_edit_name_tag2.default, {
+              person: person,
+              nametags: nametags,
+              dispatch: dispatch,
+              editMode: mode === 'edit_nametag' })
+          )
+        )
+      );
+    }
+  }]);
 
-   return Profile;
+  return Profile;
 }(_reactalikeSource2.default.Component);
 
 exports.default = Profile;
@@ -3649,7 +3668,7 @@ exports.default = Profile;
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3667,43 +3686,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SideEdit = function (_EX$Component) {
-   _inherits(SideEdit, _EX$Component);
+  _inherits(SideEdit, _EX$Component);
 
-   function SideEdit() {
-      _classCallCheck(this, SideEdit);
+  function SideEdit() {
+    _classCallCheck(this, SideEdit);
 
-      return _possibleConstructorReturn(this, (SideEdit.__proto__ || Object.getPrototypeOf(SideEdit)).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, (SideEdit.__proto__ || Object.getPrototypeOf(SideEdit)).apply(this, arguments));
+  }
 
-   _createClass(SideEdit, [{
-      key: "render",
-      value: function render() {
-         var dispatch = this.props.dispatch;
+  _createClass(SideEdit, [{
+    key: 'render',
+    value: function render() {
+      var dispatch = this.props.dispatch;
 
-         return _reactalikeSource2.default.node(
-            "section",
-            null,
-            _reactalikeSource2.default.node(
-               "h4",
-               null,
-               "Edit"
-            ),
-            _reactalikeSource2.default.node(
-               "div",
-               { "class": "row" },
-               _reactalikeSource2.default.node(
-                  "button",
-                  { "class": "btn btn-info", onClick: function onClick() {
-                        return dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
-                     } },
-                  "Add NameTag"
-               )
-            )
-         );
-      }
-   }]);
+      return _reactalikeSource2.default.node(
+        'section',
+        null,
+        _reactalikeSource2.default.node(
+          'h4',
+          null,
+          'Edit'
+        ),
+        _reactalikeSource2.default.node(
+          'div',
+          { 'class': 'row' },
+          _reactalikeSource2.default.node(
+            'button',
+            { 'class': 'btn btn-info hidden',
+              onClick: function onClick() {
+                return dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
+              } },
+            'Add NameTag'
+          )
+        )
+      );
+    }
+  }]);
 
-   return SideEdit;
+  return SideEdit;
 }(_reactalikeSource2.default.Component);
 
 exports.default = SideEdit;
