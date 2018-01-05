@@ -1,5 +1,12 @@
 import EX from 'reactalikeSource';
 import NameTag from 'component/name_tag'
+import {
+  EDIT_NAMETAG,
+  NAMETAG_CHANGE,
+  NAMETAG_SAVE,
+  ADD_NAMETAG
+} from 'constants'
+
 
 const nameTagStarter = person => [person.id] = {
   color: '#ffa500',
@@ -10,27 +17,31 @@ const nameTagStarter = person => [person.id] = {
 
 class EditNameTag extends EX.Component {
   nameTagChanged = nameTagChange => (this.props.dispatch({
-    type: 'NAMETAG_CHANGE',
+    type: NAMETAG_CHANGE,
     payload: {
       [nameTagChange.TAGid]: nameTagChange
     }
   }))
+
   setColorChange = nametag => e => this.nameTagChanged({
     ...nametag,
     color: e.target.value.trim()
-  });
+  })
+
   saveNameTag = () => this.props.dispatch({
-    type: 'NAMETAG_SAVE',
+    type: NAMETAG_SAVE,
     payload: {
       mode: 'default',
       guest: this.props.person.id
     }
   })
-  setEditMode = payload => () => this.props.dispatch({type: 'EDIT_NAMETAG', payload})
-  addNameTag = payload => () => this.props.dispatch({type: 'ADD_NAMETAG', payload})
+
+  setEditMode = payload => () => this.props.dispatch({type: EDIT_NAMETAG, payload})
+
+  addNameTag = payload => () => this.props.dispatch({type: ADD_NAMETAG, payload})
+
   render() {
-    console.log('EditNameTag props', this.props)
-    const {person, nametags, editMode, dispatch} = this.props;
+    const { person, nametags, editMode, dispatch } = this.props;
     const nametag = nametags[person.id];
     if (!nametag) {
       return (

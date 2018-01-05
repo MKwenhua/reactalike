@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 36);
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,14 +74,42 @@
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(10);
+  module.exports = __webpack_require__(11);
 } else {
-  module.exports = __webpack_require__(10);
+  module.exports = __webpack_require__(11);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ADD_GUEST = 'ADD_GUEST';
+var REMOVE_GUEST = 'REMOVE_GUEST';
+var VIEW_CHANGE = 'VIEW_CHANGE';
+var VIEW_PROFILE = 'VIEW_PROFILE';
+var EDIT_NAMETAG = 'EDIT_NAMETAG';
+var NAMETAG_CHANGE = 'NAMETAG_CHANGE';
+var NAMETAG_SAVE = 'NAMETAG_SAVE';
+var ADD_NAMETAG = 'ADD_NAMETAG';
+
+exports.ADD_GUEST = ADD_GUEST;
+exports.REMOVE_GUEST = REMOVE_GUEST;
+exports.VIEW_CHANGE = VIEW_CHANGE;
+exports.VIEW_PROFILE = VIEW_PROFILE;
+exports.EDIT_NAMETAG = EDIT_NAMETAG;
+exports.NAMETAG_CHANGE = NAMETAG_CHANGE;
+exports.NAMETAG_SAVE = NAMETAG_SAVE;
+exports.ADD_NAMETAG = ADD_NAMETAG;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -184,7 +212,7 @@ var NameTag = function (_EX$Component) {
 exports.default = NameTag;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -370,7 +398,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -397,11 +425,11 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(21);
 
 
 /** Built-in value references. */
@@ -411,13 +439,13 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(22);
 
 
 
@@ -483,7 +511,7 @@ function isPlainObject(value) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -508,7 +536,7 @@ var formatTime = exports.formatTime = function formatTime(time) {
 var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -549,14 +577,14 @@ function compose() {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = createStore;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 
 
@@ -808,7 +836,7 @@ function createStore(reducer, preloadedState, enhancer) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -836,7 +864,7 @@ function warning(message) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1687,7 +1715,7 @@ module.exports =
 }]);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1703,17 +1731,19 @@ var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
-var _name_tag = __webpack_require__(1);
+var _name_tag = __webpack_require__(2);
 
 var _name_tag2 = _interopRequireDefault(_name_tag);
 
-var _side_edit = __webpack_require__(35);
+var _side_edit = __webpack_require__(36);
 
 var _side_edit2 = _interopRequireDefault(_side_edit);
 
-var _profile = __webpack_require__(34);
+var _profile = __webpack_require__(35);
 
 var _profile2 = _interopRequireDefault(_profile);
+
+var _constants = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1729,7 +1759,7 @@ var setNameTagId = function setNameTagId() {
 
 var setUserProfileLink = function setUserProfileLink(personId, dispatch) {
   return function () {
-    return dispatch({ type: 'VIEW_PROFILE', payload: personId });
+    return dispatch({ type: _constants.VIEW_PROFILE, payload: personId });
   };
 };
 
@@ -1799,137 +1829,139 @@ var Layout = function (_EX$Container) {
 exports.default = Layout;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _redux = __webpack_require__(29);
+var _redux = __webpack_require__(30);
 
-var _reduxLogger = __webpack_require__(25);
+var _reduxLogger = __webpack_require__(26);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+var _constants = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AppState = {
-   view: 'list_view',
-   profile: {
-      mode: 'default',
-      guest: 'nt789w'
-   },
-   nameTags: {
-      nt789w: {
-         color: '#ffa500',
-         headerText: 'HELLO',
-         intro: 'my name is',
-         displayName: 'Pete',
-         TAGid: 'nt789w'
-      },
-      nt5y0r: {
-         color: '#ffa500',
-         headerText: 'HELLO',
-         intro: 'my name is',
-         displayName: 'Bing Bing',
-         TAGid: 'nt5y0r'
-      },
-      nthwvu: {
-         color: '#ffa500',
-         headerText: 'HELLO',
-         intro: 'my name is',
-         displayName: 'Jackie',
-         TAGid: 'nthwvu'
-      },
-      ntwq8b: {
-         color: '#ffa500',
-         headerText: 'HELLO',
-         intro: 'my name is',
-         displayName: 'Bachman',
-         TAGid: 'ntwq8b'
-      }
+  view: 'list_view',
+  profile: {
+    mode: 'default',
+    guest: 'nt789w'
+  },
+  nameTags: {
+    nt789w: {
+      color: '#ffa500',
+      headerText: 'HELLO',
+      intro: 'my name is',
+      displayName: 'Pete',
+      TAGid: 'nt789w'
+    },
+    nt5y0r: {
+      color: '#ffa500',
+      headerText: 'HELLO',
+      intro: 'my name is',
+      displayName: 'Bing Bing',
+      TAGid: 'nt5y0r'
+    },
+    nthwvu: {
+      color: '#ffa500',
+      headerText: 'HELLO',
+      intro: 'my name is',
+      displayName: 'Jackie',
+      TAGid: 'nthwvu'
+    },
+    ntwq8b: {
+      color: '#ffa500',
+      headerText: 'HELLO',
+      intro: 'my name is',
+      displayName: 'Bachman',
+      TAGid: 'ntwq8b'
+    }
 
-   },
-   guests: {
-      nt789w: {
-         name: 'Pete',
-         job: 'Orderly Drifter',
-         id: 'nt789w'
-      },
-      nt5y0r: {
-         name: 'Bing Bing',
-         job: 'works at 呷哺呷哺',
-         id: 'nt5y0r'
-      },
-      nthwvu: {
-         name: 'Jackie',
-         job: 'Movie Star',
-         id: 'nthwvu'
-      },
-      ntwq8b: {
-         name: 'Bachman',
-         job: 'chief innovation officer',
-         id: 'ntwq8b'
-      }
-   }
+  },
+  guests: {
+    nt789w: {
+      name: 'Pete',
+      job: 'Orderly Drifter',
+      id: 'nt789w'
+    },
+    nt5y0r: {
+      name: 'Bing Bing',
+      job: 'works at 呷哺呷哺',
+      id: 'nt5y0r'
+    },
+    nthwvu: {
+      name: 'Jackie',
+      job: 'Movie Star',
+      id: 'nthwvu'
+    },
+    ntwq8b: {
+      name: 'Bachman',
+      job: 'chief innovation officer',
+      id: 'ntwq8b'
+    }
+  }
 };
 
 function reducer() {
-   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : AppState;
-   var action = arguments[1];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : AppState;
+  var action = arguments[1];
 
-   switch (action.type) {
-      case 'ADD_GUEST':
-         return _extends({}, state, {
-            guests: action.payload
-         });
-      case 'REMOVE_GUEST':
-         return _extends({}, state, {
-            guests: action.payload
-         });
-      case 'VIEW_CHANGE':
-         return _extends({}, state, {
-            view: action.payload
-         });
-      case 'VIEW_PROFILE':
-         return _extends({}, state, {
-            view: 'profile_view',
-            profile: {
-               mode: 'default',
-               guest: action.payload
-            }
-         });
-      case 'EDIT_NAMETAG':
-         return _extends({}, state, {
-            profile: _extends({}, state.profile, action.payload)
-         });
-      case 'NAMETAG_CHANGE':
-         return _extends({}, state, {
-            nameTags: _extends({}, state.nameTags, action.payload)
-         });
-      case 'NAMETAG_SAVE':
-         return _extends({}, state, {
-            profile: action.payload
-         });
-      case 'ADD_NAMETAG':
-         return _extends({}, state, {
-            nameTags: _extends({}, state.nameTags, action.payload)
-         });
-      default:
-         return state;
-   }
+  switch (action.type) {
+    case _constants.ADD_GUEST:
+      return _extends({}, state, {
+        guests: action.payload
+      });
+    case _constants.REMOVE_GUEST:
+      return _extends({}, state, {
+        guests: action.payload
+      });
+    case _constants.VIEW_CHANGE:
+      return _extends({}, state, {
+        view: action.payload
+      });
+    case _constants.VIEW_PROFILE:
+      return _extends({}, state, {
+        view: 'profile_view',
+        profile: {
+          mode: 'default',
+          guest: action.payload
+        }
+      });
+    case _constants.EDIT_NAMETAG:
+      return _extends({}, state, {
+        profile: _extends({}, state.profile, action.payload)
+      });
+    case _constants.NAMETAG_CHANGE:
+      return _extends({}, state, {
+        nameTags: _extends({}, state.nameTags, action.payload)
+      });
+    case _constants.NAMETAG_SAVE:
+      return _extends({}, state, {
+        profile: action.payload
+      });
+    case _constants.ADD_NAMETAG:
+      return _extends({}, state, {
+        nameTags: _extends({}, state.nameTags, action.payload)
+      });
+    default:
+      return state;
+  }
 }
 
 exports.default = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxLogger2.default));
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -2356,16 +2388,16 @@ exports.default = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_
   return accumulateDiff;
 }));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(19);
 
 
 
@@ -2397,7 +2429,7 @@ function baseGetTag(value) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2406,14 +2438,14 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(20);
 
 
 /** Built-in value references. */
@@ -2423,11 +2455,11 @@ var getPrototype = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__overArg_js
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(5);
 
 
 /** Used for built-in method references. */
@@ -2477,7 +2509,7 @@ function getRawTag(value) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2506,7 +2538,7 @@ function objectToString(value) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2528,11 +2560,11 @@ function overArg(func, transform) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(16);
 
 
 /** Detect free variable `self`. */
@@ -2545,7 +2577,7 @@ var root = __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__["a" /* default */] || fr
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2581,7 +2613,7 @@ function isObjectLike(value) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2595,9 +2627,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.printBuffer = printBuffer;
 
-var _helpers = __webpack_require__(6);
+var _helpers = __webpack_require__(7);
 
-var _diff = __webpack_require__(24);
+var _diff = __webpack_require__(25);
 
 var _diff2 = _interopRequireDefault(_diff);
 
@@ -2730,7 +2762,7 @@ function printBuffer(buffer, options) {
 }
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2782,7 +2814,7 @@ exports.default = {
 module.exports = exports["default"];
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2793,7 +2825,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = diffLogger;
 
-var _deepDiff = __webpack_require__(13);
+var _deepDiff = __webpack_require__(14);
 
 var _deepDiff2 = _interopRequireDefault(_deepDiff);
 
@@ -2882,7 +2914,7 @@ function diffLogger(prevState, newState, logger, isCollapsed) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2895,11 +2927,11 @@ exports.logger = exports.createLogger = exports.defaults = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _core = __webpack_require__(22);
+var _core = __webpack_require__(23);
 
-var _helpers = __webpack_require__(6);
+var _helpers = __webpack_require__(7);
 
-var _defaults = __webpack_require__(23);
+var _defaults = __webpack_require__(24);
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -3027,12 +3059,12 @@ exports.logger = defaultLogger;
 exports.default = defaultLogger;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(8);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -3083,7 +3115,7 @@ function applyMiddleware() {
 }
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3137,14 +3169,14 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(10);
 
 
 
@@ -3274,20 +3306,20 @@ function combineReducers(reducers) {
     return hasChanged ? nextState : state;
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(10);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -3311,17 +3343,17 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(31);
-
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
 /* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(32);
+
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3331,7 +3363,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(32);
+var _ponyfill = __webpack_require__(33);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -3354,10 +3386,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(37)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(38)(module)))
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3386,7 +3418,7 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3406,9 +3438,11 @@ var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
-var _name_tag = __webpack_require__(1);
+var _name_tag = __webpack_require__(2);
 
 var _name_tag2 = _interopRequireDefault(_name_tag);
+
+var _constants = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3447,7 +3481,7 @@ var EditNameTag = function (_EX$Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EditNameTag.__proto__ || Object.getPrototypeOf(EditNameTag)).call.apply(_ref, [this].concat(args))), _this), _this.nameTagChanged = function (nameTagChange) {
       return _this.props.dispatch({
-        type: 'NAMETAG_CHANGE',
+        type: _constants.NAMETAG_CHANGE,
         payload: _defineProperty({}, nameTagChange.TAGid, nameTagChange)
       });
     }, _this.setColorChange = function (nametag) {
@@ -3458,7 +3492,7 @@ var EditNameTag = function (_EX$Component) {
       };
     }, _this.saveNameTag = function () {
       return _this.props.dispatch({
-        type: 'NAMETAG_SAVE',
+        type: _constants.NAMETAG_SAVE,
         payload: {
           mode: 'default',
           guest: _this.props.person.id
@@ -3466,11 +3500,11 @@ var EditNameTag = function (_EX$Component) {
       });
     }, _this.setEditMode = function (payload) {
       return function () {
-        return _this.props.dispatch({ type: 'EDIT_NAMETAG', payload: payload });
+        return _this.props.dispatch({ type: _constants.EDIT_NAMETAG, payload: payload });
       };
     }, _this.addNameTag = function (payload) {
       return function () {
-        return _this.props.dispatch({ type: 'ADD_NAMETAG', payload: payload });
+        return _this.props.dispatch({ type: _constants.ADD_NAMETAG, payload: payload });
       };
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -3478,7 +3512,6 @@ var EditNameTag = function (_EX$Component) {
   _createClass(EditNameTag, [{
     key: 'render',
     value: function render() {
-      console.log('EditNameTag props', this.props);
       var _props = this.props,
           person = _props.person,
           nametags = _props.nametags,
@@ -3547,7 +3580,7 @@ var EditNameTag = function (_EX$Component) {
 exports.default = EditNameTag;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3563,13 +3596,15 @@ var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
-var _name_tag = __webpack_require__(1);
+var _name_tag = __webpack_require__(2);
 
 var _name_tag2 = _interopRequireDefault(_name_tag);
 
-var _edit_name_tag = __webpack_require__(33);
+var _edit_name_tag = __webpack_require__(34);
 
 var _edit_name_tag2 = _interopRequireDefault(_edit_name_tag);
+
+var _constants = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3594,7 +3629,7 @@ var Profile = function (_EX$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Profile.__proto__ || Object.getPrototypeOf(Profile)).call.apply(_ref, [this].concat(args))), _this), _this.goBack = function () {
-      return _this.props.dispatch({ type: 'VIEW_CHANGE', payload: 'list_view' });
+      return _this.props.dispatch({ type: _constants.VIEW_CHANGE, payload: 'list_view' });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -3661,7 +3696,7 @@ var Profile = function (_EX$Component) {
 exports.default = Profile;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3676,6 +3711,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
+
+var _constants = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3714,7 +3751,7 @@ var SideEdit = function (_EX$Component) {
             'button',
             { 'class': 'btn btn-info hidden',
               onClick: function onClick() {
-                return dispatch({ type: 'VIEW_CHANGE', payload: 'edit' });
+                return dispatch({ type: _constants.VIEW_CHANGE, payload: 'edit' });
               } },
             'Add NameTag'
           )
@@ -3729,7 +3766,7 @@ var SideEdit = function (_EX$Component) {
 exports.default = SideEdit;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3739,11 +3776,11 @@ var _reactalikeSource = __webpack_require__(0);
 
 var _reactalikeSource2 = _interopRequireDefault(_reactalikeSource);
 
-var _layout = __webpack_require__(11);
+var _layout = __webpack_require__(12);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _store = __webpack_require__(12);
+var _store = __webpack_require__(13);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -3752,7 +3789,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactalikeSource2.default.mountAppToNode(_reactalikeSource2.default.ReduxConnect(_layout2.default, _store2.default), document.getElementById('root'));
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {

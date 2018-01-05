@@ -2,10 +2,14 @@ import EX from 'reactalikeSource';
 import NameTag from 'component/name_tag'
 import SideEdit from 'component/side_edit'
 import Profile from 'component/profile'
+import {
+  VIEW_PROFILE
+} from 'constants'
+
 
 const setNameTagId = () => ('nt' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-6);
 
-const setUserProfileLink = (personId, dispatch) => () => dispatch({type: 'VIEW_PROFILE', payload: personId})
+const setUserProfileLink = (personId, dispatch) => () => dispatch({type: VIEW_PROFILE, payload: personId})
 
 window.EX = EX
 

@@ -1,9 +1,12 @@
 import EX from 'reactalikeSource';
 import NameTag from 'component/name_tag'
 import EditNameTag from 'component/edit_name_tag'
+import {
+  VIEW_CHANGE
+} from 'constants'
 
 class Profile extends EX.Component {
-  goBack = () => this.props.dispatch({type: 'VIEW_CHANGE', payload: 'list_view'})
+  goBack = () => this.props.dispatch({type: VIEW_CHANGE, payload: 'list_view'})
   render() {
     const { profile, person, nametags, dispatch } = this.props;
     const { mode, guest } = profile
