@@ -16,6 +16,11 @@ One major stipulation for this challenge was that you could not use any Framewor
 ![](/original-project-built-with-reactalike.gif)
 
 
+> As you can see I also briefly worked on building an interactive code playground for this challenge since it was required to provide an overview/explanation of your code. But I quickly abandoned it after realizing I have already gone too far over-engineering this thing.   
+
+
+After getting an offer from another company, I stopped working on this project, but since I enjoyed working on it so much I decided to extract the "Fake React" code and set up his repo.
+
 ## Brief Explanation of How I Got It To Work
 
 
