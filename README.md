@@ -31,3 +31,61 @@ After working out the diffing algorithm and updating I realized that writing pla
 Fortunately I found out that the plugin `transform-react-jsx` has a config setting called `pragma` which I was able to compile to the function I was currently using: `EX.node`. The `EX` stood for "example" since ultimately that's all Reactalike really is, an example.  
 
 #### Synthetic Events
+
+> I actually only use synthetic events on non root delegated events.
+
+Another challenge when developing this application was figuring out how to do root level event delegation for common non tag specific events such as `"click"`, `"mouseover"`, `"mouseleave"` etc. was figuring out how to access the event targets V-Dom node and calling it's respective function.
+
+Turns out the solution was quite simple by using a V-Dom tracing HTML attribute called `trace` which was similar to the now retired `data-reactid`. I could leave a string that maps the elements props position in the V-Dom, each `.` separating the nodes index within it's parents `nested` attribute (what React calls `children`). This way if the prop `onClick` is set on an element, then a click event will be set on the Root if it hasn't already. Once the event happens the actual target is provided via the DOMs event API as `e.eventTarget` the event target is then split into an array to traverse through the V-Dom and call the function applied to that events prop name `node[eventName]()`.
+
+##### Tag Specific Events
+
+Unfortunately not all events can be just applied to the Root and some tag specific events must be applied to the element themselves such as `onPlay` for `video` tags. This process can be a pain since it means events need to be removed up once the element is removed/changed or else old events may fire triggering multiple stale function calls, additionally for older browsers old events can result in memory leaks.
+
+So to deal with this I created an tag specific event registry that maps the event's `trace` id to point to a Synthetic Event passing in `(eventObject, htmlNode, vDomNode)` which calls the event with those arguments.
+
+
+
+**Below is how the HTML looks in development tools:**
+
+```html
+<div class="padd-center" trace="Root.0.1.3.0">
+  <div class="tag" style="border-color:#ffa500" trace="Root.0.1.3.0.0">
+    <header style="background:#ffa500" trace="Root.0.1.3.0.0.0" >
+      <div class="hello" contenteditable="false" trace="Root.0.1.3.0.0.0.0" >
+        HELLO
+      </div>
+    </header>
+    ....
+  </div>
+</div>
+```
+
+## Super Simple Example
+
+There are better example you can look at within the **examples** folder. 
+
+```javascript
+import EX from 'reactalike'
+
+class Layout extends EX.Container {
+  randomList = [1,2,3,4]
+  showList = () => this.randomList.map((itm, i) => (
+    <li class={i % 2 === 0 ? 'even' : 'odd'}>
+      {itm}
+    </li>
+  ))
+  render() {
+    return (
+      <section>
+       <h1>Example</h1>
+       <ul>
+        { this.showList() }
+       </ul>
+      </section>
+    )
+  }
+}
+
+EX.mountAppToNode(Layout, document.getElementById('root'));
+```
