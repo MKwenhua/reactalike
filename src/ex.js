@@ -57,7 +57,6 @@ function NodeMap(appTitle = 'default') {
       NodeMapContext.appRoot.addEventListener(listener, (e) => {
          NodeMapContext.lookUpRegistry(e.target, type, e);
       });
-
    };
    this.replaceListenerFunctions = (attachedFuncs, newNode) => {
       newNode.props.ex_attachedFuncs = attachedFuncs

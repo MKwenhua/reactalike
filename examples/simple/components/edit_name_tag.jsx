@@ -1,75 +1,81 @@
 import EX from 'reactalikeSource';
 import NameTag from 'component/name_tag'
+import {
+  EDIT_NAMETAG,
+  NAMETAG_CHANGE,
+  NAMETAG_SAVE,
+  ADD_NAMETAG
+} from 'constants'
 
-const nameTagStarter = (person) => {
-   let newNametag = {}
-   newNametag[person.id] = {
-            color: '#ffa500',
-            headerText: 'HELLO',
-            intro: 'my name is',
-            displayName: person.name
-   }
-   return newNametag
-}
-const setNameTagChange = (nametags, dispatch) => {
-   return (nameTagChange) => {
-      console.log('nameTagChange', nameTagChange)
-       let nametagsCopy = Object.assign({}, nametags);
-       nametagsCopy[nameTagChange.TAGid] = nameTagChange;
-       console.log('nameTagChange.TAGid', nameTagChange.TAGid)
-       console.log('nametagsCopy', nametagsCopy)
-      dispatch({type: 'NAMETAG_CHANGE', payload: nametagsCopy });
-   }
-}
-const setColorChange = ( nametag, cb) => {
-   if(!cb) return () => {}
-   return (e,a,b) => {
-      console.log('keyName e', e)
-      console.log('keyName e.target', e.target)
-      let text = e.target.value.trim();
-      console.log('keyName text', text)
-      let nametagCopy = Object.assign({}, nametag)
-      nametagCopy.color = text
-      cb(nametagCopy)
-   }
+
+const nameTagStarter = person => [person.id] = {
+  color: '#ffa500',
+  headerText: 'HELLO',
+  intro: 'my name is',
+  displayName: person.name
 }
 
 class EditNameTag extends EX.Component {
- render() {
-      console.log('EditNameTag props', this.props)
-      let {person, nametags, editMode , dispatch} = this.props;
-      let nametag =  nametags[ person.id];
-      if(!nametag) {
-         let newNametag = nameTagStarter( person);
+  nameTagChanged = nameTagChange => (this.props.dispatch({
+    type: NAMETAG_CHANGE,
+    payload: {
+      [nameTagChange.TAGid]: nameTagChange
+    }
+  }))
 
-         return (
-            <div class="text-center">
-            <h4>You do not have a nametag</h4>
-               <button class="btn btn-info" onClick={() =>  dispatch({type: 'ADD_NAMETAG', payload: Object.assign({},  nametags ,newNametag) })}>Generate NameTag</button>
-            </div>
-            )
-      }
-      const nameTagChange = setNameTagChange(  nametags,  dispatch)
+  setColorChange = nametag => e => this.nameTagChanged({
+    ...nametag,
+    color: e.target.value.trim()
+  })
+
+  saveNameTag = () => this.props.dispatch({
+    type: NAMETAG_SAVE,
+    payload: {
+      mode: 'default',
+      guest: this.props.person.id
+    }
+  })
+
+  setEditMode = payload => () => this.props.dispatch({type: EDIT_NAMETAG, payload})
+
+  addNameTag = payload => () => this.props.dispatch({type: ADD_NAMETAG, payload})
+
+  render() {
+    const { person, nametags, editMode, dispatch } = this.props;
+    const nametag = nametags[person.id];
+    if (!nametag) {
       return (
-         <section>
-
-             <div class="col-md-8">
-                <NameTag  person={ person}  nametag={nametag}  change={nameTagChange}  editMode={ editMode} />
-            </div>
-            <div class="col-md-4">
-               <div class={ editMode ? '' : 'hidden'}>
-               <input type="color" value={nametag.color} onBlur={setColorChange(nametag,nameTagChange )} />
-               </div>
-               <div class={ editMode ? '' : 'hidden'}>
-                  <button class="btn btn-success full-btn" onClick={() =>  dispatch({type: 'NAMETAG_SAVE', payload: { mode: 'default', guest:  person.id }})}>Save</button>
-               </div>
-               <div class={ editMode ? 'hidden' : ''}>
-                  <button class="btn btn-success full-btn" onClick={() =>  dispatch({type: 'EDIT_NAMETAG', payload: { mode: 'edit_nametag', guest:  person.id } })}>Edit</button>
-               </div>
-            </div>
-         </section>
+        <div class="text-center">
+          <h4>You do not have a nametag</h4>
+          <button class="btn btn-info" onClick={ this.addNameTag(nameTagStarter(person)) }>
+            Generate NameTag
+          </button>
+        </div>
       )
-   }
+    }
+    return (
+      <section>
+        <div class="col-md-8">
+          <NameTag person={person} nametag={nametag} change={this.nameTagChanged} editMode={editMode}/>
+        </div>
+        <div class="col-md-4">
+          <div class={editMode ? '' : 'hidden'}>
+            <input type="color" value={nametag.color} onBlur={this.setColorChange(nametag)}/>
+          </div>
+          <div class={editMode ? '' : 'hidden'}>
+            <button class="btn btn-success full-btn" onClick={this.saveNameTag}>
+              Save
+            </button>
+          </div>
+          <div class={editMode ? 'hidden' : ''}>
+            <button class="btn btn-success full-btn" onClick={this.setEditMode({ mode: 'edit_nametag',  guest: person.id})}>
+              Edit
+            </button>
+          </div>
+        </div>
+      </section>
+    )
+  }
 }
 
 export default EditNameTag;

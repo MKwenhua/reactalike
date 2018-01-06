@@ -582,11 +582,8 @@ function NodeMap() {
    };
 
    this.lookUpRegistry = function (target, eventName, e) {
-      var tgTrace = target.getAttribute('trace');
-      var traceArray = tgTrace.split('.');
-      console.log('traceArray', traceArray);
+      var traceArray = target.getAttribute('trace').split('.');
       var vDom = NodeMapContext.domComponents;
-      console.log('vDom', vDom);
       traceArray.shift();
       traceArray.map(function (itm, i) {
          if (!vDom.nested) {
@@ -646,7 +643,7 @@ function NodeMap() {
    this.viewObjects = function () {
       console.log('%c appRootDom:', 'color: crimson; font-weight: bold;', NodeMapContext.appRootDom);
       console.log('%c domBranches:', 'color: green; font-weight: bold;', NodeMapContext.domComponents);
-      console.log('this.events', NodeMapContext.events);
+      console.log('NodeMapContext.events', NodeMapContext.events);
    };
 
    this.mountApp = function (obj) {
@@ -656,7 +653,6 @@ function NodeMap() {
    };
 
    this.createElement = function createElement(name, attrs) {
-
       var element = document.createElement(String(name));
       if (!attrs) return element;
 
